@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="创建型模式"/>
+
+
+
+
+  <meta name="keywords" content="DesignPatterns, RACx0" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="RACx0">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.9.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/02/07/CreatePattern/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.9.0" />
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"RACx0","subtitle":"what is life?","description":"what is life?","author":"OriginalS","language":"zh-CN","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":null},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Tags":"/tags"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"tengzhou989@email.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/originals-tz","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":null,"google_verification":null,"disqus_shortname":null,"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+</script>
+
+    <title> 创建型模式 - RACx0 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">RACx0</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">RACx0</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          创建型模式
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-02-07
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#factory-method"><span class="toc-text"> Factory Method</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#abstract-factory"><span class="toc-text"> Abstract Factory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#builder"><span class="toc-text"> Builder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype"><span class="toc-text"> Prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleton"><span class="toc-text"> SingleTon</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#singleton的效果是"><span class="toc-text"> SingleTon的效果是</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-text"> 实现：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#如何保证一个唯一的实例"><span class="toc-text"> 如何保证一个唯一的实例？</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>设计模式之创建型模式</p>
+<a id="more"></a>
+<h2 id="factory-method"><a class="markdownIt-Anchor" href="#factory-method"></a> Factory Method</h2>
+<p>关于工厂模式的一个比较好的介绍:<a href="https://www.zhihu.com/question/24843188/answer/110361396" target="_blank" rel="noopener">工厂设计模式有什么用？ - 郭小成的回答 - 知乎</a></p>
+<p><strong>解决了硬编码</strong></p>
+<p>一个类如果发生了变动,假使你使用了硬编码(直接new),那么你还得找到所有new的地方一个一个更改</p>
+<p>而将new的过程放入Factory中,那么你只用改变Factory就行了</p>
+<h2 id="abstract-factory"><a class="markdownIt-Anchor" href="#abstract-factory"></a> Abstract Factory</h2>
+<p>抽象工厂模式提供了一种方式，可以将一组具有<strong>同一主题</strong>的单独的工厂封装起来(如果不把同一主题的封装起来,而是一味使用Factory Method,代码量会急剧膨胀)</p>
+<p>在正常使用中，客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象</p>
+<p>不同的<code>theme</code>,控件的观感也不同</p>
+<p>我们可以定义一个<code>ThemeFactory</code>作为<code>base class(interface)</code></p>
+<p>然后通过继承(实现)衍生出各种<code>(derived)class</code>以此来实现不同的<code>theme</code></p>
+<p>每一种<code>theme</code>都有不同风格的<code>widget</code>,我们将其称之为<code>factory</code>的<code>product</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThemeFactory</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	makeWindows(); <span class="comment">//这些就是product</span></span><br><span class="line">    makeMenuBar();</span><br><span class="line">    make.........;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后关于<code>Abstract Factory</code><br>
+<strong>优点是</strong></p>
+<ul>
+<li>分离了具体的类</li>
+<li>使得便于交换产品的系列（通过创建不同的<code>derived class</code>)</li>
+<li>它有利于产品的一致性(每一个<code>derived class</code>所产出的产品都是一一致的)</li>
+</ul>
+<p><strong>缺点是</strong></p>
+<ul>
+<li>难以加入新种类的产品(当<code>base class</code>加入新产品时,<code>derived class</code>的也要加入新的产品,这就要修改大量的<code>derived class</code>)</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Windows</span>&#123;</span>&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">windowsMacStyle</span> :</span> <span class="keyword">public</span> Windows&#123;&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">windowsLinuxStyle</span> :</span> <span class="function"><span class="keyword">public</span> <span class="title">Windows</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThemeFactory</span> &#123;</span> <span class="comment">//base class确保了产品的一致性</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//factory method</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">makeWindows</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MacThemeFactory</span> :</span> <span class="keyword">public</span> ThemeFactory &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">makeWindows</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"this is a windows which is mac style"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">//return new windowsMacStyle();</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinuxThemeFactory</span> :</span> <span class="keyword">public</span> ThemeFactory &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">makeWindows</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"this is a windows which is linux style"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">//return new windowsLinuxStyle();</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ThemeFactory *test = <span class="keyword">new</span> LinuxThemeFactory();</span><br><span class="line">	test-&gt;makeWindows();</span><br><span class="line">    <span class="keyword">delete</span> test;</span><br><span class="line">    </span><br><span class="line">    test = <span class="keyword">new</span> MacThemeFactory(); <span class="comment">//改变产品的系列</span></span><br><span class="line">	test-&gt;makeWindows();</span><br><span class="line">	<span class="keyword">delete</span> test;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="builder"><a class="markdownIt-Anchor" href="#builder"></a> Builder</h2>
+<p><strong>Builder模式由Director和Builder组成</strong></p>
+<p><strong>虽然名为Builder,但是Director才是重点</strong></p>
+<p>将一个复杂对象的构建和它的表示分离,使得同样的创建过程可有不同的表示<br>
+效果:</p>
+<ul>
+<li>可以改变一个产品的内部表示</li>
+<li>将构建代码和表示代码分开</li>
+<li>可以对构建过程有更加精细的控制</li>
+</ul>
+<blockquote>
+<p>相对于Abstract Factory,Builder重视的是一个构建的过程(direct),而Abstract Factory只是提供零件的过程</p>
+<p>可以这么认为,Abstract Facotry套上Builder模式也可以产生一个新的Builder( director + builder )</p>
+<p>想构建不同的产品？新增builder就好</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Computer</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">string</span>&gt; computer;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">auto</span> iter = computer.begin();</span><br><span class="line">		<span class="keyword">while</span> (iter != computer.end())&#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; iter-&gt;first &lt;&lt; <span class="string">":"</span> &lt;&lt; iter-&gt;second &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">			iter++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> type, <span class="built_in">std</span>::<span class="built_in">string</span> product)</span> </span>&#123;</span><br><span class="line">		computer[type] = product;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Builder</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">BuildCPU</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">BuildMainboard</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">BuildHD</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> Computer <span class="title">getComputer</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuilderA</span> :</span> <span class="keyword">public</span> Builder &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Computer compter;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">BuildCPU</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"add intel CPU"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		compter.<span class="built_in">set</span>(<span class="string">"CPU"</span>, <span class="string">"Inter"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">BuildMainboard</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"add MSI MainBoard"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		compter.<span class="built_in">set</span>(<span class="string">"MainBoard"</span>, <span class="string">"MSI"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">BuildHD</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"add hgst HD"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		compter.<span class="built_in">set</span>(<span class="string">"HD"</span>, <span class="string">"hgst"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> Computer <span class="title">getComputer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> compter;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuilderB</span> :</span> <span class="keyword">public</span> Builder &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Computer compter;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">BuildCPU</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"add AMD CPU"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		compter.<span class="built_in">set</span>(<span class="string">"CPU"</span>, <span class="string">"AMD"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">BuildMainboard</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"add ROG MainBoard"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		compter.<span class="built_in">set</span>(<span class="string">"MainBoard"</span>, <span class="string">"ROG"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">BuildHD</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"add SAMSUMG HD"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		compter.<span class="built_in">set</span>(<span class="string">"HD"</span>, <span class="string">"SAMSUMG"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> Computer <span class="title">getComputer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> compter;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Director</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Construct</span><span class="params">(Builder *builder)</span> </span>&#123;</span><br><span class="line">		builder-&gt;BuildCPU();</span><br><span class="line">		builder-&gt;BuildMainboard();</span><br><span class="line">		builder-&gt;BuildHD();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Builder *builder = <span class="keyword">new</span> BuilderA();</span><br><span class="line">	Director p;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"construct the computer"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	p.Construct(builder); <span class="comment">//指派一个装配人员(此处可以复合Abstract Factory)</span></span><br><span class="line">	</span><br><span class="line">	Computer computer = builder-&gt;getComputer();</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"\nShow computer"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	computer.show();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">delete</span> builder;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="prototype"><a class="markdownIt-Anchor" href="#prototype"></a> Prototype</h2>
+<p>通过原型实例指定对象种类，并且通过拷贝这些原型创建新的对象</p>
+<p>原型模式是创建型模式的一种，其特点在于通过“复制”一个已经存在的实例来返回新的实例,而不是新建实例。被复制的实例就是我们所称的“原型”，这个原型是可定制的。</p>
+<p>原型模式多用于创建复杂的或者耗时的实例，因为这种情况下，复制一个已经存在的实例使程序运行更高效；或者创建值相等，只是命名不一样的同类数据。</p>
+<p>Prototype模式的核心就是，<strong>复制整体，修改部分</strong>，形成一个新的实例</p>
+<p>举个不是特别恰当的例子</p>
+<p>例如Jack需要多份简历,简历大部分都是相同的,只有工作经验不同</p>
+<p>因此，只需要复制一份之前的简历,再修改一下工作经验即可</p>
+<p>例如</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Resume</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> Name;</span><br><span class="line">    <span class="keyword">int</span> Age;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> Experience;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Resume(<span class="built_in">std</span>::<span class="built_in">string</span> name, <span class="keyword">int</span> age, <span class="built_in">std</span>::<span class="built_in">string</span> experience);</span><br><span class="line">    <span class="function">Resume * <span class="title">Clone</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> <span class="keyword">new</span> Resume(*<span class="keyword">this</span>);&#125;;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetPersonalInfo</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SetExperience</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> expr)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Resume *resume1 = <span class="keyword">new</span> Resume(<span class="string">"Jack"</span>, <span class="number">26</span>, <span class="string">"Work on A Company"</span>);</span><br><span class="line">    Resume *resume2 = resume1-&gt;Clone();</span><br><span class="line">    resume2-&gt;SetExperience(<span class="string">"Work on B Company"</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可能这个例子不是特别能说明原型模式的好处,但是如果在构造时需要设置多个属性(例如20个)</p>
+<p>但是大部分属性都是相同，只需要修改部分属性,那么原型模式的好处就会大大体现出来</p>
+<h2 id="singleton"><a class="markdownIt-Anchor" href="#singleton"></a> SingleTon</h2>
+<p>保证一个类只有一个实例,并提供一个访问它的全局访问点</p>
+<p>对于一些类来说,只有一个实例是很重要的</p>
+<p>例如：打印机，数据库等</p>
+<h3 id="singleton的效果是"><a class="markdownIt-Anchor" href="#singleton的效果是"></a> SingleTon的效果是</h3>
+<ul>
+<li>对唯一实例的受控访问</li>
+<li>缩小名空间,放置全局变量污染</li>
+<li>允许对操作和表示的精化</li>
+<li>允许可变数目的实例</li>
+<li>比类操作更灵活</li>
+</ul>
+<h3 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现：</h3>
+<h4 id="如何保证一个唯一的实例"><a class="markdownIt-Anchor" href="#如何保证一个唯一的实例"></a> 如何保证一个唯一的实例？</h4>
+<p>可以将创建实例的操作放在一个类操作后面</p>
+<p>例如</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">static</span> Singleton* _instance;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	Singleton()&#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">static</span> Singleton * <span class="title">Instance</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton * Singleton::_instance = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">Singleton * Singleton::Instance()&#123;</span><br><span class="line">    <span class="keyword">if</span> (!_instance)</span><br><span class="line">        _instance = <span class="keyword">new</span> Singleton;</span><br><span class="line">    <span class="keyword">return</span> _instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">OriginalS</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/2018/02/07/CreatePattern/">http://yoursite.com/2018/02/07/CreatePattern/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/DesignPatterns/">DesignPatterns</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/03/24/C++ObjecLessons/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Object Lessons</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/09/27/C++TypeInference/">
+        <span class="next-text nav-default">c++ 模板实参推断</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:tengzhou989@email.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/originals-tz" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">OriginalS</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.9.0"></script>
+
+  </body>
+</html>

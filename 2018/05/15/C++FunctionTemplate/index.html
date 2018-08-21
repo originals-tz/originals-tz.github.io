@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Template Base--Function Template"/>
+
+
+
+
+  <meta name="keywords" content="template, RACx0" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="RACx0">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.9.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/05/15/C++FunctionTemplate/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.9.0" />
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"RACx0","subtitle":"what is life?","description":"what is life?","author":"OriginalS","language":"zh-CN","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":null},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Tags":"/tags"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"tengzhou989@email.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/originals-tz","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":null,"google_verification":null,"disqus_shortname":null,"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+</script>
+
+    <title> Template Base--Function Template - RACx0 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">RACx0</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">RACx0</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Template Base--Function Template
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-15
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#模板参数的推导deduction"><span class="toc-text"> 模板参数的推导(deduction)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数模板的重载与匹配"><span class="toc-text"> 函数模板的重载与匹配</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>模板(template)是为了支持泛型编程(Generic programming)而存在的，所谓泛型，也就是不依赖于具体类型,wiki对其定义如下</p>
+<blockquote>
+<p><strong>Generic programming</strong> is a style of <a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Computer_programming" target="_blank" rel="noopener">computer programming</a> in which <a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Algorithm" target="_blank" rel="noopener">algorithms</a> are written in terms of <a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Data_type" target="_blank" rel="noopener">types</a> <em>to-be-specified-later</em> that are then <em>instantiated</em> when needed for specific types provided as <a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Parameter_%28computer_programming%29" target="_blank" rel="noopener">parameters</a>.</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Generic_programming" target="_blank" rel="noopener">Generic programming --wikipedia</a></p>
+</blockquote>
+<a id="more"></a>
+<p>为了更直观的了解，我们先看看相对于一般的编程方式，范型编程是怎么样的</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max_normal</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">T <span class="title">max_generic</span><span class="params">(T a, T b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b? a : b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Log(x) std::cout&lt;&lt;x&lt;&lt;std::endl;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//int</span></span><br><span class="line">    Log(max_normal(<span class="number">1</span>, <span class="number">2</span>)); <span class="comment">//2</span></span><br><span class="line">    Log(max_generic(<span class="number">1</span>, <span class="number">2</span>));<span class="comment">//2</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//float</span></span><br><span class="line">    Log(max_normal(<span class="number">1.1</span>, <span class="number">1.2</span>));<span class="comment">//1</span></span><br><span class="line">    Log(max_generic(<span class="number">1.1</span>, <span class="number">1.2</span>));<span class="comment">//1.2</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于多种数据类型，普通函数要声明不同的版本</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">max</span><span class="params">(<span class="keyword">float</span>, <span class="keyword">float</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这将导致大量的重复工作，为此，我们需要解放自己，这时候泛型编程登场了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">T <span class="title">max</span><span class="params">(T x, T y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x &gt; y? x : y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就一个函数的事，多么简洁而优雅！模板就如蓝图一样，对于实例化模板参数的每一种类型，都从模板中产生一个不同的实体，下面就是测试</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">T <span class="title">max_generic</span><span class="params">(T a, T b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b? a : b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Log(x) std::cout&lt;&lt;x&lt;&lt;std::endl;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//使用 int 进行实例化</span></span><br><span class="line">    Log(max_generic(<span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line">    <span class="comment">//使用 double 进行实例化</span></span><br><span class="line">    Log(max_generic(<span class="number">1.1</span>, <span class="number">1.2</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们就会得到两个实例…</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自动生成的</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max_generic</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">max_generic</span><span class="params">(<span class="keyword">double</span> a, <span class="keyword">double</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b? a : b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果还不相信的话，我们就来看看对应的汇编代码</p>
+<p><code>g++ -g -c source.cpp &amp; objdump -S source.o &gt; source_obj.s</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>o:	file format Mach-O <span class="number">64</span>-bit x86<span class="number">-64</span></span><br><span class="line"></span><br><span class="line">Disassembly of section __TEXT,__text:</span><br><span class="line">_main:</span><br><span class="line">; <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="number">0</span>:	<span class="number">55</span> 	pushq	%rbp</span><br><span class="line">       <span class="number">1</span>:	<span class="number">48</span> <span class="number">89</span> e5 	movq	%rsp, %rbp</span><br><span class="line">       <span class="number">4</span>:	<span class="number">48</span> <span class="number">83</span> ec <span class="number">10</span> 	subq	$<span class="number">16</span>, %rsp</span><br><span class="line">       <span class="number">8</span>:	bf <span class="number">01</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	movl	$<span class="number">1</span>, %edi</span><br><span class="line">       d:	be <span class="number">02</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	movl	$<span class="number">2</span>, %esi</span><br><span class="line">; max(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">      <span class="number">12</span>:	e8 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	callq	<span class="number">0</span> &lt;_main+<span class="number">0x17</span>&gt;</span><br><span class="line">      <span class="number">17</span>:	f2 <span class="number">0f</span> <span class="number">10</span> <span class="number">05</span> <span class="number">91</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	movsd	<span class="number">145</span>(%rip), %xmm0</span><br><span class="line">      <span class="number">1f</span>:	f2 <span class="number">0f</span> <span class="number">10</span> <span class="number">0</span>d <span class="number">91</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	movsd	<span class="number">145</span>(%rip), %xmm1</span><br><span class="line">; max(<span class="number">1.1</span>, <span class="number">1.2</span>);</span><br><span class="line">      <span class="number">27</span>:	<span class="number">89</span> <span class="number">45</span> fc 	movl	%eax, <span class="number">-4</span>(%rbp)</span><br><span class="line">      <span class="number">2</span>a:	e8 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	callq	<span class="number">0</span> &lt;_main+<span class="number">0x2F</span>&gt;</span><br><span class="line">      <span class="number">2f</span>:	<span class="number">31</span> c0 	xorl	%eax, %eax</span><br><span class="line">; &#125;</span><br><span class="line">      <span class="number">31</span>:	f2 <span class="number">0f</span> <span class="number">11</span> <span class="number">45</span> f0 	movsd	%xmm0, <span class="number">-16</span>(%rbp)</span><br><span class="line">      <span class="number">36</span>:	<span class="number">48</span> <span class="number">83</span> c4 <span class="number">10</span> 	addq	$<span class="number">16</span>, %rsp</span><br><span class="line">      <span class="number">3</span>a:	<span class="number">5</span>d 	popq	%rbp</span><br><span class="line">      <span class="number">3b</span>:	c3 	retq</span><br><span class="line">      <span class="number">3</span>c:	<span class="number">0f</span> <span class="number">1f</span> <span class="number">40</span> <span class="number">00</span> 	nopl	(%rax)</span><br><span class="line"></span><br><span class="line">__Z3maxIiET_S0_S0_:</span><br><span class="line">; <span class="function">T <span class="title">max</span><span class="params">(T x, T y)</span> </span>&#123;</span><br><span class="line">      <span class="number">40</span>:	<span class="number">55</span> 	pushq	%rbp</span><br><span class="line">      <span class="number">41</span>:	<span class="number">48</span> <span class="number">89</span> e5 	movq	%rsp, %rbp</span><br><span class="line">      <span class="number">44</span>:	<span class="number">89</span> <span class="number">7</span>d fc 	movl	%edi, <span class="number">-4</span>(%rbp)</span><br><span class="line">      <span class="number">47</span>:	<span class="number">89</span> <span class="number">75</span> f8 	movl	%esi, <span class="number">-8</span>(%rbp)</span><br><span class="line">; <span class="keyword">return</span> x &gt; y? x : y;</span><br><span class="line">      <span class="number">4</span>a:	<span class="number">8b</span> <span class="number">75</span> fc 	movl	<span class="number">-4</span>(%rbp), %esi</span><br><span class="line">      <span class="number">4</span>d:	<span class="number">3b</span> <span class="number">75</span> f8 	cmpl	<span class="number">-8</span>(%rbp), %esi</span><br><span class="line">      <span class="number">50</span>:	<span class="number">0f</span> <span class="number">8</span>e <span class="number">0b</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	jle	<span class="number">11</span> &lt;__Z3maxIiET_S0_S0_+<span class="number">0x21</span>&gt;</span><br><span class="line">      <span class="number">56</span>:	<span class="number">8b</span> <span class="number">45</span> fc 	movl	<span class="number">-4</span>(%rbp), %eax</span><br><span class="line">      <span class="number">59</span>:	<span class="number">89</span> <span class="number">45</span> f4 	movl	%eax, <span class="number">-12</span>(%rbp)</span><br><span class="line">      <span class="number">5</span>c:	e9 <span class="number">06</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	jmp	<span class="number">6</span> &lt;__Z3maxIiET_S0_S0_+<span class="number">0x27</span>&gt;</span><br><span class="line">      <span class="number">61</span>:	<span class="number">8b</span> <span class="number">45</span> f8 	movl	<span class="number">-8</span>(%rbp), %eax</span><br><span class="line">      <span class="number">64</span>:	<span class="number">89</span> <span class="number">45</span> f4 	movl	%eax, <span class="number">-12</span>(%rbp)</span><br><span class="line">      <span class="number">67</span>:	<span class="number">8b</span> <span class="number">45</span> f4 	movl	<span class="number">-12</span>(%rbp), %eax</span><br><span class="line">      <span class="number">6</span>a:	<span class="number">5</span>d 	popq	%rbp</span><br><span class="line">      <span class="number">6b</span>:	c3 	retq</span><br><span class="line">      <span class="number">6</span>c:	<span class="number">0f</span> <span class="number">1f</span> <span class="number">40</span> <span class="number">00</span> 	nopl	(%rax)</span><br><span class="line"></span><br><span class="line">__Z3maxIdET_S0_S0_:</span><br><span class="line">; <span class="function">T <span class="title">max</span><span class="params">(T x, T y)</span> </span>&#123;</span><br><span class="line">      <span class="number">70</span>:	<span class="number">55</span> 	pushq	%rbp</span><br><span class="line">      <span class="number">71</span>:	<span class="number">48</span> <span class="number">89</span> e5 	movq	%rsp, %rbp</span><br><span class="line">      <span class="number">74</span>:	f2 <span class="number">0f</span> <span class="number">11</span> <span class="number">45</span> f8 	movsd	%xmm0, <span class="number">-8</span>(%rbp)</span><br><span class="line">      <span class="number">79</span>:	f2 <span class="number">0f</span> <span class="number">11</span> <span class="number">4</span>d f0 	movsd	%xmm1, <span class="number">-16</span>(%rbp)</span><br><span class="line">; <span class="keyword">return</span> x &gt; y? x : y;</span><br><span class="line">      <span class="number">7</span>e:	f2 <span class="number">0f</span> <span class="number">10</span> <span class="number">45</span> f8 	movsd	<span class="number">-8</span>(%rbp), %xmm0</span><br><span class="line">      <span class="number">83</span>:	<span class="number">66</span> <span class="number">0f</span> <span class="number">2</span>e <span class="number">45</span> f0 	ucomisd	<span class="number">-16</span>(%rbp), %xmm0</span><br><span class="line">      <span class="number">88</span>:	<span class="number">0f</span> <span class="number">86</span> <span class="number">0f</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	jbe	<span class="number">15</span> &lt;__Z3maxIdET_S0_S0_+<span class="number">0x2D</span>&gt;</span><br><span class="line">      <span class="number">8</span>e:	f2 <span class="number">0f</span> <span class="number">10</span> <span class="number">45</span> f8 	movsd	<span class="number">-8</span>(%rbp), %xmm0</span><br><span class="line">      <span class="number">93</span>:	f2 <span class="number">0f</span> <span class="number">11</span> <span class="number">45</span> e8 	movsd	%xmm0, <span class="number">-24</span>(%rbp)</span><br><span class="line">      <span class="number">98</span>:	e9 <span class="number">0</span>a <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	jmp	<span class="number">10</span> &lt;__Z3maxIdET_S0_S0_+<span class="number">0x37</span>&gt;</span><br><span class="line">      <span class="number">9</span>d:	f2 <span class="number">0f</span> <span class="number">10</span> <span class="number">45</span> f0 	movsd	<span class="number">-16</span>(%rbp), %xmm0</span><br><span class="line">      a2:	f2 <span class="number">0f</span> <span class="number">11</span> <span class="number">45</span> e8 	movsd	%xmm0, <span class="number">-24</span>(%rbp)</span><br><span class="line">      a7:	f2 <span class="number">0f</span> <span class="number">10</span> <span class="number">45</span> e8 	movsd	<span class="number">-24</span>(%rbp), %xmm0</span><br><span class="line">      ac:	<span class="number">5</span>d 	popq	%rbp</span><br><span class="line">      ad:	c3 	retq</span><br></pre></td></tr></table></figure>
+<p>我们可以看到max一共有两个函数名</p>
+<ul>
+<li>__Z3maxIiET_S0_S0 = <code>int max(int, int)</code></li>
+<li>__Z3maxIdET_S0_S0,=<code>double max(double, double)</code></li>
+</ul>
+<p>好嘞，对底层的验证点到为止，那么接下来我们将迎来重头戏</p>
+<h2 id="模板参数的推导deduction"><a class="markdownIt-Anchor" href="#模板参数的推导deduction"></a> 模板参数的推导(deduction)</h2>
+<p>函数模版有两种类型的参数</p>
+<ul>
+<li>template<typename t=""> ： T是模板参数</typename></li>
+<li>max(T x, T y) : x, y是调用参数</li>
+</ul>
+<p>模板参数要求必须要全部推导出来，函数模板可以通过传入实参来推导模板参数，如果推导失败，那么就会发生错误</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max(<span class="number">1</span>, <span class="number">1.5</span>); <span class="comment">//max(int, double), 推导失败</span></span><br></pre></td></tr></table></figure>
+<p>如果没有全部推导，也会发生错误</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(T1 x)</span></span>;</span><br><span class="line"></span><br><span class="line">foo(<span class="number">1</span>); <span class="comment">//只有T1被推导出来，T2没有被推导，错误！</span></span><br><span class="line">foo&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;(<span class="number">1</span>); <span class="comment">//显示指定模板参数，成功</span></span><br></pre></td></tr></table></figure>
+<p>一般而言，不会去转化实参类型以匹配已有的实例，不过有些情况除外</p>
+<ul>
+<li>
+<p>const转换：</p>
+<ul>
+<li>如果模板形参为const引用，则其可以接受const或非const引用</li>
+<li>如果模板形参为const指针，则其可以接受const或非const指针</li>
+<li>如果模板形参不是引用或指针（值传递），则形参和实参都忽略const</li>
+</ul>
+</li>
+<li>
+<p>数组或函数到指针的转换</p>
+<ul>
+<li>如果模板形参不是引用或指针（值传递），则数组会转化为指针，数组实参将当作指向其第一个元素的指针；</li>
+<li>如果模板形参不是引用或指针（值传递），则函数会转化为指针，函数实参将当作指向函数类型的指针；</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fobj</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">    x = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fref</span><span class="params">(<span class="keyword">const</span> T&amp; v)</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    fobj(b);</span><br><span class="line"></span><br><span class="line">    fref(a);</span><br><span class="line">    fref(b);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是有时候，模板推断可能会出乎我们的预料</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fref</span><span class="params">(T&amp; x)</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> b = <span class="number">4</span>;</span><br><span class="line">    fref(b);<span class="comment">//ok!</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>道理上来说，这样的推断是错误的，但是我们可以看到在函数中并没有对x进行任何修改，因此可以匹配</p>
+<p>但是如果在函数中加入<code>x=3</code>那么，编译就会报错，这就在情理之中了</p>
+<p>另外从C++11开始，已经可以用模板来推导模板参数了</p>
+<p>例如</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">int</span> F&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(T i)</span> </span>&#123;</span><br><span class="line">    i = i + F;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(T i)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::is_same&lt;T, <span class="keyword">void</span>(*)(<span class="keyword">int</span>)&gt;::value &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; <span class="comment">// true, T被推导为函数指针void(*)(int)</span></span><br><span class="line">    i(<span class="number">3</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    test(fun&lt;<span class="keyword">int</span>, <span class="number">2</span>&gt;);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="函数模板的重载与匹配"><a class="markdownIt-Anchor" href="#函数模板的重载与匹配"></a> 函数模板的重载与匹配</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;typeinfo&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Log(x) std::cout&lt;&lt;x&lt;&lt;std::endl</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">int</span> &amp; <span class="title">max</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;a, <span class="keyword">const</span> <span class="keyword">int</span> &amp;b)</span> </span>&#123;</span><br><span class="line">    Log(<span class="string">"normal"</span>);</span><br><span class="line">    <span class="keyword">return</span> a &gt; b? a : b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">T <span class="keyword">const</span> &amp; <span class="title">max</span><span class="params">(<span class="keyword">const</span> T &amp;a, <span class="keyword">const</span> T &amp;b)</span> </span>&#123;</span><br><span class="line">    Log(<span class="string">"template"</span>);</span><br><span class="line">    <span class="keyword">return</span> a &gt; b? a : b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">T <span class="keyword">const</span> &amp; <span class="title">max</span><span class="params">(<span class="keyword">const</span> T &amp;a, <span class="keyword">const</span> T &amp;b, <span class="keyword">const</span> T &amp;c)</span> </span>&#123;</span><br><span class="line">    Log(<span class="string">"template"</span>);</span><br><span class="line">    <span class="keyword">return</span> max(max(a, b), c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Log(max(<span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line">    Log(max(<span class="number">1.2</span>, <span class="number">2.4</span>));</span><br><span class="line">    Log(max(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，实例化模版也是有代价的，如果能通同时匹配到一般函数和模板函数，就使用一般函数</p>
+<p>模板不允许隐式转换，因此如果两个类型不同，就会考虑一般函数(如上),<code>max(int, float)</code>就会匹配一般函数</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">OriginalS</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/2018/05/15/C++FunctionTemplate/">http://yoursite.com/2018/05/15/C++FunctionTemplate/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/template/">template</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/15/TypeOfReturn&Override/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">返回类型与函数重载</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/04/21/LinuxExec/">
+        <span class="next-text nav-default">Linux之exec族函数</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:tengzhou989@email.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/originals-tz" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">OriginalS</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.9.0"></script>
+
+  </body>
+</html>

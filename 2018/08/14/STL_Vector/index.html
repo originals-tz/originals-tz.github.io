@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="STL之Vector"/>
+
+
+
+
+  <meta name="keywords" content="STL, RACx0" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="RACx0">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.9.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/08/14/STL_Vector/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.9.0" />
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"RACx0","subtitle":"what is life?","description":"what is life?","author":"OriginalS","language":"zh-CN","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":null},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Tags":"/tags"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"tengzhou989@email.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/originals-tz","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":null,"google_verification":null,"disqus_shortname":null,"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+</script>
+
+    <title> STL之Vector - RACx0 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">RACx0</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">RACx0</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          STL之Vector
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-08-14
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vector概览"><span class="toc-text"> vector概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector的空间管理"><span class="toc-text"> vector的空间管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector的元素操作"><span class="toc-text"> vector的元素操作</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>vector是STL中最常用的序列式容器，vector是动态空间，随着元素的加入，它的内部机制会自行扩充空间以容乃新元素</p>
+<p>vector的实现技术，关键在于对大小的控制以及重新配置时的数据移动效率</p>
+<a id="more"></a>
+<h2 id="vector概览"><a class="markdownIt-Anchor" href="#vector概览"></a> vector概览</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span> = __<span class="title">STL_DEFAULT_ALLOCATOR</span>(_<span class="title">Tp</span>) &gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">vector</span> :</span> <span class="keyword">protected</span> _Vector_base&lt;_Tp, _Alloc&gt;</span><br></pre></td></tr></table></figure>
+<p>可以看到，vector依赖于_Vector_base，其使用的空间配置器<code>_Alloc</code>依赖于<code>stl_config.h</code>中的配置</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">ifndef</span> __STL_DEFAULT_ALLOCATOR</span></span><br><span class="line"><span class="meta">#   <span class="meta-keyword">ifdef</span> __STL_USE_STD_ALLOCATORS</span></span><br><span class="line"><span class="meta">#     <span class="meta-keyword">define</span> __STL_DEFAULT_ALLOCATOR(T) allocator<span class="meta-string">&lt; T &gt;</span></span></span><br><span class="line"><span class="meta">#   <span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#     <span class="meta-keyword">define</span> __STL_DEFAULT_ALLOCATOR(T) alloc</span></span><br><span class="line"><span class="meta">#   <span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>vector的迭代器</strong></p>
+<p>vector提供的是Random Access Iterator,普通指针就具备这种条件</p>
+<p><strong>vector的数据结构</strong></p>
+<p>vector使用两个iterator指向头部和尾部，指向尾部的包含指向可用空间的尾部和当前空间的尾部</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">_Tp* _M_start;</span><br><span class="line">_Tp* _M_finish; <span class="comment">//当前空间的尾部</span></span><br><span class="line">_Tp* _M_end_of_storage; <span class="comment">//可用空间的尾部</span></span><br></pre></td></tr></table></figure>
+<p>下面给出的<code>begin</code>和<code>end</code>获取的迭代器就是以上定义的指针</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">iterator <span class="title">begin</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> _M_start; &#125;</span><br><span class="line"><span class="function">const_iterator <span class="title">begin</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> _M_start; &#125;</span><br><span class="line"><span class="function">iterator <span class="title">end</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> _M_finish; &#125;</span><br><span class="line"><span class="function">const_iterator <span class="title">end</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> _M_finish; &#125;</span><br></pre></td></tr></table></figure>
+<p>对于<code>_M_end_of_storage</code>,则是判断是否需要重新分配内存的依据</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(<span class="keyword">const</span> _Tp&amp; __x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (_M_finish != _M_end_of_storage) &#123; <span class="comment">//是否有可用空间</span></span><br><span class="line">      construct(_M_finish, __x); <span class="comment">//在_M_finish所指向的位置上构造__x</span></span><br><span class="line">      ++_M_finish;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      _M_insert_aux(end(), __x);<span class="comment">//无可用空间，进入处理函数</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="vector的空间管理"><a class="markdownIt-Anchor" href="#vector的空间管理"></a> vector的空间管理</h2>
+<p>如果无可用空间，就会交给<code>_M_insert_aux</code>处理</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> </span></span><br><span class="line"><span class="class"><span class="title">vector</span>&lt;_Tp, _Alloc&gt;:</span>:_M_insert_aux(iterator __position, <span class="keyword">const</span> _Tp&amp; __x)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (_M_finish != _M_end_of_storage) &#123;</span><br><span class="line">    construct(_M_finish, *(_M_finish - <span class="number">1</span>));<span class="comment">//在备用空间起始处构造一个元素，初值为最后一个元素</span></span><br><span class="line">    ++_M_finish;</span><br><span class="line">   	<span class="comment">//调整位置</span></span><br><span class="line">    _Tp __x_copy = __x; <span class="comment">//将新值赋于构造的元素</span></span><br><span class="line">    copy_backward(__position, _M_finish - <span class="number">2</span>, _M_finish - <span class="number">1</span>);</span><br><span class="line">    *__position = __x_copy;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> size_type __old_size = size(); <span class="comment">//获取大小</span></span><br><span class="line">    <span class="keyword">const</span> size_type __len = __old_size != <span class="number">0</span> ? <span class="number">2</span> * __old_size : <span class="number">1</span>; <span class="comment">//如果vector为空，则配置一个元素大小的空间，如果不为空，就配置两倍于旧vector大小的空间</span></span><br><span class="line">    iterator __new_start = _M_allocate(__len);</span><br><span class="line">    iterator __new_finish = __new_start;</span><br><span class="line">    __STL_TRY &#123;</span><br><span class="line">        <span class="comment">//尝试拷贝</span></span><br><span class="line">      __new_finish = uninitialized_copy(_M_start, __position, __new_start);</span><br><span class="line">      construct(__new_finish, __x);</span><br><span class="line">      ++__new_finish;</span><br><span class="line">      __new_finish = uninitialized_copy(__position, _M_finish, __new_finish);</span><br><span class="line">    &#125;</span><br><span class="line">      <span class="comment">//失败则析构释放新的空间</span></span><br><span class="line">    __STL_UNWIND((destroy(__new_start,__new_finish), </span><br><span class="line">                  _M_deallocate(__new_start,__len)));</span><br><span class="line">      <span class="comment">//析构释放原有空间</span></span><br><span class="line">    destroy(begin(), end());</span><br><span class="line">    _M_deallocate(_M_start, _M_end_of_storage - _M_start);</span><br><span class="line">    _M_start = __new_start;</span><br><span class="line">    _M_finish = __new_finish;</span><br><span class="line">    _M_end_of_storage = __new_start + __len;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面可以看出，所谓的动态分配不过是再次申请，因此对于vector的操作，一旦引起重新分配，<code>iterator</code>就会失效</p>
+<h2 id="vector的元素操作"><a class="markdownIt-Anchor" href="#vector的元素操作"></a> vector的元素操作</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop_back</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    --_M_finish;</span><br><span class="line">    destroy(_M_finish);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="function">iterator <span class="title">erase</span><span class="params">(iterator __position)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (__position + <span class="number">1</span> != end())</span><br><span class="line">      copy(__position + <span class="number">1</span>, _M_finish, __position);</span><br><span class="line">    --_M_finish;</span><br><span class="line">    destroy(_M_finish);</span><br><span class="line">    <span class="keyword">return</span> __position;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">iterator <span class="title">erase</span><span class="params">(iterator __first, iterator __last)</span> </span>&#123;</span><br><span class="line">    iterator __i = copy(__last, _M_finish, __first);</span><br><span class="line">    destroy(__i, _M_finish);</span><br><span class="line">    _M_finish = _M_finish - (__last - __first);</span><br><span class="line">    <span class="keyword">return</span> __first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">resize</span><span class="params">(size_type __new_size, <span class="keyword">const</span> _Tp&amp; __x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (__new_size &lt; size()) </span><br><span class="line">      erase(begin() + __new_size, end());</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      insert(end(), __new_size - size(), __x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">resize</span><span class="params">(size_type __new_size)</span> </span>&#123; resize(__new_size, _Tp()); &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123; erase(begin(), end()); &#125;</span><br></pre></td></tr></table></figure>
+<p>以上的都是比较简单的元素操作，大抵是进行拷贝，析构，调整边界之类的</p>
+<p>不过<code>insert</code>就会比较复杂</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span> <span class="params">(iterator __pos, size_type __n, <span class="keyword">const</span> _Tp&amp; __x)</span></span></span><br><span class="line"><span class="function">    </span>&#123; _M_fill_insert(__pos, __n, __x); &#125; </span><br><span class="line"><span class="comment">//批量插入</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">vector</span>&lt;_Tp, _Alloc&gt;:</span>:_M_fill_insert(iterator __position, size_type __n, </span><br><span class="line">                                         <span class="keyword">const</span> _Tp&amp; __x)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (__n != <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">//检查空间够不够</span></span><br><span class="line">    <span class="keyword">if</span> (size_type(_M_end_of_storage - _M_finish) &gt;= __n) &#123;</span><br><span class="line">      _Tp __x_copy = __x;</span><br><span class="line">      <span class="keyword">const</span> size_type __elems_after = _M_finish - __position; <span class="comment">//计算插入位置后面的元素个数</span></span><br><span class="line">      iterator __old_finish = _M_finish;</span><br><span class="line">        <span class="comment">//插入点后面的元素少于新增的元素，也就是插入点到尾部的容量能够容纳新元素</span></span><br><span class="line">      <span class="keyword">if</span> (__elems_after &gt; __n) &#123;</span><br><span class="line">          <span class="comment">//将当前元素拷贝到后面</span></span><br><span class="line">        uninitialized_copy(_M_finish - __n, _M_finish, _M_finish);</span><br><span class="line">        _M_finish += __n;</span><br><span class="line">          <span class="comment">//将新元素复制到空出来的空间上</span></span><br><span class="line">        copy_backward(__position, __old_finish - __n, __old_finish);</span><br><span class="line">        fill(__position, __position + __n, __x_copy);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">//插入点到尾部的容量不能容纳新元素</span></span><br><span class="line">          <span class="comment">//构建部分新元素</span></span><br><span class="line">        uninitialized_fill_n(_M_finish, __n - __elems_after, __x_copy);</span><br><span class="line">        _M_finish += __n - __elems_after;</span><br><span class="line">          <span class="comment">//复制旧的元素</span></span><br><span class="line">        uninitialized_copy(__position, __old_finish, _M_finish);</span><br><span class="line">        _M_finish += __elems_after;</span><br><span class="line">          <span class="comment">//构建剩余的元素</span></span><br><span class="line">        fill(__position, __old_finish, __x_copy);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> size_type __old_size = size();        </span><br><span class="line">      <span class="keyword">const</span> size_type __len = __old_size + max(__old_size, __n);</span><br><span class="line">       <span class="comment">//尝试获得空间然后构造</span></span><br><span class="line">      iterator __new_start = _M_allocate(__len);</span><br><span class="line">      iterator __new_finish = __new_start;</span><br><span class="line">      __STL_TRY &#123;</span><br><span class="line">        __new_finish = uninitialized_copy(_M_start, __position, __new_start);</span><br><span class="line">        <span class="comment">//填充新元素</span></span><br><span class="line">        __new_finish = uninitialized_fill_n(__new_finish, __n, __x);</span><br><span class="line">        __new_finish</span><br><span class="line">          = uninitialized_copy(__position, _M_finish, __new_finish);</span><br><span class="line">      &#125;</span><br><span class="line">        <span class="comment">//失败则析构释放所有新的空间</span></span><br><span class="line">      __STL_UNWIND((destroy(__new_start,__new_finish), </span><br><span class="line">                    _M_deallocate(__new_start,__len)));</span><br><span class="line">        <span class="comment">//析构释放旧的空间</span></span><br><span class="line">      destroy(_M_start, _M_finish);</span><br><span class="line">      _M_deallocate(_M_start, _M_end_of_storage - _M_start);</span><br><span class="line">      _M_start = __new_start;</span><br><span class="line">      _M_finish = __new_finish;</span><br><span class="line">      _M_end_of_storage = __new_start + __len;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">OriginalS</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/2018/08/14/STL_Vector/">http://yoursite.com/2018/08/14/STL_Vector/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/STL/">STL</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/08/14/STL_Deque/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">STL之Deque</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/08/09/CMake/">
+        <span class="next-text nav-default">cmake学习笔记-1</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:tengzhou989@email.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/originals-tz" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">OriginalS</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.9.0"></script>
+
+  </body>
+</html>

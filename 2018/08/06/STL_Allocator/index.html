@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="STL Allocator"/>
+
+
+
+
+  <meta name="keywords" content="STL, RACx0" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="RACx0">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.9.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/08/06/STL_Allocator/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.9.0" />
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"RACx0","subtitle":"what is life?","description":"what is life?","author":"OriginalS","language":"zh-CN","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":null},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Tags":"/tags"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"tengzhou989@email.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/originals-tz","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":null,"google_verification":null,"disqus_shortname":null,"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+</script>
+
+    <title> STL Allocator - RACx0 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">RACx0</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">RACx0</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          STL Allocator
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-08-06
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stl中的空间配置器"><span class="toc-text"> STL中的空间配置器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#stl_constructh"><span class="toc-text"> stl_construct.h</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造"><span class="toc-text"> 构造</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#析构"><span class="toc-text"> 析构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#std_alloch"><span class="toc-text"> std_alloc.h</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一级配置器"><span class="toc-text"> 一级配置器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二级配置器"><span class="toc-text"> 二级配置器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#内存配置函数"><span class="toc-text"> 内存配置函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重新填充"><span class="toc-text"> 重新填充</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内存池"><span class="toc-text"> 内存池</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stl_uninitialized"><span class="toc-text"> stl_uninitialized</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uninitialized_copy"><span class="toc-text"> uninitialized_copy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#uninitialized_fill"><span class="toc-text"> uninitialized_fill</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#uninitialized_fill_n"><span class="toc-text"> uninitialized_fill_n</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#至此"><span class="toc-text"> 至此</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>在c++中，可以使用<code>new</code>在堆上构建一个新的对象，其实<code>new</code>包含两个步骤</p>
+<ul>
+<li>分配内存</li>
+<li>使用constructor在内存中构建对象内容</li>
+</ul>
+<p>而<code>delete</code>也是如此</p>
+<ul>
+<li>调用<code>deconstructor</code>将对象析构</li>
+<li>释放内存</li>
+</ul>
+<p>知道了<code>new</code>和<code>delete</code>的原理，可以手动模拟一下</p>
+<a id="more"></a>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Test(<span class="keyword">int</span> i) &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Test *k = (Test *) <span class="built_in">malloc</span> (<span class="keyword">sizeof</span>(Test)); <span class="comment">//分配内存</span></span><br><span class="line">    <span class="keyword">new</span> (k) Test(<span class="number">3</span>); <span class="comment">//构建对象 ，placement new(placement有放置的意思，可以理解为将对象内容放置在内存中)</span></span><br><span class="line">    k-&gt;~k(); <span class="comment">//析构</span></span><br><span class="line">    <span class="built_in">free</span>(k); <span class="comment">//释放内存</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="stl中的空间配置器"><a class="markdownIt-Anchor" href="#stl中的空间配置器"></a> STL中的空间配置器</h1>
+<p>在STL中，为了妥善地管理内存，有专门的<strong>STL allocator</strong>，<strong>这个是为STL中的各种容器服务的</strong></p>
+<p>然后关于分配内存和构造<code>STL allocator</code>决定将这两个阶段分开，内存配置器定义在<code>&lt;memory&gt;</code>之中，<code>&lt;memory&gt;</code>包含</p>
+<ul>
+<li>&lt;stl_alloc.h&gt; : 负责内存分配</li>
+<li>&lt;stl_construct.h&gt; : 负责对象构造，析构</li>
+<li>&lt;stl_uninitialized.h&gt; : 常用的工具</li>
+</ul>
+<h2 id="stl_constructh"><a class="markdownIt-Anchor" href="#stl_constructh"></a> stl_construct.h</h2>
+<p>如上提到的，此头文件包含的函数负责对象的构造与析构</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">T1</span>, <span class="title">class</span> _<span class="title">T2</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">construct</span>(_<span class="title">T1</span>* __<span class="title">p</span>, <span class="title">const</span> _<span class="title">T2</span>&amp; __<span class="title">value</span>) &#123;</span></span><br><span class="line">  _Construct(__p, __value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">T1</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">construct</span>(_<span class="title">T1</span>* __<span class="title">p</span>) &#123;</span></span><br><span class="line">  _Construct(__p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//析构</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">destroy</span>(_<span class="title">Tp</span>* __<span class="title">pointer</span>) &#123;</span></span><br><span class="line">  _Destroy(__pointer);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//批量析构</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">ForwardIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">destroy</span>(_<span class="title">ForwardIterator</span> __<span class="title">first</span>, _<span class="title">ForwardIterator</span> __<span class="title">last</span>) &#123;</span></span><br><span class="line">  _Destroy(__first, __last);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="构造"><a class="markdownIt-Anchor" href="#构造"></a> 构造</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="keyword">void</span> _Construct(_T1* __p, <span class="keyword">const</span> _T2&amp; __value) &#123;</span><br><span class="line">  <span class="keyword">new</span> ((<span class="keyword">void</span>*) __p) _T1(__value); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">T1</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> _<span class="title">Construct</span>(_<span class="title">T1</span>* __<span class="title">p</span>) &#123;</span></span><br><span class="line">  <span class="keyword">new</span> ((<span class="keyword">void</span>*) __p) _T1();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，使用的都是<code>placement new</code>,和上文我们所做的一样，那么构造函数是用在哪里的呢？答案是用在STL容器里面的，例如<code>vector</code>的<code>push_back</code>里就有</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(<span class="keyword">const</span> _Tp&amp; __x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (_M_finish != _M_end_of_storage) &#123;</span><br><span class="line">      construct(_M_finish, __x); <span class="comment">//_M_finish是指向尾端的指针，__x就是要放入的值</span></span><br><span class="line">      ++_M_finish;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      _M_insert_aux(end(), __x);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="析构"><a class="markdownIt-Anchor" href="#析构"></a> 析构</h3>
+<p>想象一下，如何对<code>vector</code>中的内容进行析构</p>
+<p>首先，要给出范围 【1】，传入<code>first</code>和<code>last</code>两个Iterator,假设类型是<code>vector&lt;Test&gt;::iterator=Test*</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">ForwardIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> _<span class="title">Destroy</span>(_<span class="title">ForwardIterator</span> __<span class="title">first</span>, _<span class="title">ForwardIterator</span> __<span class="title">last</span>) &#123;</span></span><br><span class="line">  __destroy(__first, __last, <span class="comment">//【1】</span></span><br><span class="line">  			__VALUE_TYPE(__first)); <span class="comment">//【2】</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">------------------------------value_type<span class="comment">//【3】</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Iter</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">typename</span> <span class="title">iterator_traits</span>&lt;_Iter&gt;:</span>:value_type*</span><br><span class="line">__value_type(<span class="keyword">const</span> _Iter&amp;)<span class="comment">//【4】</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;<span class="keyword">typename</span> iterator_traits&lt;_Iter&gt;::value_type*&gt;(<span class="number">0</span>);<span class="comment">//【5】</span></span><br><span class="line">&#125;</span><br><span class="line">------------------------------Iter_tarits<span class="comment">//【6】</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;_Tp*&gt; &#123;</span></span><br><span class="line">  <span class="keyword">typedef</span> random_access_iterator_tag iterator_category;</span><br><span class="line">  <span class="keyword">typedef</span> _Tp                         value_type;</span><br><span class="line">  <span class="keyword">typedef</span> <span class="keyword">ptrdiff_t</span>                   difference_type;</span><br><span class="line">  <span class="keyword">typedef</span> _Tp*                        pointer;</span><br><span class="line">  <span class="keyword">typedef</span> _Tp&amp;                        reference;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到上面的函数对迭代器进行【2】<code>VALUE_TYPE(__value_type的宏)</code>取<code>value_type</code>, <code>__value_type</code>如【3】所示，此时，【4】<code>_Iter = Test *</code></p>
+<p>然后对其进行【5】<code>iterator_traits</code>，匹配到【6】的特化版本，返回的<code>value_type</code>是<code>Test</code></p>
+<p>然后对其进行【7】<code>type_traits</code>看看有没有<code>trivial</code>（无用的，可忽略的）析构函数</p>
+<p><code>type_traits</code>只对POD类型进行了特化，因此<code>Test</code>匹配到了泛化版本，如【8】所示</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">ForwardIterator</span>, <span class="title">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> </span></span><br><span class="line"><span class="class">__<span class="title">destroy</span>(_<span class="title">ForwardIterator</span> __<span class="title">first</span>, _<span class="title">ForwardIterator</span> __<span class="title">last</span>, _<span class="title">Tp</span>*)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">typedef</span> <span class="keyword">typename</span> __type_traits&lt;_Tp&gt;::has_trivial_destructor</span><br><span class="line">          _Trivial_destructor;<span class="comment">//【7】</span></span><br><span class="line">  __destroy_aux(__first, __last, _Trivial_destructor());</span><br><span class="line">&#125;</span><br><span class="line">----------------------------------------------type_traits<span class="comment">//【8】</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> __<span class="title">type_traits</span> &#123;</span> </span><br><span class="line">   <span class="keyword">typedef</span> __true_type     this_dummy_member_must_be_first;</span><br><span class="line">   <span class="keyword">typedef</span> __false_type    has_trivial_default_constructor;</span><br><span class="line">   <span class="keyword">typedef</span> __false_type    has_trivial_copy_constructor;</span><br><span class="line">   <span class="keyword">typedef</span> __false_type    has_trivial_assignment_operator;</span><br><span class="line">   <span class="keyword">typedef</span> __false_type    has_trivial_destructor;</span><br><span class="line">   <span class="keyword">typedef</span> __false_type    is_POD_type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到，STL取最保守的值，也就是说，除非有特化，不然都会认为构造函数是<code>no-trivial</code>(重要的)</p>
+<p>例如<code>Test *</code>没有经过特化，那么得到的结果就是<code>has_trivial_destructor = __false_type</code></p>
+<p>然后，就会开始选择析构的方式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">ForwardIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span></span></span><br><span class="line"><span class="class">__<span class="title">destroy_aux</span>(_<span class="title">ForwardIterator</span> __<span class="title">first</span>, _<span class="title">ForwardIterator</span> __<span class="title">last</span>, __<span class="title">false_type</span>) //有重要的析构函数，调用，<span class="title">Test</span>选择的是这个</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">for</span> ( ; __first != __last; ++__first)</span><br><span class="line">    destroy(&amp;*__first);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">ForwardIterator</span>&gt; </span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> __<span class="title">destroy_aux</span>(_<span class="title">ForwardIterator</span>, _<span class="title">ForwardIterator</span>, __<span class="title">true_type</span>) &#123;</span>&#125; <span class="comment">//析构函数是不重要的，所以不调用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//开始析构	</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">destroy</span>(_<span class="title">Tp</span>* __<span class="title">pointer</span>) &#123;</span></span><br><span class="line">  _Destroy(__pointer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> _<span class="title">Destroy</span>(_<span class="title">Tp</span>* __<span class="title">pointer</span>) &#123;</span></span><br><span class="line">  __pointer-&gt;~_Tp();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="std_alloch"><a class="markdownIt-Anchor" href="#std_alloch"></a> std_alloc.h</h2>
+<p>此文件包含内存的配置与释放，设计如下</p>
+<ul>
+<li>向system heap索取空间</li>
+<li>考虑多线程状态</li>
+<li>考虑内存不足的应变措施</li>
+<li>考虑内存碎片问题</li>
+</ul>
+<p>以下讨论排除多线程状态</p>
+<p>SGI以<code>malloc</code>和<code>free</code>完成内存的配置和释放，但是考虑到内存碎片问题，SGI设计了双层配置器</p>
+<ul>
+<li>一级配置器使用<code>malloc</code>和<code>free</code></li>
+<li>二级配置器使用复杂的内存池</li>
+</ul>
+<p>当申请内存超过128byte，使用一级配置器，小于则使用二级配置器，然而整个设计是否采用二级配置器，取决于<code>__USE_MALLOC</code>具体可以看下面，展示了什么情况使用二级配置器</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---------stl_alloc.h</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __STL_STATIC_TEMPLATE_MEMBER_BUG</span></span><br><span class="line"><span class="meta">#  <span class="meta-keyword">define</span> __USE_MALLOC <span class="comment">//使用二级配置器</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">---------stl_config.h</span><br><span class="line"><span class="meta"># <span class="meta-keyword">ifdef</span> __GNUC__ <span class="comment">//gcc的版本</span></span></span><br><span class="line"><span class="meta">#   <span class="meta-keyword">if</span> __GNUC__ == 2 &amp;&amp; __GNUC_MINOR__ &lt;= 7</span></span><br><span class="line"><span class="meta">#     <span class="meta-keyword">define</span> __STL_STATIC_TEMPLATE_MEMBER_BUG</span></span><br><span class="line"><span class="meta">#   <span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="一级配置器"><a class="markdownIt-Anchor" href="#一级配置器"></a> 一级配置器</h3>
+<p>一级配置器为<code>template &lt;int __inst&gt; class __malloc_alloc_template</code></p>
+<p>首先定义所抛出的异常<code>bad_alloc</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __THROW_BAD_ALLOC</span></span><br><span class="line"><span class="meta">#  <span class="meta-keyword">if</span> defined(__STL_NO_BAD_ALLOC) || !defined(__STL_USE_EXCEPTIONS)</span></span><br><span class="line"><span class="meta">#    <span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#    <span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#    <span class="meta-keyword">define</span> __THROW_BAD_ALLOC fprintf(stderr, <span class="meta-string">"out of memory\n"</span>); exit(1)</span></span><br><span class="line"><span class="meta">#  <span class="meta-keyword">else</span> <span class="comment">/* Standard conforming out-of-memory handling */</span></span></span><br><span class="line"><span class="meta">#    <span class="meta-keyword">include</span> <span class="meta-string">&lt;new&gt;</span></span></span><br><span class="line"><span class="meta">#    <span class="meta-keyword">define</span> __THROW_BAD_ALLOC throw std::bad_alloc()</span></span><br><span class="line"><span class="meta">#  <span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>然后是分配和释放的接口</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span>* <span class="title">allocate</span><span class="params">(<span class="keyword">size_t</span> __n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">void</span>* __result = <span class="built_in">malloc</span>(__n); <span class="comment">//分配内存</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="number">0</span> == __result) __result = _S_oom_malloc(__n); <span class="comment">//失败则调用处理内存不足的函数</span></span><br><span class="line">  <span class="keyword">return</span> __result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deallocate</span><span class="params">(<span class="keyword">void</span>* __p, <span class="keyword">size_t</span> <span class="comment">/* __n */</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">free</span>(__p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span>* <span class="title">reallocate</span><span class="params">(<span class="keyword">void</span>* __p, <span class="keyword">size_t</span> <span class="comment">/* old_sz */</span>, <span class="keyword">size_t</span> __new_sz)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">void</span>* __result = <span class="built_in">realloc</span>(__p, __new_sz); <span class="comment">//更改已经配置的内存空间，即更改由malloc()函数分配的内存空间的大小。</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="number">0</span> == __result) __result = _S_oom_realloc(__p, __new_sz);<span class="comment">//失败则调用</span></span><br><span class="line">  <span class="keyword">return</span> __result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是处理失败的函数，当然你也可以自己指定处理方式</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static void (* __set_malloc_handler(void (*__f)()))()</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">void</span> (* __old)() = __malloc_alloc_oom_handler;</span><br><span class="line">    __malloc_alloc_oom_handler = __f; <span class="comment">//设置处理函数，默认为0</span></span><br><span class="line">    <span class="keyword">return</span>(__old);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>默认的处理方式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">int</span> __inst&gt;</span><br><span class="line"><span class="keyword">void</span>*</span><br><span class="line">__malloc_alloc_template&lt;__inst&gt;::_S_oom_malloc(<span class="keyword">size_t</span> __n)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">void</span> (* __my_malloc_handler)();</span><br><span class="line">    <span class="keyword">void</span>* __result;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        __my_malloc_handler = __malloc_alloc_oom_handler; <span class="comment">//尝试获得处理函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="number">0</span> == __my_malloc_handler) &#123; __THROW_BAD_ALLOC; &#125; <span class="comment">//如果没有就抛出异常</span></span><br><span class="line">        (*__my_malloc_handler)(); <span class="comment">//调用处理函数</span></span><br><span class="line">        __result = <span class="built_in">malloc</span>(__n); <span class="comment">//再次分配</span></span><br><span class="line">        <span class="keyword">if</span> (__result) <span class="keyword">return</span>(__result); <span class="comment">//如果分配成功则结束，否则继续调用处理函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">int</span> __inst&gt;</span><br><span class="line"><span class="keyword">void</span>* __malloc_alloc_template&lt;__inst&gt;::_S_oom_realloc(<span class="keyword">void</span>* __p, <span class="keyword">size_t</span> __n)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">void</span> (* __my_malloc_handler)();</span><br><span class="line">    <span class="keyword">void</span>* __result;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        __my_malloc_handler = __malloc_alloc_oom_handler; <span class="comment">//尝试获取处理函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="number">0</span> == __my_malloc_handler) &#123; __THROW_BAD_ALLOC; &#125; <span class="comment">//抛出异常</span></span><br><span class="line">        (*__my_malloc_handler)(); </span><br><span class="line">        __result = <span class="built_in">realloc</span>(__p, __n);</span><br><span class="line">        <span class="keyword">if</span> (__result) <span class="keyword">return</span>(__result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> __malloc_alloc_template&lt;<span class="number">0</span>&gt; malloc_alloc; <span class="comment">//定义一级配置器</span></span><br></pre></td></tr></table></figure>
+<p>也就是说，默认内存不够就会抛出异常，当然如果你设置了处理函数，就会用处理函数去处理</p>
+<p>设计内存不足的处理方式是你的责任</p>
+<h3 id="二级配置器"><a class="markdownIt-Anchor" href="#二级配置器"></a> 二级配置器</h3>
+<p>二级配置器为</p>
+<p><code>template &lt;bool threads, int inst&gt;class __default_alloc_template</code></p>
+<p>二级配置器使用内存池，每次配置一大块内存，然后将其分成分成16个链表，各自管理的大小为8的倍数</p>
+<p>也就是说每一个链表管理一种大小的内存块，16个链表管理{8,16,…,128}byte的小型内存块链</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> &#123;_ALIGN = <span class="number">8</span>&#125;;</span><br><span class="line"><span class="keyword">enum</span> &#123;_MAX_BYTES = <span class="number">128</span>&#125;;</span><br><span class="line"><span class="keyword">enum</span> &#123;_NFREELISTS = <span class="number">16</span>&#125;; <span class="comment">// _MAX_BYTES/_ALIGN</span></span><br></pre></td></tr></table></figure>
+<p>其中内存块链的节点为<code>_Obj_</code>，链表采用<strong>线性表+链表</strong>的方式管理，其中链的初始化为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, &#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> _Obj &#123;</span><br><span class="line">        <span class="keyword">union</span> _Obj* _M_free_list_link;</span><br><span class="line">        <span class="keyword">char</span> _M_client_data[<span class="number">1</span>];    <span class="comment">/* The client sees this.        */</span></span><br><span class="line">  &#125;;</span><br><span class="line"><span class="keyword">static</span> _Obj* __STL_VOLATILE _S_free_list[_NFREELISTS];</span><br></pre></td></tr></table></figure>
+<p>根据索取的内存块大小决定从哪一条链上索取内存块</p>
+<p>例如索取128byte的块，则定位到 index = (128+7)/8 - 1 = 15的链</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span>  <span class="keyword">size_t</span> _S_freelist_index(<span class="keyword">size_t</span> __bytes) &#123;</span><br><span class="line">        <span class="keyword">return</span> (((__bytes) + (<span class="keyword">size_t</span>)_ALIGN<span class="number">-1</span>)/(<span class="keyword">size_t</span>)_ALIGN - <span class="number">1</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>关于内存池的管理</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发现链上没有可用块，就重新填充</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">void</span>* _S_refill(<span class="keyword">size_t</span> __n);</span><br><span class="line"><span class="comment">//配置一大块空间，能够容纳nodejs个大小为size的内存块</span></span><br><span class="line"><span class="comment">//如果失败，则会减少索要的个数，也就是nodjs</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">char</span>* _S_chunk_alloc(<span class="keyword">size_t</span> __size, <span class="keyword">int</span>&amp; __nobjs);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 内存池的状态</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">char</span>* _S_start_free; </span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">char</span>* _S_end_free;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">size_t</span> _S_heap_size;</span><br></pre></td></tr></table></figure>
+<h4 id="内存配置函数"><a class="markdownIt-Anchor" href="#内存配置函数"></a> 内存配置函数</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span>* <span class="title">allocate</span><span class="params">(<span class="keyword">size_t</span> __n)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* __ret = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (__n &gt; (<span class="keyword">size_t</span>) _MAX_BYTES) &#123; <span class="comment">//大于128就使用一级配置器</span></span><br><span class="line">      __ret = malloc_alloc::allocate(__n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      _Obj* __STL_VOLATILE* __my_free_list</span><br><span class="line">          = _S_free_list + _S_freelist_index(__n); <span class="comment">//找到合适的内存链</span></span><br><span class="line">      _Obj* __RESTRICT __result = *__my_free_list;</span><br><span class="line">      <span class="keyword">if</span> (__result == <span class="number">0</span>) <span class="comment">//如果该链上无任何内存块</span></span><br><span class="line">        __ret = _S_refill(_S_round_up(__n)); <span class="comment">//重新填充，并返回一个块</span></span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">        *__my_free_list = __result -&gt; _M_free_list_link;</span><br><span class="line">        __ret = __result;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> __ret;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deallocate</span><span class="params">(<span class="keyword">void</span>* __p, <span class="keyword">size_t</span> __n)</span></span></span><br><span class="line"><span class="function">    <span class="comment">//将内存块回收到对应的链表上</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (__n &gt; (<span class="keyword">size_t</span>) _MAX_BYTES)</span><br><span class="line">      malloc_alloc::deallocate(__p, __n); <span class="comment">//直接释放</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//回收</span></span><br><span class="line">      _Obj* __STL_VOLATILE*  __my_free_list</span><br><span class="line">          = _S_free_list + _S_freelist_index(__n);</span><br><span class="line">      _Obj* __q = (_Obj*)__p;</span><br><span class="line">      __q -&gt; _M_free_list_link = *__my_free_list;</span><br><span class="line">      *__my_free_list = __q;</span><br><span class="line">      <span class="comment">// lock is released here</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="重新填充"><a class="markdownIt-Anchor" href="#重新填充"></a> 重新填充</h4>
+<p>如果在分配的时候发现链上没有可用块了，就调用该函数重现填充链表</p>
+<p>默认填充的数目是20，如果内存池内存不够，那么获得的块少于20</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">bool</span> __threads, <span class="keyword">int</span> __inst&gt;</span><br><span class="line"><span class="keyword">void</span>*</span><br><span class="line">__default_alloc_template&lt;__threads, __inst&gt;::_S_refill(<span class="keyword">size_t</span> __n)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> __nobjs = <span class="number">20</span>; <span class="comment">//默认填充数量</span></span><br><span class="line">    <span class="keyword">char</span>* __chunk = _S_chunk_alloc(__n, __nobjs); <span class="comment">//从内存池取得空间，__nodejs是引用传递，其值会在_S_chunk_alloc中会被改变</span></span><br><span class="line">    _Obj* __STL_VOLATILE* __my_free_list;</span><br><span class="line">    _Obj* __result;</span><br><span class="line">    _Obj* __current_obj;</span><br><span class="line">    _Obj* __next_obj;</span><br><span class="line">    <span class="keyword">int</span> __i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">1</span> == __nobjs) <span class="keyword">return</span>(__chunk); <span class="comment">//只能获得一个节点就直接返回给使用者</span></span><br><span class="line">    __my_free_list = _S_free_list + _S_freelist_index(__n); <span class="comment">//获得相应的链表，准备开始填充</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Build free list in chunk */</span></span><br><span class="line">      __result = (_Obj*)__chunk; <span class="comment">//在chunk上建立链表</span></span><br><span class="line">    </span><br><span class="line">      *__my_free_list = __next_obj = (_Obj*)(__chunk + __n); <span class="comment">//指向链表尾部</span></span><br><span class="line">    </span><br><span class="line">      <span class="keyword">for</span> (__i = <span class="number">1</span>; ; __i++) &#123;</span><br><span class="line">          <span class="comment">//从1开始逐渐填充，第0个返回给使用者</span></span><br><span class="line">        __current_obj = __next_obj;</span><br><span class="line">        __next_obj = (_Obj*)((<span class="keyword">char</span>*)__next_obj + __n);</span><br><span class="line">        <span class="keyword">if</span> (__nobjs - <span class="number">1</span> == __i) &#123;</span><br><span class="line">            __current_obj -&gt; _M_free_list_link = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            __current_obj -&gt; _M_free_list_link = __next_obj;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">return</span>(__result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="内存池"><a class="markdownIt-Anchor" href="#内存池"></a> 内存池</h4>
+<p><code>_S_chunk_alloc</code>是从内存池中获取空间交给free list</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">bool</span> __threads, <span class="keyword">int</span> __inst&gt;</span><br><span class="line"><span class="keyword">char</span>*</span><br><span class="line">__default_alloc_template&lt;__threads, __inst&gt;::_S_chunk_alloc(<span class="keyword">size_t</span> __size, </span><br><span class="line">                                                            <span class="keyword">int</span>&amp; __nobjs)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span>* __result;</span><br><span class="line">    <span class="keyword">size_t</span> __total_bytes = __size * __nobjs; <span class="comment">//计算索取内存块的总大小</span></span><br><span class="line">    <span class="keyword">size_t</span> __bytes_left = _S_end_free - _S_start_free; <span class="comment">//计算内存池剩余量</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (__bytes_left &gt;= __total_bytes) &#123;</span><br><span class="line">        <span class="comment">//剩余容量满足索取量。直接返回内存池的起始端指针</span></span><br><span class="line">        __result = _S_start_free;</span><br><span class="line">        _S_start_free += __total_bytes;<span class="comment">//调整内存池</span></span><br><span class="line">        <span class="keyword">return</span>(__result);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (__bytes_left &gt;= __size) &#123; <span class="comment">//如果总量不够，判断是否能够返回一块内存块</span></span><br><span class="line"> 		<span class="comment">//如果可以</span></span><br><span class="line">        __nobjs = (<span class="keyword">int</span>)(__bytes_left/__size);<span class="comment">//改变__nodejs</span></span><br><span class="line">        __total_bytes = __size * __nobjs;<span class="comment">//改变剩余容量</span></span><br><span class="line">        __result = _S_start_free;<span class="comment">//准备块的地址</span></span><br><span class="line">        _S_start_free += __total_bytes;<span class="comment">//调整内存池</span></span><br><span class="line">        <span class="keyword">return</span>(__result);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果连一个块都不能获取，则尝试将剩余的空间都放到对应的链表上</span></span><br><span class="line">        <span class="comment">//然后重新填充内存池</span></span><br><span class="line">        <span class="keyword">size_t</span> __bytes_to_get = </span><br><span class="line">	  <span class="number">2</span> * __total_bytes + _S_round_up(_S_heap_size &gt;&gt; <span class="number">4</span>); <span class="comment">//计算即将填充的容量，新容量为当前需求量的两倍，并且附加一个随配置次数增大的附加值</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Try to make use of the left-over piece.充分利用剩余资源</span></span><br><span class="line">        <span class="keyword">if</span> (__bytes_left &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            _Obj* __STL_VOLATILE* __my_free_list =</span><br><span class="line">                        _S_free_list + _S_freelist_index(__bytes_left);</span><br><span class="line"></span><br><span class="line">            ((_Obj*)_S_start_free) -&gt; _M_free_list_link = *__my_free_list;</span><br><span class="line">            *__my_free_list = (_Obj*)_S_start_free;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//重新获取一大块内存</span></span><br><span class="line">        _S_start_free = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(__bytes_to_get);</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">0</span> == _S_start_free) &#123;</span><br><span class="line">            <span class="keyword">size_t</span> __i;</span><br><span class="line">            _Obj* __STL_VOLATILE* __my_free_list;</span><br><span class="line">	    _Obj* __p;</span><br><span class="line">            <span class="comment">// Try to make do with what we have.  That can't</span></span><br><span class="line">            <span class="comment">// hurt.  We do not try smaller requests, since that tends</span></span><br><span class="line">            <span class="comment">// to result in disaster on multi-process machines.</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">//遍历16个链表</span></span><br><span class="line">            <span class="keyword">for</span> (__i = __size;</span><br><span class="line">                 __i &lt;= (<span class="keyword">size_t</span>) _MAX_BYTES;</span><br><span class="line">                 __i += (<span class="keyword">size_t</span>) _ALIGN) </span><br><span class="line">            &#123;</span><br><span class="line">                __my_free_list = _S_free_list + _S_freelist_index(__i);</span><br><span class="line">                __p = *__my_free_list;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (<span class="number">0</span> != __p)  <span class="comment">//如果链上有剩余空间，将其调入内存池</span></span><br><span class="line">                &#123;</span><br><span class="line">                    *__my_free_list = __p -&gt; _M_free_list_link;</span><br><span class="line">                    <span class="comment">//调整内存池，重新分配</span></span><br><span class="line">                    _S_start_free = (<span class="keyword">char</span>*)__p;</span><br><span class="line">                    _S_end_free = _S_start_free + __i;</span><br><span class="line">                    <span class="keyword">return</span>(_S_chunk_alloc(__size, __nobjs));</span><br><span class="line">                    <span class="comment">// Any leftover piece will eventually make it to the</span></span><br><span class="line">                    <span class="comment">// right free list.</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">	    	_S_end_free = <span class="number">0</span>;	<span class="comment">// In case of exception. 如果真的没有内存了</span></span><br><span class="line">            _S_start_free = (<span class="keyword">char</span>*)malloc_alloc::allocate(__bytes_to_get); <span class="comment">//尝试使用第一配置器，实在不行就抛出异常，分配结束</span></span><br><span class="line">            <span class="comment">// This should either throw an</span></span><br><span class="line">            <span class="comment">// exception or remedy the situation.  Thus we assume it</span></span><br><span class="line">            <span class="comment">// succeeded.</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//看来第一配置器找到内存了，调整一下内存池</span></span><br><span class="line">        _S_heap_size += __bytes_to_get;</span><br><span class="line">        _S_end_free = _S_start_free + __bytes_to_get;</span><br><span class="line">        <span class="keyword">return</span>(_S_chunk_alloc(__size, __nobjs));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="stl_uninitialized"><a class="markdownIt-Anchor" href="#stl_uninitialized"></a> stl_uninitialized</h2>
+<p>这里有三个用于为初始化的空间的函数</p>
+<p>三者都有一个特点，就是如果过程中产生一次失败(会抛出异常)，则将之前所做的全部撤销</p>
+<p>具体是使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">define __STL_UNWIND(action) <span class="keyword">catch</span>(...) &#123; action; <span class="keyword">throw</span>; &#125;</span><br></pre></td></tr></table></figure>
+<p>该宏捕获所有异常，并执行<code>action</code></p>
+<h3 id="uninitialized_copy"><a class="markdownIt-Anchor" href="#uninitialized_copy"></a> uninitialized_copy</h3>
+<p>可以将某个范围的对象拷贝到未初始化的内存，如果拷贝存在一次失败，那么就不构造任何东西</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参数模式类似于前面提到过的析构，同样是去value type</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">InputIter</span>, <span class="title">class</span> _<span class="title">ForwardIter</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> _<span class="title">ForwardIter</span></span></span><br><span class="line"><span class="class">  <span class="title">uninitialized_copy</span>(_<span class="title">InputIter</span> __<span class="title">first</span>, _<span class="title">InputIter</span> __<span class="title">last</span>,</span></span><br><span class="line"><span class="class">                     _<span class="title">ForwardIter</span> __<span class="title">result</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">return</span> __uninitialized_copy(__first, __last, __result,</span><br><span class="line">                              __VALUE_TYPE(__result)); <span class="comment">//根据value type选择合适的复制函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">InputIter</span>, <span class="title">class</span> _<span class="title">ForwardIter</span>, <span class="title">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> _<span class="title">ForwardIter</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_copy</span>(_<span class="title">InputIter</span> __<span class="title">first</span>, _<span class="title">InputIter</span> __<span class="title">last</span>,</span></span><br><span class="line"><span class="class">                     _<span class="title">ForwardIter</span> __<span class="title">result</span>, _<span class="title">Tp</span>*)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">typedef</span> <span class="keyword">typename</span> __type_traits&lt;_Tp&gt;::is_POD_type _Is_POD; <span class="comment">//又出现了，判断是否是POD类型</span></span><br><span class="line">  <span class="keyword">return</span> __uninitialized_copy_aux(__first, __last, __result, _Is_POD());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">InputIter</span>, <span class="title">class</span> _<span class="title">ForwardIter</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> _<span class="title">ForwardIter</span> </span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_copy_aux</span>(_<span class="title">InputIter</span> __<span class="title">first</span>, _<span class="title">InputIter</span> __<span class="title">last</span>,</span></span><br><span class="line"><span class="class">                         _<span class="title">ForwardIter</span> __<span class="title">result</span>,</span></span><br><span class="line"><span class="class">                         __<span class="title">true_type</span>) //如果是<span class="title">POD</span>类型，就不需要特地调用构造函数</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">return</span> copy(__first, __last, __result); <span class="comment">//调用算法库的copy</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">InputIter</span>, <span class="title">class</span> _<span class="title">ForwardIter</span>&gt;</span></span><br><span class="line"><span class="class">_<span class="title">ForwardIter</span> </span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_copy_aux</span>(_<span class="title">InputIter</span> __<span class="title">first</span>, _<span class="title">InputIter</span> __<span class="title">last</span>,</span></span><br><span class="line"><span class="class">                         _<span class="title">ForwardIter</span> __<span class="title">result</span>,</span></span><br><span class="line"><span class="class">                         __<span class="title">false_type</span>) //如果不是<span class="title">POD</span>，则逐个调用构造函数</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  _ForwardIter __cur = __result;</span><br><span class="line">  __STL_TRY &#123;</span><br><span class="line">    <span class="keyword">for</span> ( ; __first != __last; ++__first, ++__cur)</span><br><span class="line">      _Construct(&amp;*__cur, *__first);</span><br><span class="line">    <span class="keyword">return</span> __cur;</span><br><span class="line">  &#125;</span><br><span class="line">  __STL_UNWIND(_Destroy(__result, __cur)); <span class="comment">//捕获异常并将所有已构造的对象全部析构</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个特化版本，const char <em>, const wchar_t</em>，对于这两个类型，最有效的方法是直接移动内存内容，使用<code>memmove</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">char</span>* <span class="title">uninitialized_copy</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* __first, <span class="keyword">const</span> <span class="keyword">char</span>* __last,</span></span></span><br><span class="line"><span class="function"><span class="params">                                <span class="keyword">char</span>* __result)</span> </span>&#123;</span><br><span class="line">  memmove(__result, __first, __last - __first);</span><br><span class="line">  <span class="keyword">return</span> __result + (__last - __first);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">wchar_t</span>* </span><br><span class="line">uninitialized_copy(<span class="keyword">const</span> <span class="keyword">wchar_t</span>* __first, <span class="keyword">const</span> <span class="keyword">wchar_t</span>* __last,</span><br><span class="line">                   <span class="keyword">wchar_t</span>* __result)</span><br><span class="line">&#123;</span><br><span class="line">  memmove(__result, __first, <span class="keyword">sizeof</span>(<span class="keyword">wchar_t</span>) * (__last - __first));</span><br><span class="line">  <span class="keyword">return</span> __result + (__last - __first);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="uninitialized_fill"><a class="markdownIt-Anchor" href="#uninitialized_fill"></a> uninitialized_fill</h3>
+<p>该函数的作用是将某个范围的内存初始化为某个值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">ForwardIter</span>, <span class="title">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">uninitialized_fill</span>(_<span class="title">ForwardIter</span> __<span class="title">first</span>,</span></span><br><span class="line"><span class="class">                               _<span class="title">ForwardIter</span> __<span class="title">last</span>, </span></span><br><span class="line"><span class="class">                               <span class="title">const</span> _<span class="title">Tp</span>&amp; __<span class="title">x</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  __uninitialized_fill(__first, __last, __x, __VALUE_TYPE(__first)); <span class="comment">//一样的套路，判断value_type</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">ForwardIter</span>, <span class="title">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Tp1</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> __<span class="title">uninitialized_fill</span>(_<span class="title">ForwardIter</span> __<span class="title">first</span>, </span></span><br><span class="line"><span class="class">                                 _<span class="title">ForwardIter</span> __<span class="title">last</span>, <span class="title">const</span> _<span class="title">Tp</span>&amp; __<span class="title">x</span>, _<span class="title">Tp1</span>*)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">typedef</span> <span class="keyword">typename</span> __type_traits&lt;_Tp1&gt;::is_POD_type _Is_POD;</span><br><span class="line">  __uninitialized_fill_aux(__first, __last, __x, _Is_POD());<span class="comment">//判断是否是POD类型</span></span><br><span class="line">                   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">ForwardIter</span>, <span class="title">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_aux</span>(_<span class="title">ForwardIter</span> __<span class="title">first</span>, _<span class="title">ForwardIter</span> __<span class="title">last</span>, </span></span><br><span class="line"><span class="class">                         <span class="title">const</span> _<span class="title">Tp</span>&amp; __<span class="title">x</span>, __<span class="title">true_type</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  fill(__first, __last, __x); <span class="comment">//调用算法库</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">ForwardIter</span>, <span class="title">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_aux</span>(_<span class="title">ForwardIter</span> __<span class="title">first</span>, _<span class="title">ForwardIter</span> __<span class="title">last</span>, </span></span><br><span class="line"><span class="class">                         <span class="title">const</span> _<span class="title">Tp</span>&amp; __<span class="title">x</span>, __<span class="title">false_type</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  _ForwardIter __cur = __first;</span><br><span class="line">  __STL_TRY &#123;</span><br><span class="line">    <span class="keyword">for</span> ( ; __cur != __last; ++__cur)</span><br><span class="line">      _Construct(&amp;*__cur, __x);</span><br><span class="line">  &#125;</span><br><span class="line">  __STL_UNWIND(_Destroy(__first, __cur));<span class="comment">//捕获异常，析构</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="uninitialized_fill_n"><a class="markdownIt-Anchor" href="#uninitialized_fill_n"></a> uninitialized_fill_n</h3>
+<p>将从[firs,first+n]全部构造为相同的值，和上面的一样</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">ForwardIter</span>, <span class="title">class</span> _<span class="title">Size</span>, <span class="title">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> _<span class="title">ForwardIter</span> </span></span><br><span class="line"><span class="class"><span class="title">uninitialized_fill_n</span>(_<span class="title">ForwardIter</span> __<span class="title">first</span>, _<span class="title">Size</span> __<span class="title">n</span>, <span class="title">const</span> _<span class="title">Tp</span>&amp; __<span class="title">x</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">return</span> __uninitialized_fill_n(__first, __n, __x, __VALUE_TYPE(__first));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="至此"><a class="markdownIt-Anchor" href="#至此"></a> 至此</h1>
+<p>以上大致分析完了内存构造的三个重要的块，真的是累</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">OriginalS</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/2018/08/06/STL_Allocator/">http://yoursite.com/2018/08/06/STL_Allocator/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/STL/">STL</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/08/09/C++TemplatePractice1/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">C++ 模版编程</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/08/04/ConfigureVim/">
+        <span class="next-text nav-default">Configure Vim On Mac</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:tengzhou989@email.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/originals-tz" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">OriginalS</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.9.0"></script>
+
+  </body>
+</html>

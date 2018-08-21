@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="STL之Deque"/>
+
+
+
+
+  <meta name="keywords" content="STL, RACx0" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="RACx0">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.9.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/08/14/STL_Deque/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.9.0" />
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"RACx0","subtitle":"what is life?","description":"what is life?","author":"OriginalS","language":"zh-CN","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":null},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Tags":"/tags"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"tengzhou989@email.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/originals-tz","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":null,"google_verification":null,"disqus_shortname":null,"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+</script>
+
+    <title> STL之Deque - RACx0 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">RACx0</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">RACx0</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          STL之Deque
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-08-14
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#deque的中控器"><span class="toc-text"> deque的中控器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deque的迭代器"><span class="toc-text"> deque的迭代器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deque的内存管理"><span class="toc-text"> deque的内存管理</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>deque是双向开口的，可以在头部插入/删除，也可以在尾部插入/删除，而且都是常数时间的复杂度</p>
+<p>而这得益于deque的其结构，deque是由多段线型空间组合而成，可以随时增加一段新的空间并连接起来</p>
+<p>因此可以把deque看作是一个链表，而每一个链表节点则是一个数组</p>
+<p>虽然deque也提供Random Access Iterator，但是这并不是普通的指针，可以的话尽量使用vector</p>
+<a id="more"></a>
+<h2 id="deque的中控器"><a class="markdownIt-Anchor" href="#deque的中控器"></a> deque的中控器</h2>
+<p>deque由于结构并不是真正的线形空间，为了维护其整体连续的假象，并提供随机存取的借口，因此需要使用一块map作为中控器</p>
+<p>其中map的每一个元素指向一个节点(一块连续的空间)，我们称这块空间为缓冲区</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> _<span class="title">Deque_base</span> &#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">  _Tp** _M_map; <span class="comment">//中控器</span></span><br><span class="line">  <span class="keyword">size_t</span> _M_map_size;  <span class="comment">//中控器的容量</span></span><br><span class="line">  iterator _M_start; <span class="comment">//缓冲区的头</span></span><br><span class="line">  iterator _M_finish;<span class="comment">//缓冲区的尾</span></span><br><span class="line">  </span><br><span class="line">  <span class="function">iterator <span class="title">begin</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> _M_start; &#125;</span><br><span class="line">  <span class="function">iterator <span class="title">end</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> _M_finish; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="deque的迭代器"><a class="markdownIt-Anchor" href="#deque的迭代器"></a> deque的迭代器</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Ref</span>, <span class="title">class</span> _<span class="title">Ptr</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> _<span class="title">Deque_iterator</span> &#123;</span></span><br><span class="line">  _Tp* _M_cur; <span class="comment">//指向当前元素</span></span><br><span class="line">  _Tp* _M_first;<span class="comment">//当前缓冲区的头</span></span><br><span class="line">  _Tp* _M_last;<span class="comment">//当前缓冲区的尾</span></span><br><span class="line">  _Map_pointer _M_node;</span><br><span class="line"></span><br><span class="line">  _Self&amp; <span class="keyword">operator</span>++() &#123;</span><br><span class="line">    ++_M_cur;</span><br><span class="line">    <span class="keyword">if</span> (_M_cur == _M_last) &#123;</span><br><span class="line">      _M_set_node(_M_node + <span class="number">1</span>);</span><br><span class="line">      _M_cur = _M_first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>; </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  _Self&amp; <span class="keyword">operator</span>--() &#123;</span><br><span class="line">    <span class="keyword">if</span> (_M_cur == _M_first) &#123;</span><br><span class="line">      _M_set_node(_M_node - <span class="number">1</span>);</span><br><span class="line">      _M_cur = _M_last;</span><br><span class="line">    &#125;</span><br><span class="line">    --_M_cur;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>迭代器所进行++和–的操作，需要进行边界判断，判断是否能到达下一个/上一个缓冲区</p>
+<p>这个行为依赖于<code>_M_set_node</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _M_set_node(_Map_pointer __new_node) &#123;</span><br><span class="line">    _M_node = __new_node;</span><br><span class="line">    _M_first = *__new_node;</span><br><span class="line">    _M_last = _M_first + difference_type(_S_buffer_size());</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="deque的内存管理"><a class="markdownIt-Anchor" href="#deque的内存管理"></a> deque的内存管理</h2>
+<p>deque的结构，使其需要管理map以及缓冲区</p>
+<p>当新建缓冲区的时候，不仅需要构建一块缓冲区，还要往map中构造一个指针，而这些操作由以下函数完成</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">_Tp* _M_allocate_node() &#123;</span><br><span class="line">    <span class="keyword">return</span> _M_node_allocator.allocate(__deque_buf_size(<span class="keyword">sizeof</span>(_Tp)));</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">void</span> _M_deallocate_node(_Tp* __p) &#123;</span><br><span class="line">    _M_node_allocator.deallocate(__p, __deque_buf_size(<span class="keyword">sizeof</span>(_Tp)));</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">_Tp** _M_allocate_map(<span class="keyword">size_t</span> __n) </span><br><span class="line">    &#123; <span class="keyword">return</span> _M_map_allocator.allocate(__n); &#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">void</span> _M_deallocate_map(_Tp** __p, <span class="keyword">size_t</span> __n) </span><br><span class="line">    &#123; _M_map_allocator.deallocate(__p, __n); &#125;</span><br></pre></td></tr></table></figure>
+<p>安排deque的结构</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span></span></span><br><span class="line"><span class="class">_<span class="title">Deque_base</span>&lt;_Tp,_Alloc&gt;:</span>:_M_initialize_map(<span class="keyword">size_t</span> __num_elements)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">size_t</span> __num_nodes = </span><br><span class="line">    __num_elements / __deque_buf_size(<span class="keyword">sizeof</span>(_Tp)) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  _M_map_size = max((<span class="keyword">size_t</span>) _S_initial_map_size, __num_nodes + <span class="number">2</span>);</span><br><span class="line">  _M_map = _M_allocate_map(_M_map_size);</span><br><span class="line"></span><br><span class="line">  _Tp** __nstart = _M_map + (_M_map_size - __num_nodes) / <span class="number">2</span>;</span><br><span class="line">  _Tp** __nfinish = __nstart + __num_nodes;</span><br><span class="line">    </span><br><span class="line">  __STL_TRY &#123;</span><br><span class="line">    _M_create_nodes(__nstart, __nfinish);</span><br><span class="line">  &#125;</span><br><span class="line">  __STL_UNWIND((_M_deallocate_map(_M_map, _M_map_size), </span><br><span class="line">                _M_map = <span class="number">0</span>, _M_map_size = <span class="number">0</span>));</span><br><span class="line">  _M_start._M_set_node(__nstart);</span><br><span class="line">  _M_finish._M_set_node(__nfinish - <span class="number">1</span>);</span><br><span class="line">  _M_start._M_cur = _M_start._M_first;</span><br><span class="line">  _M_finish._M_cur = _M_finish._M_first +</span><br><span class="line">               __num_elements % __deque_buf_size(<span class="keyword">sizeof</span>(_Tp));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">OriginalS</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/2018/08/14/STL_Deque/">http://yoursite.com/2018/08/14/STL_Deque/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/STL/">STL</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/08/14/STL_List/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">STL之List</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/08/14/STL_Vector/">
+        <span class="next-text nav-default">STL之Vector</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:tengzhou989@email.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/originals-tz" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">OriginalS</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.9.0"></script>
+
+  </body>
+</html>

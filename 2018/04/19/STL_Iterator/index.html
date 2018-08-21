@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="STL之iterator与traits技术"/>
+
+
+
+
+  <meta name="keywords" content="STL, RACx0" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="RACx0">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.9.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/04/19/STL_Iterator/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.9.0" />
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"RACx0","subtitle":"what is life?","description":"what is life?","author":"OriginalS","language":"zh-CN","timezone":null,"url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":null},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Tags":"/tags"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"tengzhou989@email.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/originals-tz","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":null,"google_verification":null,"disqus_shortname":null,"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+</script>
+
+    <title> STL之iterator与traits技术 - RACx0 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">RACx0</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">RACx0</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          STL之iterator与traits技术
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-04-19
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iterator_trait"><span class="toc-text"> iterator_trait</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#value_type"><span class="toc-text"> value_type</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用typedef"><span class="toc-text"> 使用typedef</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取以及偏特化"><span class="toc-text"> 提取以及偏特化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#difference-type"><span class="toc-text"> difference type</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#reference-type"><span class="toc-text"> reference type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pointer"><span class="toc-text"> pointer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text"> 测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text"> 总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#type-traits"><span class="toc-text"> type traits</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#总结-2"><span class="toc-text"> 总结</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p><strong>iterator模式定义如下：提供一种方法，使之能够依序寻访某个聚合物所含的各个元素，而又无需暴露该聚合物的内部表达形式</strong></p>
+<p>其中，c++里面各个容器的iterator扮演着将数据容器与算法结合起来的重要角色</p>
+<p>将范型算法(find, count, find_if)用于某个容器中,最重要的是要给算法提供一个访问容器元素的工具，<code>iterator</code>就扮演着这个重要的角色</p>
+<a id="more"></a>
+<p>我们在算法中可能会定义简单的中间变量或者设定算法的返回变量类型，这时候需要知道迭代器所指元素的类型是什么，但是由于没有<code>typeof</code>这类判断类型的函数,我们无法直接获取，那该如何是好？</p>
+<p>不要急，那首先先介绍一下<code>iterator_tarit</code></p>
+<h1 id="iterator_trait"><a class="markdownIt-Anchor" href="#iterator_trait"></a> iterator_trait</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;_Tp*&gt;</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">ptrdiff_t</span> difference_type;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::value_type value_type;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::pointer pointer;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::reference reference;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::iterator_category iterator_category;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>看到这个奇奇怪怪的东西，是不是感觉没什么用，嗯，没关系，先记着</p>
+<p>下面，将接着之前的话题，来看看如何提取出<code>iterator</code>所指向的元素类型</p>
+<h2 id="value_type"><a class="markdownIt-Anchor" href="#value_type"></a> value_type</h2>
+<p>例如</p>
+<h3 id="使用typedef"><a class="markdownIt-Anchor" href="#使用typedef"></a> 使用typedef</h3>
+<p>我们可以在迭代器中添加元素的类型</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">MyIter</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type;</span><br><span class="line">    T * ptr;</span><br><span class="line">    MyIter(T * p = <span class="number">0</span>) : ptr (p) &#123;&#125;;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>* () <span class="keyword">const</span> &#123; <span class="keyword">return</span> *ptr;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">typename</span> <span class="title">I</span>:</span>:value_type <span class="comment">//取出迭代器类中的类型</span></span><br><span class="line"><span class="comment">//用以设定返回变量类型，但是如果I是指针就会错误</span></span><br><span class="line">get (I ite) &#123;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是，这个版本并不支持原生指针，然而就迭代器的行为而言，就是面向容器的指针，而正常的STL算法也是支持原生指针的，就如同下面的find一样</p>
+<p>指针和迭代器的作用无非就是为stl算法提供了一个运算范围以及对容器（无论是vector，list，亦或是array）的访问</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">5</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> *begin = a;</span><br><span class="line">    <span class="keyword">int</span> *end = a+<span class="number">5</span>;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="built_in">std</span>::count(begin, end, <span class="number">2</span>); <span class="comment">//ok!</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以对于第一个版本，我们还要对指针类型进行模版偏特化</p>
+<h3 id="提取以及偏特化"><a class="markdownIt-Anchor" href="#提取以及偏特化"></a> 提取以及偏特化</h3>
+<p>前面也提到了，如果直接使用<code>typename I::value_type</code>，算法就无法接收原生指针，因为原生指针根本就没有<code>value_type</code>这个内嵌类型</p>
+<p>因此，我们还需要加入一个中间层对其进行判断，看它是不是原生指针，<strong>注意，这就是<code>traits</code>技法的妙处所在</strong></p>
+<p>如果我们只使用上面的做法，也就是内嵌<code>value_type</code>，那么对于没有<code>value_type</code>的指针，我们只能对其进行偏特化，这种偏特化是针对可调用函数<code>get</code>的偏特化，假如<code>get</code>有100行代码，那么就会造成极大的视觉污染</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">MyIter</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type;</span><br><span class="line">    T * ptr;</span><br><span class="line">    MyIter(T * p = <span class="number">0</span>) : ptr (p) &#123;&#125;;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>* () <span class="keyword">const</span> &#123; <span class="keyword">return</span> *ptr;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">typename</span> <span class="title">I</span>:</span>:value_type <span class="comment">//取出迭代器类中的类型</span></span><br><span class="line">get (I ite) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"class version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">I</span> <span class="title">get</span>(<span class="title">I</span>* <span class="title">ite</span>) &#123;</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"pointer version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">I</span> <span class="title">get</span>(<span class="title">const</span> <span class="title">I</span>* <span class="title">ite</span>) &#123;</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"const pointer version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> k = <span class="number">3</span>;</span><br><span class="line">    MyIter&lt;<span class="keyword">int</span>&gt; v(&amp;i);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; get(v) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; get(&amp;i) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; get(&amp;k) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就如同上面这个形式，设想往get中填充100行代码，简直不忍直视，你再看看下面这个，简直优雅！</p>
+<p>利用一个中间层<code>iterator_traits</code>固定了<code>get</code>的形式，使得重复的代码大量减少，唯一要做的就是稍稍特化一下<code>iterator_tartis</code>使其支持<code>pointer</code>和<code>const pointer</code>😃</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span> &#123;</span></span><br><span class="line">	<span class="keyword">typedef</span> <span class="keyword">typename</span> T::value_type value_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;T*&gt; &#123;</span></span><br><span class="line">	<span class="keyword">typedef</span> T value_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;const T*&gt; &#123;</span></span><br><span class="line">	<span class="keyword">typedef</span> T value_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">MyIter</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type;</span><br><span class="line">    T * ptr;</span><br><span class="line">    MyIter(T * p = <span class="number">0</span>) : ptr (p) &#123;&#125;;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>* () <span class="keyword">const</span> &#123; <span class="keyword">return</span> *ptr;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">typename</span> <span class="title">iterator_traits</span>&lt;I&gt;:</span>:value_type</span><br><span class="line">get (I ite) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"normal version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> k = <span class="number">3</span>;</span><br><span class="line">    MyIter&lt;<span class="keyword">int</span>&gt; v(&amp;i);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; get(v) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; get(&amp;i) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; get(&amp;k) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过定义内嵌类型，我们获得了知晓<code>iterator</code>所指元素类型的方法，通过<code>traits</code>技法，我们将函数模板对于原生指针和自定义<code>iterator</code>的定义都统一起来</p>
+<p>这就是<code>traits</code>技法的妙处所在</p>
+<h2 id="difference-type"><a class="markdownIt-Anchor" href="#difference-type"></a> difference type</h2>
+<p><code>difference type</code>用于表示两个迭代器之间的距离的一个<strong>类型</strong>,也可以用来表示一个容器的最大的容量，因为对于连续空间的容器，头尾之间的距离就是最大容量</p>
+<p>例如<code>count()</code>就必须返回的<strong>类型</strong>就是迭代器的<code>difference type</code></p>
+<p>对于STL容器类型，以及原生指针，traits有如下两个不同版本</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span> &#123;</span></span><br><span class="line">...</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> I::difference_type difference_type;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原生指针</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;T*&gt; &#123;</span></span><br><span class="line">...</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">ptrdiff_t</span> difference_type;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;const T*&gt; &#123;</span></span><br><span class="line">...</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">ptrdiff_t</span> difference_type;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="reference-type"><a class="markdownIt-Anchor" href="#reference-type"></a> reference type</h3>
+<p>标示了引用类型</p>
+<h3 id="pointer"><a class="markdownIt-Anchor" href="#pointer"></a> pointer</h3>
+<p>标示了指针类型</p>
+<h2 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h2>
+<p>以上说明了迭代器内部的几种重要类型</p>
+<p>下面对其进行一个测试，以此产生一个更直观的印象</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Test(x,z,y) std::cout<span class="meta-string">&lt;&lt;std::is_same&lt;std::iterator_traits&lt;x&gt;::z,y&gt;::value&lt;&lt;std::endl</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IVec std::vector<span class="meta-string">&lt;int&gt;::iterator</span></span></span><br><span class="line">    Test(IVec,value_type,<span class="keyword">int</span>); <span class="comment">//true</span></span><br><span class="line">    Test(IVec,difference_type,<span class="keyword">ptrdiff_t</span>); <span class="comment">//true</span></span><br><span class="line">    Test(IVec,reference,<span class="keyword">int</span>&amp;); <span class="comment">//true</span></span><br><span class="line">    Test(IVec,pointer,<span class="keyword">int</span>*); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面可以看出，一个<code>vector&lt;int&gt;::iterator</code></p>
+<ul>
+<li><code>value_type</code>=<code>int</code></li>
+<li><code>difference_type</code>=<code>ptrdiff_t</code></li>
+<li><code>reference</code>=<code>int&amp;</code></li>
+<li><code>pointer</code>=<code>int*</code></li>
+</ul>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>要牢记<code>iterator</code>是为了访问容器内的元素而存在的，而它内置的类型就是范型算法与容器进行沟通的重要工具</p>
+<p>而我们使用<code>traits</code>技法主要是为了解决原生指针和自定义<code>iterator</code>之间的不同所造成的代码冗余</p>
+<h1 id="type-traits"><a class="markdownIt-Anchor" href="#type-traits"></a> type traits</h1>
+<p><code>type traits</code>的出现和STL对于性能的要求有着千丝万缕的联系</p>
+<p>试想，对于<code>vector</code>这种大块分配内存，然后大块析构的容器，如果容器里面是POD的话，那么只要等它的生命周期结束就行了，如果是非POD的话，那么就要判断是否拥有<code>no-traits</code>的析构函数</p>
+<p>如果是这样的话，又回到了之前<code>value_type</code>的窘境，因此，我们只需要使用<code>type_traits</code>，对POD进行偏特化，通过两个神奇的类型进行判断</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">true_type</span>&#123;</span>&#125;;<span class="comment">//无意义的析构函数  </span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">false_type</span>&#123;</span>&#125;;<span class="comment">//有意义的析构函数</span></span><br></pre></td></tr></table></figure>
+<p>这样子就可以让负责析构的模块进行判断了</p>
+<p>具体的<code>type_traits</code>如下所示</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;  </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">type_traits</span>  </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">typedef</span> _false_type has_trivial_default_constructor;<span class="comment">//默认构造函数是否有意义？  </span></span><br><span class="line">    <span class="keyword">typedef</span> _false_type has_trivial_copy_constructor;<span class="comment">//拷贝构造函数是否有意义?  </span></span><br><span class="line">    <span class="keyword">typedef</span> _false_type has_trivial_assgignment_constructor;<span class="comment">//拷贝赋值操作是否有意义?  </span></span><br><span class="line">    <span class="keyword">typedef</span> _false_type has_trivial_destructor;<span class="comment">//析构函数是否有意义?  </span></span><br><span class="line">    <span class="comment">/*POD意指Plain Old Data,也就是标量型别或传统的C struct(传统的C struct只能 </span></span><br><span class="line"><span class="comment">    包含数据成员，不能包含函数成员。也就是所谓的聚合类。POD型别必然包含无意义 </span></span><br><span class="line"><span class="comment">    的ctor/dtor/copy/assignment函数。 </span></span><br><span class="line"><span class="comment">    */</span>  </span><br><span class="line">    <span class="keyword">typedef</span> _false_type is_POD_type;<span class="comment">//是否为Plain Old Data?  </span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="总结-2"><a class="markdownIt-Anchor" href="#总结-2"></a> 总结</h2>
+<p>通过对<code>type_traits</code>进行特化，标注自己类中的构造，拷贝等行为是否是有意义的，可以大大提高适配算法的效率，这也是<code>type traits</code>存在的意义</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">OriginalS</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/2018/04/19/STL_Iterator/">http://yoursite.com/2018/04/19/STL_Iterator/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/STL/">STL</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/04/21/LinuxExec/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Linux之exec族函数</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/04/17/C++StreamIO/">
+        <span class="next-text nav-default">C++ Stream IO</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:tengzhou989@email.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/originals-tz" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">OriginalS</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.9.0"></script>
+
+  </body>
+</html>
