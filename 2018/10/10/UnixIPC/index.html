@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="UNIX IPC概览 Unix设计风格都秉承着“做单件事并做好”的方法，因此，提供了众多的IPC方法，并用其来连接小型进程，Unix操作系统提倡把程序分解成更简单的子进程，并专注考虑这些子进程间的接口 这得益于Unix上平价的进程生成和简单的进程控制，Unix家族操作系统倾向于减轻fork的开销，特别是Linux，使得进程的生成比其他操作系统的线程生成还要快 实际上，在shell编程中，就无时无">
+<meta name="keywords" content="UNIX&#x2F;Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UNIX IPC">
+<meta property="og:url" content="http://originals-tz.github.io/2018/10/10/UnixIPC/index.html">
+<meta property="og:site_name" content="RACxO">
+<meta property="og:description" content="UNIX IPC概览 Unix设计风格都秉承着“做单件事并做好”的方法，因此，提供了众多的IPC方法，并用其来连接小型进程，Unix操作系统提倡把程序分解成更简单的子进程，并专注考虑这些子进程间的接口 这得益于Unix上平价的进程生成和简单的进程控制，Unix家族操作系统倾向于减轻fork的开销，特别是Linux，使得进程的生成比其他操作系统的线程生成还要快 实际上，在shell编程中，就无时无">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-22T01:42:25.724Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UNIX IPC">
+<meta name="twitter:description" content="UNIX IPC概览 Unix设计风格都秉承着“做单件事并做好”的方法，因此，提供了众多的IPC方法，并用其来连接小型进程，Unix操作系统提倡把程序分解成更简单的子进程，并专注考虑这些子进程间的接口 这得益于Unix上平价的进程生成和简单的进程控制，Unix家族操作系统倾向于减轻fork的开销，特别是Linux，使得进程的生成比其他操作系统的线程生成还要快 实际上，在shell编程中，就无时无">
+
+
+
+
+
+
+  <link rel="canonical" href="http://originals-tz.github.io/2018/10/10/UnixIPC/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>UNIX IPC | RACxO</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RACxO</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">what is life?</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://originals-tz.github.io/2018/10/10/UnixIPC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OriginalS">
+      <meta itemprop="description" content="what is life?">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RACxO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">UNIX IPC
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-10 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-10T00:00:00+08:00">2018-10-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-10-22 09:42:25" itemprop="dateModified" datetime="2018-10-22T09:42:25+08:00">2018-10-22</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="unix-ipc概览"><a class="markdownIt-Anchor" href="#unix-ipc概览"></a> UNIX IPC概览</h1>
+<p>Unix设计风格都秉承着“做单件事并做好”的方法，因此，提供了众多的IPC方法，并用其来连接小型进程，Unix操作系统提倡把程序分解成更简单的子进程，并专注考虑这些子进程间的接口</p>
+<p>这得益于Unix上平价的进程生成和简单的进程控制，Unix家族操作系统倾向于减轻fork的开销，特别是Linux，使得进程的生成比其他操作系统的线程生成还要快</p>
+<p>实际上，在shell编程中，就无时无刻都在鼓励Unix程序员从多个协作进程的角度思考问题，最为简单的例子就是</p>
+<p><code>cat file | less</code></p>
+<p>尽管将程序划分为协作进程可以降低全局的复杂度，但是随之而来的，是我们必须更多地关注在进程间传递消息和命令的协议设计，但这都是后话，首先，先看看Unix下的IPC工具</p>
+<a id="more"></a>
+<h2 id="ipc-工具"><a class="markdownIt-Anchor" href="#ipc-工具"></a> IPC 工具</h2>
+<ul>
+<li>管道</li>
+<li>套接字</li>
+<li>消息队列</li>
+<li>信号量</li>
+<li>共享内存</li>
+</ul>
+<h3 id="管道"><a class="markdownIt-Anchor" href="#管道"></a> 管道</h3>
+<p>管道是Unix上最古老的IPC方式，一个管道就是一个字节流，所谓“流”，便代表“无边界”，因此从管道中读取的数据大小是任意的，而不是固定的，在管道中也无法进行随机读取</p>
+<p>管道中数据的传输是单向的，一端用于读，一端用于写</p>
+<p>在管道中，只要确保写入不超过<strong>PIPE_BUF</strong>字节，那么这个写操作就是原子的，可以确保写入的数据不会发生混杂</p>
+<p>在管道中，容量是有限的，如果容量耗尽，那么写操作就会发生阻塞，直到读操作将一部分取出</p>
+<p>关于pipe的简单用例如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt; //for pipe, fork, read, write</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> myPipe[<span class="number">2</span>]; <span class="comment">//0:read, 1:write</span></span><br><span class="line">    pipe(myPipe);</span><br><span class="line">    <span class="keyword">pid_t</span> pid;</span><br><span class="line"></span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//sub process</span></span><br><span class="line">        close(myPipe[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">char</span> msg[<span class="number">100</span>];</span><br><span class="line">        bzero(msg, <span class="number">100</span>);</span><br><span class="line">        <span class="keyword">int</span> n = read(myPipe[<span class="number">0</span>], msg, <span class="number">100</span>);</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"the size of data :"</span> &lt;&lt; n &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    close(myPipe[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> msg = <span class="string">"hello,world"</span>;</span><br><span class="line">    write(myPipe[<span class="number">1</span>], msg.c_str(), msg.size());</span><br><span class="line">    waitpid(pid, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="system-v-消息队列"><a class="markdownIt-Anchor" href="#system-v-消息队列"></a> System V 消息队列</h2>
+<p>消息队列允许进程以消息的形式交换数据，在ftok中，如果使用相同的path name，那么就会创建出相同的key，这样的话，使用msgget所获得的消息队列也会相同</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/msg.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="comment">// 用于创建一个唯一的key</span></span><br><span class="line"><span class="comment">// 两个进程如果使用同一个路径进行ftok，会得到同一个msqid</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MSG_FILE <span class="meta-string">"/etc/passwd"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> msqid;</span><br><span class="line">    <span class="keyword">key_t</span> key;</span><br><span class="line">    <span class="comment">// 获取key值</span></span><br><span class="line">    <span class="keyword">if</span>((key = ftok(MSG_FILE,<span class="string">'z'</span>)) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">"ftok error"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 打印key值</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Message Queue - Server key is: %d.\n"</span>, key);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建消息队列</span></span><br><span class="line">    <span class="keyword">if</span> ((msqid = msgget(key, IPC_CREAT|<span class="number">0777</span>)) == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">"msgget error"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 打印消息队列ID</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"My msqid is: %d.\n"</span>, msqid);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> msg[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> s;</span><br><span class="line">    <span class="keyword">pid_t</span> pid;</span><br><span class="line">    pid = fork();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//子进程，不断接收数据</span></span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">char</span> recv[<span class="number">100</span>];</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">strcmp</span>(recv, <span class="string">"exit"</span>)) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(recv, <span class="number">0</span>, <span class="number">100</span>);</span><br><span class="line">            msgrcv(msqid, recv, <span class="keyword">sizeof</span>(recv), <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"sub process recv:"</span> &lt;&lt; recv &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(s != <span class="string">"exit"</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::getline(<span class="built_in">std</span>::<span class="built_in">cin</span>, s);</span><br><span class="line">        <span class="built_in">memset</span>(msg, <span class="number">0</span>, <span class="number">100</span>);</span><br><span class="line">        <span class="built_in">strcpy</span>(msg, s.c_str());</span><br><span class="line">        msgsnd(msqid, msg, <span class="keyword">sizeof</span>(msg), <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//msgrcv(msqid, recv, sizeof(recv), 0, 0);</span></span><br><span class="line">    msgctl(msqid, IPC_RMID, <span class="literal">nullptr</span>);</span><br><span class="line">    <span class="comment">//std::cout &lt;&lt; recv &lt;&lt; std::endl;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="system-v-信号量"><a class="markdownIt-Anchor" href="#system-v-信号量"></a> System V 信号量</h2>
+<p>信号量和前面介绍的IPC方式不同，并不是用来传递数据的，而是用来同步进程的</p>
+<p>内核会将所有试图把信号量的值降到0以下的操作堵塞</p>
+<p>如果信号量的值不为0，那么内核会将所有等待信号量的值等于0的进程堵塞</p>
+<p>如果信号量不为N(N&gt;0)，那么内核会将所有等待信号量的值等于N的进程堵塞</p>
+<h2 id="system-v-共享内存"><a class="markdownIt-Anchor" href="#system-v-共享内存"></a> System V 共享内存</h2>
+<p>共享内存允许两个或者多个进程共享物理内存中的同一块区域，这种IPC机制不需要内核介入，所有需要做的就是将数据复制进共享内存中，由于没有了内核的介入，这种IPC比消息队列，管道等都要快</p>
+<h2 id="posix-消息队列"><a class="markdownIt-Anchor" href="#posix-消息队列"></a> POSIX 消息队列</h2>
+<p>POSIX的消息队列是引用计数的，只有所有使用该队列的进程都关闭了队列之后，才会对队列进行标记以删除</p>
+<p>POSIX的消息队列存在优先级，所有消息都是通过优先级排序排队的</p>
+<p>POSIX消息队列提供了一个特性允许队列中的一条信息可用时异步地通知进程</p>
+<h2 id="posix共享内存"><a class="markdownIt-Anchor" href="#posix共享内存"></a> POSIX共享内存</h2>
+<p>POSIX共享内存能够让无关进程共享一个映射区域而不需创建一个相应的映射文件，一些Unix实现将共享对象名创建为文件系统上一个特殊位置处的文件，这些文件会在系统关闭后丢失</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/UNIX-Linux/" rel="tag"># UNIX/Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/05/StructureDesignPattern/" rel="next" title="结构型模式">
+                <i class="fa fa-chevron-left"></i> 结构型模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/22/search_sort/" rel="prev" title="Search & Copy Algorithms">
+                Search & Copy Algorithms <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">OriginalS</p>
+              <p class="site-description motion-element" itemprop="description">what is life?</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OriginalS</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
