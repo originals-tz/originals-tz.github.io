@@ -14,11 +14,11 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-CN">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -56,9 +56,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
@@ -112,10 +112,10 @@
 <meta name="keywords" content="STL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STL之Deque">
-<meta property="og:url" content="http://originals-tz.github.io/2018/08/14/STL_Deque/index.html">
-<meta property="og:site_name" content="RACxO">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/STL_Deque/index.html">
+<meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="deque是双向开口的，可以在头部插入/删除，也可以在尾部插入/删除，而且都是常数时间的复杂度 而这得益于deque的其结构，deque是由多段线型空间组合而成，可以随时增加一段新的空间并连接起来 因此可以把deque看作是一个链表，而每一个链表节点则是一个数组 虽然deque也提供Random Access Iterator，但是这并不是普通的指针，可以的话尽量使用vector">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-09-18T14:55:51.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="STL之Deque">
@@ -126,7 +126,7 @@
 
 
 
-  <link rel="canonical" href="http://originals-tz.github.io/2018/08/14/STL_Deque/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/14/STL_Deque/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>STL之Deque | RACxO</title>
+  <title>STL之Deque | Hexo</title>
   
 
 
@@ -176,7 +176,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
 
   
   
@@ -186,7 +186,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -194,19 +194,15 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">RACxO</span>
+        <span class="site-title">Hexo</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
     
-      
-        <p class="site-subtitle">what is life?</p>
-      
-    
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -226,7 +222,7 @@
           
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
   </li>
         
         
@@ -234,7 +230,7 @@
           
           <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
   </li>
         
         
@@ -242,7 +238,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
   </li>
 
       
@@ -288,21 +284,21 @@
 
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://originals-tz.github.io/2018/08/14/STL_Deque/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/14/STL_Deque/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OriginalS">
-      <meta itemprop="description" content="what is life?">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RACxO">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
     </span>
 
     
@@ -328,14 +324,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="创建时间：2018-08-14 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-14T00:00:00+08:00">2018-08-14</time>
+              <time title="Created: 2018-08-14 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-14T00:00:00+08:00">2018-08-14</time>
             
 
             
@@ -350,9 +346,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">更新于</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="修改时间：2018-09-18 22:55:51" itemprop="dateModified" datetime="2018-09-18T22:55:51+08:00">2018-09-18</time>
+                <time title="Modified: 2018-09-18 22:55:51" itemprop="dateModified" datetime="2018-09-18T22:55:51+08:00">2018-09-18</time>
               
             
           </span>
@@ -390,17 +386,14 @@
 <p>因此可以把deque看作是一个链表，而每一个链表节点则是一个数组</p>
 <p>虽然deque也提供Random Access Iterator，但是这并不是普通的指针，可以的话尽量使用vector</p>
 <a id="more"></a>
-<h2 id="deque的中控器"><a class="markdownIt-Anchor" href="#deque的中控器"></a> deque的中控器</h2>
-<p>deque由于结构并不是真正的线形空间，为了维护其整体连续的假象，并提供随机存取的接口，因此需要使用一块map作为中控器</p>
+<h2 id="deque的中控器"><a href="#deque的中控器" class="headerlink" title="deque的中控器"></a>deque的中控器</h2><p>deque由于结构并不是真正的线形空间，为了维护其整体连续的假象，并提供随机存取的接口，因此需要使用一块map作为中控器</p>
 <p>其中map的每一个元素指向一个节点(一块连续的空间)，我们称这块空间为缓冲区</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> _<span class="title">Deque_base</span> &#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">  _Tp** _M_map; <span class="comment">//中控器</span></span><br><span class="line">  <span class="keyword">size_t</span> _M_map_size;  <span class="comment">//中控器的容量</span></span><br><span class="line">  iterator _M_start; <span class="comment">//缓冲区的头</span></span><br><span class="line">  iterator _M_finish;<span class="comment">//缓冲区的尾</span></span><br><span class="line">  </span><br><span class="line">  <span class="function">iterator <span class="title">begin</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> _M_start; &#125;</span><br><span class="line">  <span class="function">iterator <span class="title">end</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> _M_finish; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="deque的迭代器"><a class="markdownIt-Anchor" href="#deque的迭代器"></a> deque的迭代器</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Ref</span>, <span class="title">class</span> _<span class="title">Ptr</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> _<span class="title">Deque_iterator</span> &#123;</span></span><br><span class="line">  _Tp* _M_cur; <span class="comment">//指向当前元素</span></span><br><span class="line">  _Tp* _M_first;<span class="comment">//当前缓冲区的头</span></span><br><span class="line">  _Tp* _M_last;<span class="comment">//当前缓冲区的尾</span></span><br><span class="line">  _Map_pointer _M_node;</span><br><span class="line"></span><br><span class="line">  _Self&amp; <span class="keyword">operator</span>++() &#123;</span><br><span class="line">    ++_M_cur;</span><br><span class="line">    <span class="keyword">if</span> (_M_cur == _M_last) &#123;</span><br><span class="line">      _M_set_node(_M_node + <span class="number">1</span>);</span><br><span class="line">      _M_cur = _M_first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>; </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  _Self&amp; <span class="keyword">operator</span>--() &#123;</span><br><span class="line">    <span class="keyword">if</span> (_M_cur == _M_first) &#123;</span><br><span class="line">      _M_set_node(_M_node - <span class="number">1</span>);</span><br><span class="line">      _M_cur = _M_last;</span><br><span class="line">    &#125;</span><br><span class="line">    --_M_cur;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>迭代器所进行++和–的操作，需要进行边界判断，判断是否能到达下一个/上一个缓冲区</p>
+<h2 id="deque的迭代器"><a href="#deque的迭代器" class="headerlink" title="deque的迭代器"></a>deque的迭代器</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Ref</span>, <span class="title">class</span> _<span class="title">Ptr</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> _<span class="title">Deque_iterator</span> &#123;</span></span><br><span class="line">  _Tp* _M_cur; <span class="comment">//指向当前元素</span></span><br><span class="line">  _Tp* _M_first;<span class="comment">//当前缓冲区的头</span></span><br><span class="line">  _Tp* _M_last;<span class="comment">//当前缓冲区的尾</span></span><br><span class="line">  _Map_pointer _M_node;</span><br><span class="line"></span><br><span class="line">  _Self&amp; <span class="keyword">operator</span>++() &#123;</span><br><span class="line">    ++_M_cur;</span><br><span class="line">    <span class="keyword">if</span> (_M_cur == _M_last) &#123;</span><br><span class="line">      _M_set_node(_M_node + <span class="number">1</span>);</span><br><span class="line">      _M_cur = _M_first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>; </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  _Self&amp; <span class="keyword">operator</span>--() &#123;</span><br><span class="line">    <span class="keyword">if</span> (_M_cur == _M_first) &#123;</span><br><span class="line">      _M_set_node(_M_node - <span class="number">1</span>);</span><br><span class="line">      _M_cur = _M_last;</span><br><span class="line">    &#125;</span><br><span class="line">    --_M_cur;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>迭代器所进行++和—的操作，需要进行边界判断，判断是否能到达下一个/上一个缓冲区</p>
 <p>这个行为依赖于<code>_M_set_node</code></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _M_set_node(_Map_pointer __new_node) &#123;</span><br><span class="line">    _M_node = __new_node;</span><br><span class="line">    _M_first = *__new_node;</span><br><span class="line">    _M_last = _M_first + difference_type(_S_buffer_size());</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="deque的内存管理"><a class="markdownIt-Anchor" href="#deque的内存管理"></a> deque的内存管理</h2>
-<p>deque的结构，使其需要管理map以及缓冲区</p>
+<h2 id="deque的内存管理"><a href="#deque的内存管理" class="headerlink" title="deque的内存管理"></a>deque的内存管理</h2><p>deque的结构，使其需要管理map以及缓冲区</p>
 <p>当新建缓冲区的时候，不仅需要构建一块缓冲区，还要往map中构造一个指针，而这些操作由以下函数完成</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">_Tp* _M_allocate_node() &#123;</span><br><span class="line">    <span class="keyword">return</span> _M_node_allocator.allocate(__deque_buf_size(<span class="keyword">sizeof</span>(_Tp)));</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">void</span> _M_deallocate_node(_Tp* __p) &#123;</span><br><span class="line">    _M_node_allocator.deallocate(__p, __deque_buf_size(<span class="keyword">sizeof</span>(_Tp)));</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">_Tp** _M_allocate_map(<span class="keyword">size_t</span> __n) </span><br><span class="line">    &#123; <span class="keyword">return</span> _M_map_allocator.allocate(__n); &#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">void</span> _M_deallocate_map(_Tp** __p, <span class="keyword">size_t</span> __n) </span><br><span class="line">    &#123; _M_map_allocator.deallocate(__p, __n); &#125;</span><br></pre></td></tr></table></figure>
 <p>安排deque的结构</p>
@@ -438,8 +431,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/09/C++TemplatePractice1/" rel="next" title="C++ 模版编程">
-                <i class="fa fa-chevron-left"></i> C++ 模版编程
+              <a href="/2018/08/14/STL_List/" rel="next" title="STL之List">
+                <i class="fa fa-chevron-left"></i> STL之List
               </a>
             
           </div>
@@ -448,8 +441,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/14/STL_List/" rel="prev" title="STL之List">
-                STL之List <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/14/STL_Vector/" rel="prev" title="STL之Vector">
+                STL之Vector <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -498,10 +491,10 @@
 
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">OriginalS</p>
-              <p class="site-description motion-element" itemprop="description">what is life?</p>
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           
@@ -511,8 +504,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
-                    <span class="site-state-item-name">日志</span>
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -548,14 +541,8 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">9</span>
-                    <span class="site-state-item-name">标签</span>
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -598,7 +585,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">OriginalS</span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
 
   
 
@@ -608,7 +595,7 @@
 
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
 
 
 
@@ -616,7 +603,7 @@
 
 
 
-  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
 
 
 

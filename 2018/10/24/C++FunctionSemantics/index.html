@@ -14,11 +14,11 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-CN">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -56,9 +56,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="Function 语意学 Member Function的各种调用方式  Nonstatic Member Functions C++的设计准则之一就是：成员函数要和一般函数拥有同样的效率，成员函数不应该带来额外的负担，这也就是为什么每一个成员函数的参数列表都隐含一个this指针的原因 那么member function是如何转化为nonmember function的呢？具体如下">
+  <meta name="description" content="Function 语意学Member Function的各种调用方式 Nonstatic Member FunctionsC++的设计准则之一就是：成员函数要和一般函数拥有同样的效率，成员函数不应该带来额外的负担，这也就是为什么每一个成员函数的参数列表都隐含一个this指针的原因 那么member function是如何转化为nonmember function的呢？具体如下">
 <meta name="keywords" content="C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Function Semantics">
-<meta property="og:url" content="http://originals-tz.github.io/2018/10/24/C++FunctionSemantics/index.html">
-<meta property="og:site_name" content="RACxO">
-<meta property="og:description" content="Function 语意学 Member Function的各种调用方式  Nonstatic Member Functions C++的设计准则之一就是：成员函数要和一般函数拥有同样的效率，成员函数不应该带来额外的负担，这也就是为什么每一个成员函数的参数列表都隐含一个this指针的原因 那么member function是如何转化为nonmember function的呢？具体如下">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:url" content="http://yoursite.com/2018/10/24/C++FunctionSemantics/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Function 语意学Member Function的各种调用方式 Nonstatic Member FunctionsC++的设计准则之一就是：成员函数要和一般函数拥有同样的效率，成员函数不应该带来额外的负担，这也就是为什么每一个成员函数的参数列表都隐含一个this指针的原因 那么member function是如何转化为nonmember function的呢？具体如下">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-10-24T08:44:49.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Function Semantics">
-<meta name="twitter:description" content="Function 语意学 Member Function的各种调用方式  Nonstatic Member Functions C++的设计准则之一就是：成员函数要和一般函数拥有同样的效率，成员函数不应该带来额外的负担，这也就是为什么每一个成员函数的参数列表都隐含一个this指针的原因 那么member function是如何转化为nonmember function的呢？具体如下">
+<meta name="twitter:description" content="Function 语意学Member Function的各种调用方式 Nonstatic Member FunctionsC++的设计准则之一就是：成员函数要和一般函数拥有同样的效率，成员函数不应该带来额外的负担，这也就是为什么每一个成员函数的参数列表都隐含一个this指针的原因 那么member function是如何转化为nonmember function的呢？具体如下">
 
 
 
 
 
 
-  <link rel="canonical" href="http://originals-tz.github.io/2018/10/24/C++FunctionSemantics/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/24/C++FunctionSemantics/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>Function Semantics | RACxO</title>
+  <title>Function Semantics | Hexo</title>
   
 
 
@@ -176,7 +176,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
 
   
   
@@ -186,7 +186,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -194,19 +194,15 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">RACxO</span>
+        <span class="site-title">Hexo</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
     
-      
-        <p class="site-subtitle">what is life?</p>
-      
-    
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -226,7 +222,7 @@
           
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
   </li>
         
         
@@ -234,7 +230,7 @@
           
           <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
   </li>
         
         
@@ -242,7 +238,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
   </li>
 
       
@@ -288,21 +284,21 @@
 
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://originals-tz.github.io/2018/10/24/C++FunctionSemantics/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/24/C++FunctionSemantics/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OriginalS">
-      <meta itemprop="description" content="what is life?">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RACxO">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
     </span>
 
     
@@ -328,14 +324,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="创建时间：2018-10-24 00:00:00 / 修改时间：16:44:49" itemprop="dateCreated datePublished" datetime="2018-10-24T00:00:00+08:00">2018-10-24</time>
+              <time title="Created: 2018-10-24 00:00:00 / Modified: 16:44:49" itemprop="dateCreated datePublished" datetime="2018-10-24T00:00:00+08:00">2018-10-24</time>
             
 
             
@@ -373,19 +369,15 @@
       
 
       
-        <h1 id="function-语意学"><a class="markdownIt-Anchor" href="#function-语意学"></a> Function 语意学</h1>
-<p>Member Function的各种调用方式</p>
-<h2 id="nonstatic-member-functions"><a class="markdownIt-Anchor" href="#nonstatic-member-functions"></a> Nonstatic Member Functions</h2>
-<p>C++的设计准则之一就是：成员函数要和一般函数拥有同样的效率，成员函数不应该带来额外的负担，这也就是为什么每一个成员函数的参数列表都隐含一个this指针的原因</p>
+        <h1 id="Function-语意学"><a href="#Function-语意学" class="headerlink" title="Function 语意学"></a>Function 语意学</h1><p>Member Function的各种调用方式</p>
+<h2 id="Nonstatic-Member-Functions"><a href="#Nonstatic-Member-Functions" class="headerlink" title="Nonstatic Member Functions"></a>Nonstatic Member Functions</h2><p>C++的设计准则之一就是：成员函数要和一般函数拥有同样的效率，成员函数不应该带来额外的负担，这也就是为什么每一个成员函数的参数列表都隐含一个this指针的原因</p>
 <p>那么member function是如何转化为nonmember function的呢？具体如下</p>
 <a id="more"></a>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*1.改写函数的signature,为的是把this指针作为参数传入*/</span></span><br><span class="line"><span class="keyword">void</span> ClassA::foo();</span><br><span class="line"><span class="comment">//变成</span></span><br><span class="line"><span class="keyword">void</span> ClassA::foo(ClassA * <span class="keyword">const</span> <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*2.把对nonstatic data member的存取改为经由this指针的存取*/</span></span><br><span class="line">&#123;</span><br><span class="line">    z = x * y;</span><br><span class="line">    <span class="comment">//变为</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;z = <span class="keyword">this</span>-&gt;x * <span class="keyword">this</span>-&gt;y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*3.将member function重写为一个外部函数，将函数名进行 mangling 处理，使其独一无二*/</span></span><br><span class="line"><span class="comment">//例如</span></span><br><span class="line"><span class="keyword">float</span> Point3d::magnitude() <span class="keyword">const</span>;</span><br><span class="line"><span class="comment">//会变成</span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="title">magnitude_7Point3dFv</span><span class="params">(<span class="keyword">register</span> Point3d *<span class="keyword">const</span> <span class="keyword">this</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*4.然后转化程序中对该member function的调用*/</span></span><br><span class="line">obj.magnitude();</span><br><span class="line"><span class="comment">//变成</span></span><br><span class="line">magnitude_7Point3dFv(&amp;obj);</span><br><span class="line"></span><br><span class="line">ptr-&gt;magnitude();</span><br><span class="line"><span class="comment">//变成</span></span><br><span class="line">magnitude_7Point3dFv(ptr);</span><br></pre></td></tr></table></figure>
-<h2 id="名称的特殊处理name-mangling"><a class="markdownIt-Anchor" href="#名称的特殊处理name-mangling"></a> 名称的特殊处理(Name Mangling)</h2>
-<p>其实在上面所述的步骤中，比较复杂的一点在于<strong>Name Mangling</strong>,生成独一无二的命名</p>
-<p>之前在讨论<a href="https://originals-tz.github.io/2018/05/15/TypeOfReturn&amp;Override/">函数重载和返回值的关系</a>之时，也曾略微讨论过这个话题</p>
+<h2 id="名称的特殊处理-Name-Mangling"><a href="#名称的特殊处理-Name-Mangling" class="headerlink" title="名称的特殊处理(Name Mangling)"></a>名称的特殊处理(Name Mangling)</h2><p>其实在上面所述的步骤中，比较复杂的一点在于<strong>Name Mangling</strong>,生成独一无二的命名</p>
+<p>之前在讨论<a href="https://originals-tz.github.io/2018/05/15/TypeOfReturn&amp;Override/" target="_blank" rel="noopener">函数重载和返回值的关系</a>之时，也曾略微讨论过这个话题</p>
 <p>其实到目前为止，编译器并没有统一的编码方法，不过大概的规则也就是<strong>函数名+参数个数+参数类型</strong>，因此只需知道存在此步骤即可</p>
-<h2 id="static-member-functions"><a class="markdownIt-Anchor" href="#static-member-functions"></a> Static Member Functions</h2>
-<p>以下是static member functions的特性</p>
+<h2 id="Static-Member-Functions"><a href="#Static-Member-Functions" class="headerlink" title="Static Member Functions"></a>Static Member Functions</h2><p>以下是static member functions的特性</p>
 <ul>
 <li>不能直接存取class中的<strong>nonstatic members</strong></li>
 <li>不能被声明为<strong>const, volatile, virtual</strong></li>
@@ -396,8 +388,7 @@
 <p>如下所示，<strong>static member function</strong>的地址类型其实是<strong>nonstatic function</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T1</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"hello"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> (*p)() = T1::say;</span><br><span class="line">    p();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>因此，可以作为回调函数，因为该函数不涉及具体的<strong>class object</strong>,可作为一般函数指针传入</p>
-<h2 id="virtual-member-functions"><a class="markdownIt-Anchor" href="#virtual-member-functions"></a> Virtual Member Functions</h2>
-<p>我们都知道，对于Virtual Member Functions的调用实际上是通过vptr所指向的vtbl进行决议的</p>
+<h2 id="Virtual-Member-Functions"><a href="#Virtual-Member-Functions" class="headerlink" title="Virtual Member Functions"></a>Virtual Member Functions</h2><p>我们都知道，对于Virtual Member Functions的调用实际上是通过vptr所指向的vtbl进行决议的</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//假设foo是一个virtual member function</span></span><br><span class="line">ptr-&gt;foo();</span><br><span class="line"><span class="comment">//会变成</span></span><br><span class="line">(*ptr-&gt;vptr[<span class="number">1</span>])(ptr);</span><br></pre></td></tr></table></figure>
 <p>通过vptr所指向的vtbl，再通过索引，获得对应函数指针并进行调用</p>
 <p>但是如果是经由一个<strong>class object</strong>调用一个<strong>virtual function</strong>，这种操作总会被编译器当作一般的<strong>nonstatic member function</strong>，所进行的转化就如之前所述</p>
@@ -434,8 +425,7 @@
 </ul>
 <p>然后，通过下面的例子，我们很容易得出结论</p>
 <ul>
-<li>我们不知道<code>p</code>所指向的对象的类型，但是可以通过<code>p</code>存取到该对象的<strong>vptr</strong>，继而通过<strong>vptr</strong>获得该对象类型(class)的<strong>vtbl</strong>
-<ul>
+<li>我们不知道<code>p</code>所指向的对象的类型，但是可以通过<code>p</code>存取到该对象的<strong>vptr</strong>，继而通过<strong>vptr</strong>获得该对象类型(class)的<strong>vtbl</strong><ul>
 <li>因为虚函数需要通过vptr进行存取，然后vptr是存放在对象中的，对象是通过构造函数进行构建的，因此，vptr的生成和赋值是在构造函数中的，这就是为什么构造函数不能是<code>vitrual</code>的理由</li>
 </ul>
 </li>
@@ -443,20 +433,17 @@
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T1</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"T1"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T2</span> :</span> <span class="keyword">public</span> T1</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"T2"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T1 *p;</span><br><span class="line">    T1 x;</span><br><span class="line">    T2 y;</span><br><span class="line"></span><br><span class="line">    p = &amp;x;</span><br><span class="line">    p-&gt;say();</span><br><span class="line">    p = &amp;y;</span><br><span class="line">    p-&gt;say();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<h3 id="q1"><a class="markdownIt-Anchor" href="#q1"></a> Q1</h3>
-<p>接下来回答一个问题：为什么我们不知道p所指向的对象的类型呢？看都能看出来啊，既然<code>p=&amp;y</code>,y是<code>T2</code>类型的，那么p指向的对象类型肯定是<code>T2</code>啊</p>
+<h3 id="Q1"><a href="#Q1" class="headerlink" title="Q1"></a>Q1</h3><p>接下来回答一个问题：为什么我们不知道p所指向的对象的类型呢？看都能看出来啊，既然<code>p=&amp;y</code>,y是<code>T2</code>类型的，那么p指向的对象类型肯定是<code>T2</code>啊</p>
 <p>就我个人理解，在程序编译时的解析中，变量的类型已经绑定好了，例如会生成如下的信息</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;T1 *, p&gt;;</span><br><span class="line">&lt;T1 , x&gt;;</span><br><span class="line">&lt;T2 , y&gt;;</span><br></pre></td></tr></table></figure>
 <p>p所指的内存空间，仍会解析为T1类型，因此，p不能访问到T2的方法，但是可以访问到T2和T1共有的成员变量，如vptr</p>
 <p>我们不知道p所指向的对象的类型，其实是从编译器的角度来说的，编译器无法直接生成确定的调用，如下</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">p-&gt;say();</span><br><span class="line"><span class="comment">//无法直接生成</span></span><br><span class="line">(T1::vtbl[n])();</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">(T2::vtbl[n])()</span><br><span class="line"><span class="comment">//只能生成</span></span><br><span class="line">(*p-&gt;vptr[<span class="number">1</span>])(ptr);</span><br></pre></td></tr></table></figure>
 <p>这也就是为什么称之为动态绑定的原因</p>
-<h3 id="q2"><a class="markdownIt-Anchor" href="#q2"></a> Q2</h3>
-<p>打印vtbl</p>
+<h3 id="Q2"><a href="#Q2" class="headerlink" title="Q2"></a>Q2</h3><p>打印vtbl</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span> :</span><br><span class="line">    <span class="keyword">int</span> base_data;</span><br><span class="line">    Base() &#123; base_data = <span class="number">1</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"base_func1"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"base_func2"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func3</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"base_func3"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derive</span> :</span> <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> :</span><br><span class="line">    <span class="keyword">int</span> derive_data;</span><br><span class="line">    Derive() &#123; derive_data = <span class="number">2</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"derive_func1"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"derive_func2"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*func)</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printVTBL</span><span class="params">(T &amp;obj, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> * vtbl = (<span class="keyword">unsigned</span> <span class="keyword">long</span> *) * (<span class="keyword">unsigned</span> <span class="keyword">long</span> *) &amp;obj + i;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"slot address : "</span> &lt;&lt; vtbl &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"func address : "</span> &lt;&lt; *vtbl &lt;&lt; <span class="string">"\n"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Base base;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;base: "</span> &lt;&lt; &amp;base &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;base.base_data: "</span> &lt;&lt; &amp;base.base_data &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"----------------------------------------"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    printVTBL(base, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"----------------------------------------"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    Derive derive;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;derive: "</span> &lt;&lt; &amp;derive &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;derive.base_data: "</span> &lt;&lt; &amp;derive.base_data &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;derive.derive_data: "</span> &lt;&lt; &amp;derive.derive_data &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"----------------------------------------"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    printVTBL(derive, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"----------------------------------------"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="多重继承下的vitrual-functions"><a class="markdownIt-Anchor" href="#多重继承下的vitrual-functions"></a> 多重继承下的Vitrual Functions</h2>
-<p>在多重继承的模型下，一个<strong>class</strong>可能会拥有多个<strong>vtbl</strong></p>
+<h2 id="多重继承下的Vitrual-Functions"><a href="#多重继承下的Vitrual-Functions" class="headerlink" title="多重继承下的Vitrual Functions"></a>多重继承下的Vitrual Functions</h2><p>在多重继承的模型下，一个<strong>class</strong>可能会拥有多个<strong>vtbl</strong></p>
 <p>如下的继承关系</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derive</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DD</span> :</span> <span class="keyword">public</span> Base, <span class="keyword">public</span> Derive;</span><br></pre></td></tr></table></figure>
 <p>所进行的构造顺序为<strong>Base-&gt;Derive-&gt;DD</strong>,所进行的析构顺序为<strong>DD-&gt;Derive-&gt;Base</strong></p>
@@ -464,14 +451,12 @@
 <p>根据以上的测试代码可知，<strong>DD</strong>含有多个VTBL</p>
 <p>pdd所在的位置存在一个vptr，指向Base所拥有的vtbl</p>
 <p>pdd+Base得到另一个vptr，指向Derive所拥有的vtbl，因此在调用Derive的析构函数的时候会对指针进行调整</p>
-<h3 id="thunk技术"><a class="markdownIt-Anchor" href="#thunk技术"></a> thunk技术</h3>
-<p>所谓thunk是一小段的汇编代码，用来</p>
+<h3 id="thunk技术"><a href="#thunk技术" class="headerlink" title="thunk技术"></a>thunk技术</h3><p>所谓thunk是一小段的汇编代码，用来</p>
 <ul>
 <li>以适当的offset调整this指针</li>
 <li>跳到virtual function中去</li>
 </ul>
-<h2 id="虚继承下的virtual-functions"><a class="markdownIt-Anchor" href="#虚继承下的virtual-functions"></a> 虚继承下的Virtual Functions</h2>
-<p>虚拟继承是多重继承中特有的概念</p>
+<h2 id="虚继承下的Virtual-Functions"><a href="#虚继承下的Virtual-Functions" class="headerlink" title="虚继承下的Virtual Functions"></a>虚继承下的Virtual Functions</h2><p>虚拟继承是多重继承中特有的概念</p>
 <p>虚拟基类是为解决多重继承而出现的，如:类D继承自类B1、B2，而类B1、B2都继承自类A，因此在类D中两次出现类A中的变量和函数</p>
 <p>为了节省内存空间，可以将B1、B2对A的继承定义为虚拟继承，而A就成了虚拟基类</p>
 <p>然后，不要在virtual base class中声明nonstatic data members，因为存在共享的数据</p>
@@ -519,6 +504,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/11/01/OptimizedReady/" rel="prev" title="优化入门">
+                优化入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -565,10 +554,10 @@
 
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">OriginalS</p>
-              <p class="site-description motion-element" itemprop="description">what is life?</p>
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           
@@ -578,8 +567,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
-                    <span class="site-state-item-name">日志</span>
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -615,14 +604,8 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">9</span>
-                    <span class="site-state-item-name">标签</span>
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -665,7 +648,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">OriginalS</span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
 
   
 
@@ -675,7 +658,7 @@
 
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
 
 
 
@@ -683,7 +666,7 @@
 
 
 
-  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
 
 
 
