@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="heap在STL中并不属于容器组建，而且作为priority queue的助手,你可以在&amp;lt;algorithms&amp;gt;中找到关于heap的算法，如  make_heap is_heap pop_heap push_heap sort_heap">
+<meta name="keywords" content="STL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STL之Heap">
+<meta property="og:url" content="http://yoursite.com/2018/12/02/STL_Heap/index.html">
+<meta property="og:site_name" content="RACx0">
+<meta property="og:description" content="heap在STL中并不属于容器组建，而且作为priority queue的助手,你可以在&amp;lt;algorithms&amp;gt;中找到关于heap的算法，如  make_heap is_heap pop_heap push_heap sort_heap">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/12/02/img/5.png">
+<meta property="og:updated_time" content="2018-12-02T08:05:58.366Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="STL之Heap">
+<meta name="twitter:description" content="heap在STL中并不属于容器组建，而且作为priority queue的助手,你可以在&amp;lt;algorithms&amp;gt;中找到关于heap的算法，如  make_heap is_heap pop_heap push_heap sort_heap">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/02/img/5.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/02/STL_Heap/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>STL之Heap | RACx0</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RACx0</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/STL_Heap/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OriginalS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RACx0">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">STL之Heap
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-02 00:00:00 / Modified: 16:05:58" itemprop="dateCreated datePublished" datetime="2018-12-02T00:00:00+08:00">2018-12-02</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>heap</strong>在STL中并不属于容器组建，而且作为<strong>priority queue</strong>的助手,你可以在<code>&lt;algorithms&gt;</code>中找到关于<strong>heap</strong>的算法，如</p>
+<ul>
+<li>make_heap</li>
+<li>is_heap</li>
+<li>pop_heap</li>
+<li>push_heap</li>
+<li>sort_heap</li>
+</ul>
+<a id="more"></a>
+<p>在进行<strong>heap</strong>的分析之前，我们先了解一下<strong>priority queue(优先队列)</strong></p>
+<p>许多应用程序需要处理有序的元素，但不一定要求它们全部有序，有时候我们只想处理优先级最高的元素(例如基于优先级的调度器)，这样，就要求一个能够</p>
+<ul>
+<li>删除最大元素</li>
+<li>插入元素</li>
+</ul>
+<p>的数据结构，我们称其为<strong>priority queue</strong>,实现<strong>priority queue</strong>的合适做法是使用<strong>binary heap</strong>，所谓的<strong>binary heap</strong>就是一种完全二叉树，因此我们可以用数组来实现它，例如下面的例子</p>
+<p><img src="../img/5.png" alt="5"></p>
+<p>用数组表示就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;1,2,3,4,5&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="有序化"><a href="#有序化" class="headerlink" title="有序化"></a>有序化</h2><p>前面也提到了，<strong>priority queue</strong>是有序的，而且可以删除最大的元素，然后插入元素依旧可以保持有序，其中的奥秘就是在进行删除和插入的操作的时候，<strong>priority queue</strong>会按照一定的规则进行有序化</p>
+<h3 id="上浮"><a href="#上浮" class="headerlink" title="上浮"></a>上浮</h3><p>如果堆的有序状态因为某个节点变得比它的父节点大而被打破，例如在数组后面插入一个很大很大的节点，那么就要交换该节点和其父节点，然后，交换之后，仍旧可能大于父节点，然后继续交换，这种行为称为上浮</p>
+<h3 id="下沉"><a href="#下沉" class="headerlink" title="下沉"></a>下沉</h3><p>和上浮相反</p>
+<h2 id="push-heap"><a href="#push-heap" class="headerlink" title="push_heap"></a>push_heap</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RandomAccessIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> </span></span><br><span class="line"><span class="class"><span class="title">push_heap</span>(_<span class="title">RandomAccessIterator</span> __<span class="title">first</span>, _<span class="title">RandomAccessIterator</span> __<span class="title">last</span>) //<span class="title">RandomAccessIteraotr</span>说明用的是内存连续的数据结构</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  __STL_REQUIRES(_RandomAccessIterator, _Mutable_RandomAccessIterator);</span><br><span class="line">  __STL_REQUIRES(<span class="keyword">typename</span> iterator_traits&lt;_RandomAccessIterator&gt;::value_type,</span><br><span class="line">                 _LessThanComparable);</span><br><span class="line">  __push_heap_aux(__first, __last,</span><br><span class="line">                  __DISTANCE_TYPE(__first), __VALUE_TYPE(__first));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RandomAccessIterator</span>, <span class="title">class</span> _<span class="title">Distance</span>, <span class="title">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> </span></span><br><span class="line"><span class="class">__<span class="title">push_heap_aux</span>(_<span class="title">RandomAccessIterator</span> __<span class="title">first</span>,</span></span><br><span class="line"><span class="class">                _<span class="title">RandomAccessIterator</span> __<span class="title">last</span>, _<span class="title">Distance</span>*, _<span class="title">Tp</span>*)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  __push_heap(__first, _Distance((__last - __first) - <span class="number">1</span>), _Distance(<span class="number">0</span>), </span><br><span class="line">              _Tp(*(__last - <span class="number">1</span>)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RandomAccessIterator</span>, <span class="title">class</span> _<span class="title">Distance</span>, <span class="title">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> </span></span><br><span class="line"><span class="class">__<span class="title">push_heap</span>(_<span class="title">RandomAccessIterator</span> __<span class="title">first</span>,</span></span><br><span class="line"><span class="class">            _<span class="title">Distance</span> __<span class="title">holeIndex</span>, _<span class="title">Distance</span> __<span class="title">topIndex</span>, _<span class="title">Tp</span> __<span class="title">value</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  _Distance __parent = (__holeIndex - <span class="number">1</span>) / <span class="number">2</span>; <span class="comment">//找出父节点的位置</span></span><br><span class="line">  <span class="keyword">while</span> (__holeIndex &gt; __topIndex &amp;&amp; *(__first + __parent) &lt; __value) &#123; <span class="comment">//新值大于父节点，且还没到达根节点</span></span><br><span class="line">      <span class="comment">//交换父节点和新节点</span></span><br><span class="line">    *(__first + __holeIndex) = *(__first + __parent); </span><br><span class="line">    __holeIndex = __parent;</span><br><span class="line">      <span class="comment">//交换完毕，找出交换之后新节点的父节点</span></span><br><span class="line">    __parent = (__holeIndex - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">  &#125;    </span><br><span class="line">  *(__first + __holeIndex) = __value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="pop-heap"><a href="#pop-heap" class="headerlink" title="pop_heap"></a>pop_heap</h2><p>值得注意的是，虽然是<code>pop_heap</code>，但并没有在操作结束之后把元素给删除，而是将其移动到容器末尾，然后再由用户决定是否删除</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RandomAccessIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">pop_heap</span>(_<span class="title">RandomAccessIterator</span> __<span class="title">first</span>, </span></span><br><span class="line"><span class="class">                     _<span class="title">RandomAccessIterator</span> __<span class="title">last</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  __STL_REQUIRES(_RandomAccessIterator, _Mutable_RandomAccessIterator);</span><br><span class="line">  __STL_REQUIRES(<span class="keyword">typename</span> iterator_traits&lt;_RandomAccessIterator&gt;::value_type,</span><br><span class="line">                 _LessThanComparable);</span><br><span class="line">  __pop_heap_aux(__first, __last, __VALUE_TYPE(__first));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RandomAccessIterator</span>, <span class="title">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> </span></span><br><span class="line"><span class="class">__<span class="title">pop_heap_aux</span>(_<span class="title">RandomAccessIterator</span> __<span class="title">first</span>, _<span class="title">RandomAccessIterator</span> __<span class="title">last</span>,</span></span><br><span class="line"><span class="class">               _<span class="title">Tp</span>*)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  __pop_heap(__first, __last - <span class="number">1</span>, __last - <span class="number">1</span>, </span><br><span class="line">             _Tp(*(__last - <span class="number">1</span>)), __DISTANCE_TYPE(__first));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RandomAccessIterator</span>, <span class="title">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Distance</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> </span></span><br><span class="line"><span class="class">__<span class="title">pop_heap</span>(_<span class="title">RandomAccessIterator</span> __<span class="title">first</span>, _<span class="title">RandomAccessIterator</span> __<span class="title">last</span>,</span></span><br><span class="line"><span class="class">           _<span class="title">RandomAccessIterator</span> __<span class="title">result</span>, _<span class="title">Tp</span> __<span class="title">value</span>, _<span class="title">Distance</span>*)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  *__result = *__first;</span><br><span class="line">  __adjust_heap(__first, _Distance(<span class="number">0</span>), _Distance(__last - __first), __value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RandomAccessIterator</span>, <span class="title">class</span> _<span class="title">Distance</span>, <span class="title">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> </span></span><br><span class="line"><span class="class">__<span class="title">adjust_heap</span>(_<span class="title">RandomAccessIterator</span> __<span class="title">first</span>, _<span class="title">Distance</span> __<span class="title">holeIndex</span>,</span></span><br><span class="line"><span class="class">              _<span class="title">Distance</span> __<span class="title">len</span>, _<span class="title">Tp</span> __<span class="title">value</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  _Distance __topIndex = __holeIndex;</span><br><span class="line">  _Distance __secondChild = <span class="number">2</span> * __holeIndex + <span class="number">2</span>; <span class="comment">//右子节点相对于父节点的位置，见注</span></span><br><span class="line">  <span class="keyword">while</span> (__secondChild &lt; __len) &#123;</span><br><span class="line">    <span class="keyword">if</span> (*(__first + __secondChild) &lt; *(__first + (__secondChild - <span class="number">1</span>))) <span class="comment">//比较左右两节点，找出较大者</span></span><br><span class="line">      __secondChild--;</span><br><span class="line">    *(__first + __holeIndex) = *(__first + __secondChild); <span class="comment">//与较大者交换</span></span><br><span class="line">    __holeIndex = __secondChild;</span><br><span class="line">    __secondChild = <span class="number">2</span> * (__secondChild + <span class="number">1</span>); <span class="comment">//找出交换之后的右子节点</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (__secondChild == __len) &#123; <span class="comment">//如果只有左节点，没有右子节点</span></span><br><span class="line">    *(__first + __holeIndex) = *(__first + (__secondChild - <span class="number">1</span>)); <span class="comment">//与左节点交换</span></span><br><span class="line">    __holeIndex = __secondChild - <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  __push_heap(__first, __holeIndex, __topIndex, __value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注：{1,2,3,4,5,6}，数组长度为6，3的下标为2，3只有左节点6，2 * 2 + 2 = 6, 6等于数组长度，故3没有右节点，如果大于数组长度，说明3没有左节点</p>
+<h2 id="sort-heap"><a href="#sort-heap" class="headerlink" title="sort_heap"></a>sort_heap</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RandomAccessIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">sort_heap</span>(_<span class="title">RandomAccessIterator</span> __<span class="title">first</span>, _<span class="title">RandomAccessIterator</span> __<span class="title">last</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  __STL_REQUIRES(_RandomAccessIterator, _Mutable_RandomAccessIterator);</span><br><span class="line">  __STL_REQUIRES(<span class="keyword">typename</span> iterator_traits&lt;_RandomAccessIterator&gt;::value_type,</span><br><span class="line">                 _LessThanComparable);</span><br><span class="line">  <span class="keyword">while</span> (__last - __first &gt; <span class="number">1</span>)</span><br><span class="line">    pop_heap(__first, __last--);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个就很简单，既然我们知道，<code>pop_heap</code>能够将heap的根节点(也就是heap的最大节点)移动到末尾，那么只要对堆不断进行<code>pop_heap</code>操作，然后缩小<code>pop_heap</code>所操作的的范围，就能获取有序的数据集</p>
+<h2 id="make-heap"><a href="#make-heap" class="headerlink" title="make_heap"></a>make_heap</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RandomAccessIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> </span></span><br><span class="line"><span class="class"><span class="title">make_heap</span>(_<span class="title">RandomAccessIterator</span> __<span class="title">first</span>, _<span class="title">RandomAccessIterator</span> __<span class="title">last</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  __STL_REQUIRES(_RandomAccessIterator, _Mutable_RandomAccessIterator);</span><br><span class="line">  __STL_REQUIRES(<span class="keyword">typename</span> iterator_traits&lt;_RandomAccessIterator&gt;::value_type,</span><br><span class="line">                 _LessThanComparable);</span><br><span class="line">  __make_heap(__first, __last,</span><br><span class="line">              __VALUE_TYPE(__first), __DISTANCE_TYPE(__first));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">RandomAccessIterator</span>, <span class="title">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Distance</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> </span></span><br><span class="line"><span class="class">__<span class="title">make_heap</span>(_<span class="title">RandomAccessIterator</span> __<span class="title">first</span>,</span></span><br><span class="line"><span class="class">            _<span class="title">RandomAccessIterator</span> __<span class="title">last</span>, _<span class="title">Tp</span>*, _<span class="title">Distance</span>*)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">if</span> (__last - __first &lt; <span class="number">2</span>) <span class="keyword">return</span>;</span><br><span class="line">  _Distance __len = __last - __first;</span><br><span class="line">  _Distance __parent = (__len - <span class="number">2</span>)/<span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    __adjust_heap(__first, __parent, __len, _Tp(*(__first + __parent)));</span><br><span class="line">    <span class="keyword">if</span> (__parent == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    __parent--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也就是对当前的数组不断地进行调整，然后得到一个<code>heap</code></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/STL/" rel="tag"># STL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/03/VerityAlogrithms/" rel="next" title="如何证明算法的正确性？">
+                <i class="fa fa-chevron-left"></i> 如何证明算法的正确性？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/02/LexicalAnalysis/" rel="prev" title="词法分析器">
+                词法分析器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">OriginalS</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/originals-tz" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OriginalS</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="RACx0">
 <meta property="og:description" content="Function 语意学Member Function的各种调用方式 Nonstatic Member FunctionsC++的设计准则之一就是：成员函数要和一般函数拥有同样的效率，成员函数不应该带来额外的负担，这也就是为什么每一个成员函数的参数列表都隐含一个this指针的原因 那么member function是如何转化为nonmember function的呢？具体如下">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-24T08:44:49.596Z">
+<meta property="og:updated_time" content="2018-11-29T06:41:30.946Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Function Semantics">
 <meta name="twitter:description" content="Function 语意学Member Function的各种调用方式 Nonstatic Member FunctionsC++的设计准则之一就是：成员函数要和一般函数拥有同样的效率，成员函数不应该带来额外的负担，这也就是为什么每一个成员函数的参数列表都隐含一个this指针的原因 那么member function是如何转化为nonmember function的呢？具体如下">
@@ -331,12 +331,24 @@
                 
               
 
-              <time title="Created: 2018-10-24 00:00:00 / Modified: 16:44:49" itemprop="dateCreated datePublished" datetime="2018-10-24T00:00:00+08:00">2018-10-24</time>
+              <time title="Created: 2018-10-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-24T00:00:00+08:00">2018-10-24</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-29 14:41:30" itemprop="dateModified" datetime="2018-11-29T14:41:30+08:00">2018-11-29</time>
               
             
           </span>
@@ -461,6 +473,12 @@
 <p>为了节省内存空间，可以将B1、B2对A的继承定义为虚拟继承，而A就成了虚拟基类</p>
 <p>然后，不要在virtual base class中声明nonstatic data members，因为存在共享的数据</p>
 <p>假设在A中存在nonstatic data member，然后我调用B1的方法将其修改，就会影响到B2的访问，这就是深渊！</p>
+<h2 id="指向Member-Function的指针"><a href="#指向Member-Function的指针" class="headerlink" title="指向Member Function的指针"></a>指向Member Function的指针</h2><p>取一个不绑定与任何object的nonstatic data member的地址，得到的是在class布局中的bytes位置，如果想存取该data member，需要将其绑定到具体的class object上</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GET_OFFSET(type, data_member) (unsigned long *)(&amp;((type *)0)-&gt;data_member)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; GET_OFFSET(Test, i) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; GET_OFFSET(Test, c) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; GET_OFFSET(Test, k) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">//output</span></span><br><span class="line">    <span class="comment">//0x0</span></span><br><span class="line">	<span class="comment">//0x4</span></span><br><span class="line">	<span class="comment">//0x8</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>取一个 nonstatic member function的地址，如果该函数是nonvirtual，得到的结果是它在内存中真正的地址，但是如果不将其绑定到某个class object上，就无法通过它来调用该函数(因为nonstatic函数需要对具体的data member进行操作，因此需要绑定具体的object来进行调用，例如需要使用test.func()而不能通过Test::func()来调用func)</p>
+<p>如果是static member function则可以看作是普通的函数，使用一般的函数指针</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test t;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span>     <span class="comment">//return value</span></span><br><span class="line">    (</span><br><span class="line">     Test::* <span class="comment">//type</span></span><br><span class="line">     pmf     <span class="comment">//variable name</span></span><br><span class="line">    )</span><br><span class="line">    ();      <span class="comment">//argument list</span></span><br><span class="line">    pmf = &amp;Test::say;</span><br><span class="line">    (t.*pmf)();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> (*p)();</span><br><span class="line">    p = &amp;Test::foo;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，<code>(t.*pmf)()</code>中，t作为<code>*this</code>指针的提供者，只有这样才能通过对应的指针调用<code>nonstatic member function</code></p>
 
       
     </div>
@@ -504,8 +522,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/01/OptimizedReady/" rel="prev" title="优化入门">
-                优化入门 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/01/OptimizeString/" rel="prev" title="优化字符串">
+                优化字符串 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -567,7 +585,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">37</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -606,7 +624,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -655,7 +677,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
