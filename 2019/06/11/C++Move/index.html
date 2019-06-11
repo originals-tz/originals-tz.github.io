@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="算法是否正确，决定着程序的最终结果是否正确，那么如何证明一个算法是正确的呢？ 在深入这个话题之前，我们先来看一下几个概念">
-<meta name="keywords" content="algorithms">
+  <meta name="description" content="How to use C++ move?  Just like this:">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何证明算法的正确性？">
-<meta property="og:url" content="http://yoursite.com/2018/11/03/VerityAlogrithms/index.html">
+<meta property="og:title" content="C++ Move">
+<meta property="og:url" content="http://yoursite.com/2019/06/11/C++Move/index.html">
 <meta property="og:site_name" content="RACx0">
-<meta property="og:description" content="算法是否正确，决定着程序的最终结果是否正确，那么如何证明一个算法是正确的呢？ 在深入这个话题之前，我们先来看一下几个概念">
+<meta property="og:description" content="How to use C++ move?  Just like this:">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-03T13:21:08.428Z">
+<meta property="og:updated_time" content="2019-06-11T04:01:22.989Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何证明算法的正确性？">
-<meta name="twitter:description" content="算法是否正确，决定着程序的最终结果是否正确，那么如何证明一个算法是正确的呢？ 在深入这个话题之前，我们先来看一下几个概念">
+<meta name="twitter:title" content="C++ Move">
+<meta name="twitter:description" content="How to use C++ move?  Just like this:">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/03/VerityAlogrithms/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/11/C++Move/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>如何证明算法的正确性？ | RACx0</title>
+  <title>C++ Move | RACx0</title>
   
 
 
@@ -289,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/03/VerityAlogrithms/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/C++Move/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OriginalS">
@@ -306,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何证明算法的正确性？
+          <h1 class="post-title" itemprop="name headline">C++ Move
               
             
           </h1>
@@ -331,7 +331,7 @@
                 
               
 
-              <time title="Created: 2018-11-03 00:00:00 / Modified: 21:21:08" itemprop="dateCreated datePublished" datetime="2018-11-03T00:00:00+08:00">2018-11-03</time>
+              <time title="Created: 2019-06-11 00:00:00 / Modified: 12:01:22" itemprop="dateCreated datePublished" datetime="2019-06-11T00:00:00+08:00">2019-06-11</time>
             
 
             
@@ -369,40 +369,10 @@
       
 
       
-        <p>算法是否正确，决定着程序的最终结果是否正确，那么如何证明一个算法是正确的呢？</p>
-<p>在深入这个话题之前，我们先来看一下几个概念<br><a id="more"></a></p>
-<h2 id="归纳与演绎"><a href="#归纳与演绎" class="headerlink" title="归纳与演绎"></a>归纳与演绎</h2><p>归纳推理是一种由个别到一般的推理，由一定程度的关于个别事物的观点过渡到范围较大的观点，由特殊具体的事例推导出一般原理、原则的解释方法</p>
-<p>自然界和社会中的一般，都存在于个别、特殊之中，并通过个别而存在，一般都存在于具体的对象和现象之中，因此，只有通过认识个别，才能认识一般</p>
-<p>也就是说，归纳推理是从特殊推导出一般的方法,根据方法的不同,推导出来的结果有可能是正确的,也有可能是不正确的</p>
-<p>演绎推理，是由一般到特殊的推理方法，与“归纳法”相对，推论前提与结论之间的联系是必然的，是一种确实性推理</p>
-<h2 id="数学归纳法和循环不变式"><a href="#数学归纳法和循环不变式" class="headerlink" title="数学归纳法和循环不变式"></a>数学归纳法和循环不变式</h2><p>数学归纳法是数学上证明与自然数n有关的命题的一种方法，必须包括两步：</p>
-<p>首先提供结论</p>
-<ul>
-<li><p>验证当$n$取第一个自然数值$n_0$(如1，2等)时，命题正确；</p>
-</li>
-<li><p>假设当$n$取某一自然数$k$时命题正确，以此推出当$n=k+1$时这个命题也正确。从而就可断定命题对于从$n_0$开始的所有自然数都成立。<br>  由此可知，数学归纳法的研究对象是自然数整体$[0，1，2，…]$有关命题，结论具有必然性。</p>
-</li>
-</ul>
-<p>循环不变式（loop invariant）属于计算机科学的概念，它是指某段程序循环在循环前后该段程序的某种性质（通常指程序的正确性）保持不变。其分为三步：</p>
-<p>首先提供不变式，也就结论</p>
-<ul>
-<li>初始化：保证在初始的时候不变式为真</li>
-<li>保持：保证在每次循环开始和结束的时候不变式都为真</li>
-<li>终止：如果程序可以在某种条件下终止，那么在终止的时候，就可以得到自己想要的正确结果</li>
-</ul>
-<p>在这三个部分中，前两个是条件，最有一个是结论。</p>
-<p>以上两者均属于演绎推理，其论证方法基本相似，不同的地方在于</p>
-<ul>
-<li>数学归纳法可以应用于无限循环，如数列</li>
-<li>循环不变式只能用于有限的循环，因为存在循环终止</li>
-</ul>
-<p>当算法的循环不变式为真(也就是符合初始化，保持，终止三条性质)，那么算法在循环过程中总存在一个维持不变的特性，这些特性一直保持到循环结束，我们可以根据此来判断算法的正确性</p>
-<h2 id="示例-插入排序"><a href="#示例-插入排序" class="headerlink" title="示例:插入排序"></a>示例:插入排序</h2><p>不变式：每次循环开始之前，$A[1…j-1]$ 由原来的 $A[1…j-1]$ 组成，并已经排好序</p>
-<p>初始化：j=2，$A[1…1]$仅有一个元素构成，已排好序</p>
-<p>保持: $A[j]$在每次循环结束时会安排到合适的位置，因此在下一次循环开始之前，$A[1..j-1]$已经排序好了</p>
-<p>结束: 当$j=n$,循环结束，此时$A[0…j-1]$已排好序</p>
-<p>该算法正确</p>
-
+        <p>How to use C++ move? </p>
+<p>Just like this:</p>
+<a id="more"></a>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span>&amp; str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"l-value reference, str="</span> &lt;&lt; str &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">temp_str</span><span class="params">(<span class="built_in">std</span>::move(str))</span></span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"temp_str = move(str), now str="</span> &lt;&lt; str &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"temp_str="</span> &lt;&lt; temp_str &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span>&amp;&amp; str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"get r-value reference, build a lvalue str"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"now str="</span> &lt;&lt; str &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">temp_str</span><span class="params">(<span class="built_in">std</span>::move(str))</span></span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"temp_str = move(str), now str="</span> &lt;&lt; str &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"temp_str="</span> &lt;&lt; temp_str &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">array_move</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"array move test"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; <span class="built_in">array</span> = &#123;<span class="string">'h'</span>, <span class="string">'2'</span>&#125;;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; array_vector;</span><br><span class="line">    array_vector.push_back(<span class="built_in">std</span>::move(<span class="built_in">array</span>));</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"after move, the size of array :"</span> &lt;&lt; <span class="built_in">array</span>.size() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> str = <span class="string">"hello,world"</span>;</span><br><span class="line">    fun(str);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"after move main: str="</span> &lt;&lt; str &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    fun(<span class="string">"good"</span>);</span><br><span class="line">    array_move();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -422,7 +392,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/algorithms/" rel="tag"># algorithms</a>
+            <a href="/tags/C/" rel="tag"># C++</a>
           
         </div>
       
@@ -435,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/01/OptimizedReady/" rel="next" title="优化入门">
-                <i class="fa fa-chevron-left"></i> 优化入门
+              <a href="/2019/06/05/LLDB_multithread_debug/" rel="next" title="How to use LLDB to debug the multi-thread progarm">
+                <i class="fa fa-chevron-left"></i> How to use LLDB to debug the multi-thread progarm
               </a>
             
           </div>
@@ -444,10 +414,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/02/STL_Heap/" rel="prev" title="STL之Heap">
-                STL之Heap <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -508,7 +474,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-count">36</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -551,7 +517,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -710,6 +680,12 @@
 
   <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
 
+  <script type="text/javascript" src="/js/src/kity.min.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/kityminder.core.min.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/mindmap.min.js?v=6.4.2"></script>
+
 
 
   
@@ -761,30 +737,6 @@
   
   
 
-  
-    
-      <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      },
-      TeX: {equationNumbers: { autoNumber: "AMS" }}
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-    
   
 
 
