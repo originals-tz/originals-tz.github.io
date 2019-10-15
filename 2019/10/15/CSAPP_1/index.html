@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="内部功能结构总线接口部件 BIU作用：与CPU外部传送指令代码或者数据，如取指令时把指令送到指令队列，执行指令时负责数据交换 组成： 段地址寄存器： CS：代码段首地址的高16位 DS：数据段首地址的高16位 ES：另一个数据段首地址的高16位 SS：堆栈区数据段首地址的高16位   16位的指令指针寄存器IP：存放着下一条地址的偏移量，即CS * 16 +IP=下一条指令的地址 20位的地址加法">
-<meta name="keywords" content="other">
+  <meta name="description" content="大小端多字节类型的表达方式  大端法 ：低地址存放高位 小端法 ：低地址存放低位">
+<meta name="keywords" content="CSAPP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="8086微处理器">
-<meta property="og:url" content="http://yoursite.com/2017/09/09/8086/index.html">
+<meta property="og:title" content="信息的表达和处理">
+<meta property="og:url" content="http://yoursite.com/2019/10/15/CSAPP_1/index.html">
 <meta property="og:site_name" content="RACx0">
-<meta property="og:description" content="内部功能结构总线接口部件 BIU作用：与CPU外部传送指令代码或者数据，如取指令时把指令送到指令队列，执行指令时负责数据交换 组成： 段地址寄存器： CS：代码段首地址的高16位 DS：数据段首地址的高16位 ES：另一个数据段首地址的高16位 SS：堆栈区数据段首地址的高16位   16位的指令指针寄存器IP：存放着下一条地址的偏移量，即CS * 16 +IP=下一条指令的地址 20位的地址加法">
+<meta property="og:description" content="大小端多字节类型的表达方式  大端法 ：低地址存放高位 小端法 ：低地址存放低位">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-21T02:25:54.248Z">
+<meta property="og:updated_time" content="2019-10-15T23:31:20.644Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="8086微处理器">
-<meta name="twitter:description" content="内部功能结构总线接口部件 BIU作用：与CPU外部传送指令代码或者数据，如取指令时把指令送到指令队列，执行指令时负责数据交换 组成： 段地址寄存器： CS：代码段首地址的高16位 DS：数据段首地址的高16位 ES：另一个数据段首地址的高16位 SS：堆栈区数据段首地址的高16位   16位的指令指针寄存器IP：存放着下一条地址的偏移量，即CS * 16 +IP=下一条指令的地址 20位的地址加法">
+<meta name="twitter:title" content="信息的表达和处理">
+<meta name="twitter:description" content="大小端多字节类型的表达方式  大端法 ：低地址存放高位 小端法 ：低地址存放低位">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/09/8086/">
+  <link rel="canonical" href="http://yoursite.com/2019/10/15/CSAPP_1/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>8086微处理器 | RACx0</title>
+  <title>信息的表达和处理 | RACx0</title>
   
 
 
@@ -289,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/8086/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/15/CSAPP_1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OriginalS">
@@ -306,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">8086微处理器
+          <h1 class="post-title" itemprop="name headline">信息的表达和处理
               
             
           </h1>
@@ -331,7 +331,7 @@
                 
               
 
-              <time title="Created: 2017-09-09 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-09T00:00:00+08:00">2017-09-09</time>
+              <time title="Created: 2019-10-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-10-15T00:00:00+08:00">2019-10-15</time>
             
 
             
@@ -348,7 +348,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-21 10:25:54" itemprop="dateModified" datetime="2018-08-21T10:25:54+08:00">2018-08-21</time>
+                <time title="Modified: 2019-10-16 07:31:20" itemprop="dateModified" datetime="2019-10-16T07:31:20+08:00">2019-10-16</time>
               
             
           </span>
@@ -381,69 +381,95 @@
       
 
       
-        <h2 id="内部功能结构"><a href="#内部功能结构" class="headerlink" title="内部功能结构"></a>内部功能结构</h2><h3 id="总线接口部件-BIU"><a href="#总线接口部件-BIU" class="headerlink" title="总线接口部件 BIU"></a>总线接口部件 BIU</h3><p><strong>作用：与CPU外部传送指令代码或者数据，如取指令时把指令送到指令队列，执行指令时负责数据交换</strong></p>
-<h4 id="组成："><a href="#组成：" class="headerlink" title="组成："></a>组成：</h4><ul>
-<li>段地址寄存器：<ul>
-<li>CS：代码段首地址的高16位</li>
-<li>DS：数据段首地址的高16位</li>
-<li>ES：另一个数据段首地址的高16位</li>
-<li>SS：堆栈区数据段首地址的高16位</li>
-</ul>
-</li>
-<li>16位的指令指针寄存器IP：存放着下一条地址的偏移量，即CS * 16 +IP=下一条指令的地址</li>
-<li>20位的地址加法器：段基址 x 16(左移4位) + 偏移地址 = 物理地址</li>
-<li>指令队列缓冲器：存放预取指令的指令队列</li>
-<li>内部暂存器：暂存输入输出信息的寄存器</li>
-<li>总线逻辑控制器：控制总线上的信息传输</li>
+        <h2 id="大小端"><a href="#大小端" class="headerlink" title="大小端"></a>大小端</h2><p>多字节类型的表达方式</p>
+<ul>
+<li>大端法 ：低地址存放高位</li>
+<li>小端法 ：低地址存放低位</li>
 </ul>
 <a id="more"></a>
-<h3 id="执行部件-EUP"><a href="#执行部件-EUP" class="headerlink" title="执行部件 EUP"></a>执行部件 EUP</h3><h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4><ul>
-<li>通用寄存器<ul>
-<li>AX</li>
-<li>BX</li>
-<li>CX</li>
-<li>DX</li>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">out</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>* p, <span class="keyword">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%.2x "</span>, p[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">0x01234567</span>;</span><br><span class="line">    out((<span class="keyword">unsigned</span> <span class="keyword">char</span> *)&amp;p, <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大小端判断也常常作为面试题出现，如上，十六进制数 <code>0x01234567</code></p>
+<p>每两个个十六进制数占8个bit，因此，使用一个char获得起始地址所存放的两个十六进制数即可判断该机器是大端还是小端</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0x01234567</span>;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> * p = (<span class="keyword">unsigned</span> <span class="keyword">char</span> *)&amp;x;</span><br><span class="line"><span class="keyword">return</span> p == <span class="number">0x67</span>;</span><br></pre></td></tr></table></figure>
+<p>大小端最常见的应用就是使用TCP传输数据时的字节序转换，例如传输一个 =int= 之类的跨字节类型的数据，就需要进行大小端的转换</p>
+<h2 id="移位运算"><a href="#移位运算" class="headerlink" title="移位运算"></a>移位运算</h2><ul>
+<li>逻辑右移 ：高位补0</li>
+<li>算术右移 ：高位补符号位</li>
 </ul>
-</li>
-<li>专用寄存器<ul>
-<li>BP:基数指针寄存器:指向栈底</li>
-<li>SP:堆栈指针寄存器:指向栈顶</li>
-<li>SI:</li>
-<li>DI</li>
-</ul>
-</li>
-<li>算术逻辑部件ALU:计算算术逻辑运算,</li>
-<li>EU控制器:</li>
-<li>标志寄存器<ul>
-<li>SF(sign)</li>
-<li>ZF(zero)</li>
-<li>PF(parity)</li>
-<li>CF(carry)</li>
-<li>AF(auxiliary carry)</li>
-<li>OF(overflow)</li>
-<li>DF(direction)</li>
-<li>IF(interrupt enable)</li>
-<li>TF(trap)</li>
-</ul>
-</li>
-</ul>
-<h2 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h2><h3 id="立即寻址"><a href="#立即寻址" class="headerlink" title="立即寻址"></a>立即寻址</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov AX, 3412H</span><br></pre></td></tr></table></figure>
-<p>无法计算源操作数的物理地址</p>
-<p>操作数直接包含在指令中，即可以直接从指令队列中获取立即数</p>
-<h3 id="寄存器寻址"><a href="#寄存器寻址" class="headerlink" title="寄存器寻址"></a>寄存器寻址</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov AX, BX</span><br></pre></td></tr></table></figure>
-<p>无法计算源操作数的物理地址</p>
-<p>操作数包含在寄存器中</p>
-<h3 id="内存器寻址"><a href="#内存器寻址" class="headerlink" title="内存器寻址"></a>内存器寻址</h3><p>操作数处于内存的数据段中，指令中指明了数据所在的地址</p>
-<h3 id="直接寻址"><a href="#直接寻址" class="headerlink" title="直接寻址"></a>直接寻址</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov AX, [3412H]</span><br></pre></td></tr></table></figure>
-<p>地址为<code>DS * 10H + 3412H</code></p>
-<h3 id="寄存器间接寻址"><a href="#寄存器间接寻址" class="headerlink" title="寄存器间接寻址"></a>寄存器间接寻址</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov AX, [BX]</span><br></pre></td></tr></table></figure>
-<p>有效地址操作数包含在寄存器中</p>
+<p>几乎所有的编译器都对</p>
 <ul>
-<li>当没有前缀指令表明操作数在哪一段时(ES:[BX]),则当用BP来间接寻址时,则段寄存器默认为SS,BX、DI、SI默认寄存器为DS</li>
+<li>无符号数，进行逻辑右移</li>
+<li>有符号数，进行算术右移</li>
 </ul>
-<h3 id="寄存器相对寻址"><a href="#寄存器相对寻址" class="headerlink" title="寄存器相对寻址"></a>寄存器相对寻址</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov AX,[BX+6824H]</span><br></pre></td></tr></table></figure>
-<h3 id="基址加变址寄存器寻址方式"><a href="#基址加变址寄存器寻址方式" class="headerlink" title="基址加变址寄存器寻址方式"></a>基址加变址寄存器寻址方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov AX,[BX+SI]</span><br></pre></td></tr></table></figure>
-<h3 id="相对的基址和变址寻址方式"><a href="#相对的基址和变址寻址方式" class="headerlink" title="相对的基址和变址寻址方式"></a>相对的基址和变址寻址方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov AH,[BX+SI+2468]</span><br></pre></td></tr></table></figure>
+<h2 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h2><h3 id="无符号数"><a href="#无符号数" class="headerlink" title="无符号数"></a>无符号数</h3><blockquote>
+<p>假定</p>
+<p>符号<script type="math/tex">B2U_w</script>为w位二进制数转无符号数</p>
+<p>符号<script type="math/tex">B2T_w</script>为w位二进制数转补码</p>
+</blockquote>
+<p>编码规则</p>
+<script type="math/tex; mode=display">
+B2U_w(\vec{x}) \dot= \sum_{i=0}^{w-1}x_i2^i</script><ul>
+<li>原理：无符号数编码的唯一性<ul>
+<li>由公式可知，对于每一个编码都有唯一的无符号数与之对应，反过来亦如此，不存在<strong>原码，反码</strong>中<strong>正负0</strong>的情况</li>
+</ul>
+</li>
+</ul>
+<h3 id="有符号数"><a href="#有符号数" class="headerlink" title="有符号数"></a>有符号数</h3><h4 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h4><script type="math/tex; mode=display">
+B2T_w(\vec{x})\dot=-x_{w-1}2^{w-1}+\sum_{i=0}^{w-2}x_i2^i</script><ul>
+<li><p>原理：补码编码的唯一性</p>
+<ul>
+<li>最高位为负权，因此也不存在正负0</li>
+</ul>
+</li>
+<li><p>反码：最高位的权为 $2^{w-1}-1$,而$2^{w-1}-1=\sum_{i=0}^{w-2}2^i$, 所以会有</p>
+<ul>
+<li>+0 ：所有位都是0</li>
+<li>-0：所有位都是1</li>
+</ul>
+</li>
+<li>原码：最高位为符号位</li>
+</ul>
+<h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><p>假设共有w个位</p>
+<ul>
+<li>无符号数的最大值为$2^{w}$ , 最小值为0</li>
+<li><p>补码的最大值为$2^{w-1}$ , 最小值为$-2^{w-1}$</p>
+</li>
+<li><p>原理：补码转无符号数</p>
+<ul>
+<li>$t &lt; 0, t =2^w+t $</li>
+<li>$t&gt;=0, t=t$</li>
+</ul>
+</li>
+<li>原理：无符号数转补码<ul>
+<li>$t &lt;= 2^{w-1}, t = t$</li>
+</ul>
+</li>
+<li>$t &gt; 2^{w-1}, t = t - 2^w$</li>
+</ul>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>无符号数的0拓展</p>
+<p>补码的符号拓展，证明，假设符号拓展1位, $B2T_{w+1}(\vec{x})\dot=-x_{w-1}2^{w}+\sum_{i=0}^{w-1}x_i2^i$</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+-x_{w-1}2^{w}+\sum_{i=0}^{w-1}x_i2^i &= -x_{w-1}2^{w}+x_{w-1}2^{w-1}+\sum_{i=0}^{w-2}x_i2^i \\
+ &= -x_{w-1}(2^w-2^{w-1})+\sum_{i=0}^{w-2}x_i2^i \\
+ &=-x_{w-1}2^{w-1}+\sum_{i=0}^{w-2}x_i2^i
+ \end{align*}</script><p>可得符号拓展后补码的运算结果与非拓展之前相同</p>
+<p>因为最高位为负权，总有</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+2^w &= 2^{w-1} + 2^{w-1} \\
+-2^w+2^{w-1} +...+2^0 &= -2^{w-1}+...+2^0 \\
+\end{align*}</script><h2 id="截断"><a href="#截断" class="headerlink" title="截断"></a>截断</h2><p>将w位的无符号数，截断为k位，相当于取模操作，证明如下，假设<script type="math/tex">w-1=k+n</script></p>
+<script type="math/tex; mode=display">
+\begin{align*}
+w-1&=k+n\\
+x_{w-1}2^{w-1} \bmod 2^k &= x_{w-1}2^{n}*2^{k} \bmod 2^k \\
+&=x_{w-1}2^{n} * 0\\
+&=0\\
+B2U_w([x_{w-1},x_{w-2},...,x_0]) \bmod 2^k &= \sum_{i=0}^{w-1}x_i2^i \bmod 2^k\\
+&=\sum_{i=0}^{k-1}x_i2^i + n *0\\
+&=B2U_k
+\end{align*}</script>
       
     </div>
 
@@ -463,7 +489,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/other/" rel="tag"># other</a>
+            <a href="/tags/CSAPP/" rel="tag"># CSAPP</a>
           
         </div>
       
@@ -476,15 +502,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/06/11/C++Move/" rel="next" title="C++ Move">
+                <i class="fa fa-chevron-left"></i> C++ Move
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/27/C++TypeInference/" rel="prev" title="c++ 模板实参推断">
-                c++ 模板实参推断 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -798,6 +824,30 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
