@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="定义分布式系统会划分成多个子系统或模块，各自运行在不同的机器上，子系统或模块之间通过网络通信进行协作，实现最终的整体功能。 比如分布式操作系统、分布式程序设计语言及其编译(解释)系统、分布式文件系统和分布式数据库系统等。 利用多个节点共同协作完成一项或多项具体业务功能的系统就是分布式系统">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDFS概览">
+<meta property="og:url" content="http://yoursite.com/2019/10/31/hdfs/index.html">
+<meta property="og:site_name" content="RACx0">
+<meta property="og:description" content="定义分布式系统会划分成多个子系统或模块，各自运行在不同的机器上，子系统或模块之间通过网络通信进行协作，实现最终的整体功能。 比如分布式操作系统、分布式程序设计语言及其编译(解释)系统、分布式文件系统和分布式数据库系统等。 利用多个节点共同协作完成一项或多项具体业务功能的系统就是分布式系统">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cdn.cacher.io/attachments/u/3bgooa1lmdn0d/bea2BHXNPyjdCyKBcqBYpPXfia6dshMZ/hdfsarchitecture.gif">
+<meta property="og:image" content="https://cdn.cacher.io/attachments/u/3bgooa1lmdn0d/EHHkzRBQmyX-hoOop0_SscbPh7cRKhGG/client.jpg">
+<meta property="og:updated_time" content="2019-10-31T11:18:10.285Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HDFS概览">
+<meta name="twitter:description" content="定义分布式系统会划分成多个子系统或模块，各自运行在不同的机器上，子系统或模块之间通过网络通信进行协作，实现最终的整体功能。 比如分布式操作系统、分布式程序设计语言及其编译(解释)系统、分布式文件系统和分布式数据库系统等。 利用多个节点共同协作完成一项或多项具体业务功能的系统就是分布式系统">
+<meta name="twitter:image" content="https://cdn.cacher.io/attachments/u/3bgooa1lmdn0d/bea2BHXNPyjdCyKBcqBYpPXfia6dshMZ/hdfsarchitecture.gif">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/31/hdfs/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>HDFS概览 | RACx0</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RACx0</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/31/hdfs/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OriginalS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RACx0">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HDFS概览
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-31 00:00:00 / Modified: 19:18:10" itemprop="dateCreated datePublished" datetime="2019-10-31T00:00:00+08:00">2019-10-31</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>分布式系统会划分成多个子系统或模块，<strong>各自运行在不同的机器上</strong>，子系统或模块之间通过<strong>网络通信</strong>进行协作，实现最终的整体功能。</p>
+<p>比如分布式操作系统、分布式程序设计语言及其编译(解释)系统、分布式文件系统和分布式数据库系统等。</p>
+<p><strong>利用多个节点共同协作完成一项或多项具体业务功能的系统就是分布式系统</strong></p>
+<a id="more"></a>
+<h3 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h3><p>1998年，加州大学的计算机科学家 Eric Brewer 提出，分布式系统有三个指标</p>
+<ul>
+<li><p>C : Consistency， 一致性</p>
+</li>
+<li><p>A : Availability，可用性</p>
+</li>
+<li><p>P : Partition tolerance 分区容错性</p>
+</li>
+</ul>
+<p>Eric Brewer 说，这三个指标不可能同时做到。这个结论就叫做 CAP 定理</p>
+<h4 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h4><p>一个DB服务 搭建在两个机房（北京,广州)，两个DB实例同时提供写入和读取</p>
+<h5 id="CA"><a href="#CA" class="headerlink" title="CA"></a>CA</h5><p>在没有出现网络故障的时候，满足CA原则，C 即我的任何一个写入，更新操作成功并返回客户端完成后,分布式的所有节点在同一时间的数据完全一致， A 即我的读写操作都能够成功，<strong>但是当出现网络故障时，我不能同时保证CA</strong>，即P条件无法满足</p>
+<h5 id="AP"><a href="#AP" class="headerlink" title="AP"></a>AP</h5><p><strong>假设DB的更新操作是只写本地机房成功就返回，通过binlog/oplog回放方式同步至侧边机房</strong>，这种操作保证了在出现网络故障时,双边机房都是可以提供服务的，且读写操作都能成功，意味着他满足了AP ，但是它不满足C，<strong>因为更新操作返回成功后，双边机房的DB看到的数据会存在短暂不一致</strong>，且在网络故障时，不一致的时间差会很大（仅能保证最终一致性）</p>
+<h5 id="CP"><a href="#CP" class="headerlink" title="CP"></a>CP</h5><p><strong>假设DB的更新操作是同时写北京和广州的DB都成功才返回成功且网络故障时提供降级服务</strong>，如停止写入，只提供读取功能，<strong>此时不满足A</strong>，这样能保证数据是一致的，且网络故障时能提供服务，满足CP原则，但是他无法满足可用性原则</p>
+<h3 id="HDFS的架构和设计"><a href="#HDFS的架构和设计" class="headerlink" title="HDFS的架构和设计"></a>HDFS的架构和设计</h3><h4 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h4><ul>
+<li><p>硬件错误是常态，而非异常情况，HDFS可能是有成百上千的server组成，任何一个组件都有可能一直失效，因此<strong>错误检测和快速、自动的恢复</strong>是HDFS的核心架构目标。</p>
+</li>
+<li><p>跑在HDFS上的应用与一般的应用不同，它们主要是以<strong>流式读</strong>为主，做批量处理；比之关注数据访问的低延迟问题，更关键的在于数据访问的高吞吐量。</p>
+<ul>
+<li>在使用HDFS C API中，要注意读的方式，因为是流式读，因此一次无法完全读完所有数据，需要<strong>多次读</strong>，在C API中，HDFS文件的读写也存在文件指针的概念，每一次的读文件指针都会进行偏移</li>
+</ul>
+</li>
+<li><p>HDFS以支持大数据集合为目标，一个存储在上面的典型文件大小一般都在千兆至T字节，一个单一HDFS实例应该能支撑数以千万计的文件。</p>
+</li>
+<li><p>HDFS应用对文件要求的是write-one-read-many访问模型。一个文件经过创建、写，关闭之后就不需要改变。这一假设简化了数据一致性问 题，使高吞吐量的数据访问成为可能。典型的如MapReduce框架，或者一个web crawler应用都很适合这个模型。</p>
+</li>
+<li><p>移动计算的代价比之移动数据的代价低。一个应用请求的计算，离它操作的数据越近就越高效，这在数据达到海量级别的时候更是如此。将计算移动到数据附近，比之将数据移动到应用所在显然更好，HDFS提供给应用这样的接口。</p>
+</li>
+<li><p>在异构的硬件和软件平台上的可移植性。</p>
+</li>
+</ul>
+<p><strong>HDFS局限</strong></p>
+<ul>
+<li>不支持低延迟访问</li>
+<li>不适合小文件存储</li>
+<li>不支持并发写入</li>
+<li>不支持修改</li>
+</ul>
+<h4 id="HDFS组件"><a href="#HDFS组件" class="headerlink" title="HDFS组件"></a>HDFS组件</h4><ul>
+<li><p>Client</p>
+</li>
+<li><p>NameNode</p>
+</li>
+<li><p>DataNode</p>
+</li>
+<li><p>Secondary NameNode</p>
+</li>
+</ul>
+<p><img src="https://cdn.cacher.io/attachments/u/3bgooa1lmdn0d/bea2BHXNPyjdCyKBcqBYpPXfia6dshMZ/hdfsarchitecture.gif" alt=""></p>
+<h5 id="HDFS-Client"><a href="#HDFS-Client" class="headerlink" title="HDFS Client"></a>HDFS Client</h5><p><img src="https://cdn.cacher.io/attachments/u/3bgooa1lmdn0d/EHHkzRBQmyX-hoOop0_SscbPh7cRKhGG/client.jpg" alt=""></p>
+<p>HDFS Client主要操控两个对象</p>
+<ul>
+<li><p><code>DistributedFileSystem</code> ：与NameNode交互</p>
+<ul>
+<li>在使用C API的时候，在进行Connect的时候，需要注意是使用<code>hdfsConnect</code>还是使用<code>hdfsConnectNewInstance</code></li>
+</ul>
+</li>
+<li><p><code>FSDataInputStream</code> ：与DataNode交互</p>
+</li>
+</ul>
+<p>HDFS Client通过<code>DistributedFileSystem</code>从远程获取数据所在的位置，由于一份数据有多份实体，分别存在不同的DataNode上，因此NameNode会按照hadoop拓扑结构排序，距离客户端近的排在前面，将locations返回</p>
+<p>返回后我们将得到一个<code>FSDataInputStream</code>,该对象会被封装成<code>DFSInputStream/DFSOutputStream(input/output)</code>，可以方便的管理DataNode和NameNode数据流</p>
+<p>当客户端调用<code>read</code>方法时，将会从返回的locations中找出最近的那个然后连接<code>DataNode</code>,如果第一批block都读完了，<code>DFSInputStream</code>就会去NameNode拿下一批blocks的location，然后继续读，如果所有的block块都读完，这时就会关闭掉所有的流</p>
+<h5 id="NameNode"><a href="#NameNode" class="headerlink" title="NameNode"></a>NameNode</h5><p>Namenode是一个中心服务器，负责</p>
+<ul>
+<li><p>管理文件系统的namespace</p>
+</li>
+<li><p>管理客户端对文件的访问</p>
+</li>
+<li><p>管理数据块block的映射信息</p>
+</li>
+<li><p>配置副本策略</p>
+</li>
+</ul>
+<h5 id="DataNode"><a href="#DataNode" class="headerlink" title="DataNode"></a>DataNode</h5><p>NameNode 下达命令，DataNode 执行实际的操作</p>
+<ul>
+<li><p>存储实际的数据块</p>
+</li>
+<li><p>执行数据块的读/写操作</p>
+</li>
+</ul>
+<h4 id="元数据和Secondary-NameNode"><a href="#元数据和Secondary-NameNode" class="headerlink" title="元数据和Secondary NameNode"></a>元数据和Secondary NameNode</h4><p>NameNode将对文件系统的改动追加保存到本地文件系统上的一个日志文件（edits）。当一个NameNode启动时，它首先从一个映像文件（fsimage，保存着整个文件系统的名字空间和文件数据块的映射，<strong>所以HDFS不适合存放海量的小文件，因为会使得镜像文件膨胀</strong>）中读取HDFS的状态，接着应用日志文件中的edits操作。然后它将新的HDFS状态写入（fsimage）中，并使用一个空的edits文件开始正常操作。整个流程大概为</p>
+<ul>
+<li><p>启动，合并fsimage和edits，产生新的fsimage，删除旧的数据</p>
+</li>
+<li><p>将改动写入新的edits文件中</p>
+</li>
+<li><p>关闭</p>
+</li>
+</ul>
+<p>因为NameNode只有在启动阶段才合并fsimage和edits，所以久而久之日志文件可能会变得非常庞大，特别是对大型的集群。日志文件太大的另一个副作用是下一次NameNode启动会花很长时间。</p>
+<p>Secondary NameNode定期合并fsimage和edits日志，将edits日志文件大小控制在一个限度下。因为内存需求和NameNode在一个数量级上，所以通常secondary NameNode和NameNode运行在不同的机器上，Secondary NameNode通过bin/start-dfs.sh在conf/masters中指定的节点上启动。</p>
+<p>因此Secondary NameNode并非 NameNode 的热备，当NameNode 挂掉的时候，它并不能马上替换 NameNode 并提供服务，其主要作用是</p>
+<ul>
+<li><p>辅助 NameNode，分担其工作量</p>
+</li>
+<li><p>定期合并 fsimage和fsedits，并推送给NameNode</p>
+</li>
+<li><p>在紧急情况下，可辅助恢复 NameNod</p>
+</li>
+</ul>
+<h3 id="机架感知"><a href="#机架感知" class="headerlink" title="机架感知"></a>机架感知</h3><p>HDFS采用一种称为机架感知(rack-aware)的策略来改进数据的可靠性、可用性和网络带宽的利用率。</p>
+<p>大型HDFS实例一般运行在跨越多个机架的计算机组成的集群上，不同机架上的两台机器之间的通讯需要经过交换机。</p>
+<p>在大多数情况下，同一个机架内的两台机器间的带宽会比不同机架的两台机器间的带宽大。</p>
+<p>通过一个机架感知的过程，Namenode可以确定每个DataNode所属的机架id。一个简单但没有优化的策略就是将副本存放在不同的机架上。这样可以有效防止当整个机架失效时数据的丢失，并且允许读数据的时候充分利用多个机架的带宽。</p>
+<p>这种策略设置可以将副本均匀分布在集群中，有利于当组件失效情况下的负载均衡。但是，因为这种策略的一个写操作需要传输数据块到多个机架，这增加了写的代价。</p>
+<p><strong>在大多数情况下，副本系数是3，HDFS的存放策略是将一个副本存放在本地机架的节点上，一个副本放在同一机架的另一个节点上，最后一个副本放在不同机架的节点上。</strong></p>
+<p>这种策略减少了机架间的数据传输，这就提高了写操作的效率。机架的错误远远比节点的错误少，所以这个策略不会影响到数据的可靠性和可用性。</p>
+<p>于此同时，因为数据块只放在两个（不是三个）不同的机架上，所以此策略减少了读取数据时需要的网络传输总带宽。</p>
+<p>在这种策略下，副本并不是均匀分布在不同的机架上。三分之一的副本在一个节点上，三分之二的副本在一个机架上，其他副本均匀分布在剩下的机架中，这一策略在不损害数据可靠性和读取性能的情况下改进了写的性能。</p>
+<h3 id="数据完整性和数据错误（心跳检测和重新复制）"><a href="#数据完整性和数据错误（心跳检测和重新复制）" class="headerlink" title="数据完整性和数据错误（心跳检测和重新复制）"></a>数据完整性和数据错误（心跳检测和重新复制）</h3><p>每个Datanode节点周期性地向Namenode发送心跳信号，网络分区可能导致一部分Datanode跟Namenode失去联系</p>
+<p>Namenode通过心跳信号的缺失来检测这一情况，并将这些近期不再发送心跳信号Datanode标记为宕机，不会再将新的IO请求发给它们。</p>
+<p>任何存储在宕机Datanode上的数据将不再有效，Datanode的宕机可能会引起一些数据块的副本系数低于指定值，Namenode不断地检测这些需要复制的数据块，一旦发现就启动复制操作。</p>
+<p>在下列情况下，可能需要重新复制：</p>
+<ul>
+<li><p>某个Datanode节点失效</p>
+</li>
+<li><p>某个副本遭到损坏</p>
+</li>
+<li><p>Datanode上的硬盘错误</p>
+</li>
+<li><p>或者文件的副本系数增大。</p>
+</li>
+</ul>
+<p>从某个Datanode获取的数据块有可能是损坏的，损坏可能是由Datanode的存储设备错误、网络错误或者软件bug造成的。</p>
+<p>HDFS客户端软件实现了对HDFS文件内容的校验和(checksum)检查。<strong>当客户端创建一个新的HDFS文件，会计算这个文件每个数据块的校验和，并将校验和作为一个单独的隐藏文件保存在同一个HDFS名字空间下。</strong></p>
+<p>当客户端获取文件内容后，它会检验从Datanode获取的数据跟相应的校验和文件中的校验和是否匹配，如果不匹配，客户端可以选择从其他Datanode获取该数据块的副本</p>
+<h3 id="数据块"><a href="#数据块" class="headerlink" title="数据块"></a>数据块</h3><p>HDFS被设计成支持大文件，适用HDFS的是那些需要处理大规模的数据集的应用。这些应用都是只写入数据一次，但却读取一次或多次，并且读取速度应能满足流式读取的需要。</p>
+<p>HDFS支持文件的“一次写入多次读取”语义。一个典型的数据块大小是64MB。因而，HDFS中的文件总是按照64M被切分成不同的块，每个块尽可能地存储于不同的Datanode中</p>
+<h3 id="客户端缓存"><a href="#客户端缓存" class="headerlink" title="客户端缓存"></a>客户端缓存</h3><p>客户端创建文件的请求其实并没有立即发送给Namenode，事实上，在刚开始阶段HDFS客户端会先将文件数据缓存到本地的一个临时文件。</p>
+<p>应用程序的写操作被透明地重定向到这个临时文件。<strong>当这个临时文件累积的数据量超过一个数据块的大小，客户端才会联系Namenode。</strong></p>
+<p>Namenode将文件名插入文件系统的层次结构中，并且分配一个数据块给它。然后返回Datanode的标识符和目标数据块给客户端。</p>
+<p>接着客户端将这块数据从本地临时文件上传到指定的Datanode上，当文件关闭时，在临时文件中剩余的没有上传的数据也会传输到指定的Datanode上，然后客户端告诉Namenode文件已经关闭。此时Namenode才将文件创建操作提交到日志里进行存储。</p>
+<p>如果Namenode在文件关闭前宕机了，则该文件将丢失。上述方法是对在HDFS上运行的目标应用进行认真考虑后得到的结果。这些应用需要进行文件的流式写入。如果不采用客户端缓存，由于网络速度和网络堵塞会对吞估量造成比较大的影响。</p>
+<h3 id="流水线复制"><a href="#流水线复制" class="headerlink" title="流水线复制"></a>流水线复制</h3><p>当客户端向HDFS文件写入数据的时候，一开始是写到本地临时文件中，假设该文件的副本系数设置为3，当本地临时文件累积到一个数据块的大小时，客户端会Namenode获取一个Datanode列表用于存放副本，然后客户端开始向第一个Datanode传输数据，第一个Datanode一小部分一小部分(4KB)地接收数据，将每一部分写入本地仓库，并同时传输该部分到列表中第二个Datanode节点。</p>
+<p>第二个Datanode也是这样，一小部分一小部分地接收数据，写入本地仓库，并同时传给第三个Datanode。最后，第三个Datanode接收数据并存储在本地。因此，Datanode能流水线式地从前一个节点接收数据，并在同时转发给下一个节点，数据以流水线的方式从前一个Datanode复制到下一个。</p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><blockquote>
+<p><a href="https://www.jianshu.com/p/f1e785fffd4d" target="_blank" rel="noopener">https://www.jianshu.com/p/f1e785fffd4d</a></p>
+<p><a href="https://www.jianshu.com/p/da689fee4342" target="_blank" rel="noopener">https://www.jianshu.com/p/da689fee4342</a></p>
+<p><a href="https://www.cnblogs.com/wxisme/p/6266267.html" target="_blank" rel="noopener">https://www.cnblogs.com/wxisme/p/6266267.html</a></p>
+<p><a href="http://www.dataguru.cn/thread-509067-1-1.html" target="_blank" rel="noopener">http://www.dataguru.cn/thread-509067-1-1.html</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分布式/" rel="tag"># 分布式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/17/EMCPP_1/" rel="next" title="条款1：理解模板型别推导">
+                <i class="fa fa-chevron-left"></i> 条款1：理解模板型别推导
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">OriginalS</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/originals-tz" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OriginalS</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/kity.min.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/kityminder.core.min.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/mindmap.min.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
