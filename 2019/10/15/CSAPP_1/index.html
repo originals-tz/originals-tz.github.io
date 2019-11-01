@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="RACx0">
 <meta property="og:description" content="大小端多字节类型的表达方式  大端法 ：低地址存放高位 小端法 ：低地址存放低位">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-15T23:34:49.260Z">
+<meta property="og:updated_time" content="2019-11-01T23:57:59.232Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="信息的表达和处理">
 <meta name="twitter:description" content="大小端多字节类型的表达方式  大端法 ：低地址存放高位 小端法 ：低地址存放低位">
@@ -348,7 +348,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-16 07:34:49" itemprop="dateModified" datetime="2019-10-16T07:34:49+08:00">2019-10-16</time>
+                <time title="Modified: 2019-11-02 07:57:59" itemprop="dateModified" datetime="2019-11-02T07:57:59+08:00">2019-11-02</time>
               
             
           </span>
@@ -431,22 +431,29 @@ B2T_w(\vec{x})\dot=-x_{w-1}2^{w-1}+\sum_{i=0}^{w-2}x_i2^i</script><ul>
 </ul>
 <h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><p>假设共有w个位</p>
 <ul>
-<li>无符号数的最大值为$2^{w}$ , 最小值为0</li>
+<li><p>无符号数的最大值为$2^{w}$ , 最小值为0</p>
+</li>
 <li><p>补码的最大值为$2^{w-1}$ , 最小值为$-2^{w-1}$</p>
 </li>
-<li><p>原理：补码转无符号数</p>
-<ul>
-<li>$t &lt; 0, t =2^w+t $</li>
-<li>$t&gt;=0, t=t$</li>
 </ul>
-</li>
-<li>原理：无符号数转补码<ul>
-<li>$t &lt;= 2^{w-1}, t = t$</li>
-<li>$t &gt; 2^{w-1}, t = t - 2^w$</li>
-</ul>
-</li>
-</ul>
-<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>无符号数的0拓展</p>
+<h3 id="补码转无符号数"><a href="#补码转无符号数" class="headerlink" title="补码转无符号数"></a>补码转无符号数</h3><script type="math/tex; mode=display">
+T2U_w(x) = \begin{cases}
+x + 2^w ,\quad x \lt 0 \\
+x, \quad x \ge 0
+\end{cases}</script><p><strong>推导</strong></p>
+<script type="math/tex; mode=display">
+\begin{align*}
+B2U_w(\vec{x}) &\dot= \sum_{i=0}^{w-1}x_i2^i = x_{w-1}2^{w-1} + \sum_{i = 0}^{w-2}x_i2^i\\
+B2T_w(\vec{x})&\dot=-x_{w-1}2^{w-1}+\sum_{i=0}^{w-2}x_i2^i\\
+B2U_w(x) - B2T_w(x)&= x_{w-1}2^{w}\\
+U_w(x) &= T_w(x) + x_{w-1}2^{w}\\
+T2U_w(x) &= x + x_{w-1}2^{w}\\
+B2U_w(T2B_w(x)) &= T2U_w(x) = x +x_{w-1}2^w
+\end{align*}</script><h3 id="无符号数转补码"><a href="#无符号数转补码" class="headerlink" title="无符号数转补码"></a>无符号数转补码</h3><script type="math/tex; mode=display">
+U2T_w(u) = \begin{cases}
+u, \quad u \le TMax_w\\
+u - 2^w,\quad  u >TMax_w
+\end{cases}</script><h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>无符号数的0拓展</p>
 <p>补码的符号拓展，证明，假设符号拓展1位, $B2T_{w+1}(\vec{x})\dot=-x_{w-1}2^{w}+\sum_{i=0}^{w-1}x_i2^i$</p>
 <script type="math/tex; mode=display">
 \begin{align*}
@@ -469,7 +476,53 @@ x_{w-1}2^{w-1} \bmod 2^k &= x_{w-1}2^{n}*2^{k} \bmod 2^k \\
 B2U_w([x_{w-1},x_{w-2},...,x_0]) \bmod 2^k &= \sum_{i=0}^{w-1}x_i2^i \bmod 2^k\\
 &=\sum_{i=0}^{k-1}x_i2^i + n *0\\
 &=B2U_k
-\end{align*}</script>
+\end{align*}</script><h2 id="整数运算"><a href="#整数运算" class="headerlink" title="整数运算"></a>整数运算</h2><p>由于类型的字长限制，面对字节膨胀，就会发生溢出，如两个w位的最大值相加，则需要w+1位来表示，但是由于字长限制，我们对w+1位的结果进行截断，得到的数并不是真实的和，这种情况称为溢出</p>
+<h3 id="无符号整数加法"><a href="#无符号整数加法" class="headerlink" title="无符号整数加法"></a>无符号整数加法</h3><p>定义运算$+_{w}^{u}$ 为无符号整数加法，则有</p>
+<script type="math/tex; mode=display">
+x +_{w}^{u}y = \begin{cases}
+x+y,\quad x+y \lt 2^w\\
+x+y-2^w, \quad 2^w \le x+y \le 2^{w+1} \quad overflow
+\end{cases}</script><p>无符号数取反</p>
+<script type="math/tex; mode=display">
+-_{w}^{u}x = \begin{cases}
+x,\quad x = 0\\
+2^w-x, \quad x > 0
+\end{cases}</script><p>则当进行无符号减法运算时，如下</p>
+<script type="math/tex; mode=display">
+w = 2 \\
+1-2 = 1 + 2^2 - 2 = 3</script><h3 id="补码加法"><a href="#补码加法" class="headerlink" title="补码加法"></a>补码加法</h3><p>定义运算$+_{w}^{t}$为补码加法，则有</p>
+<script type="math/tex; mode=display">
+x +_{w}^{t} y = \begin{cases}
+x + y - 2^w, \quad 2^{w-1} \le x + y\\
+x + y, \quad -2^{w-1} \le x + y \lt 2^{w-1} \\
+x+y+2^w, \quad x +y < -2^{w-1}
+\end{cases}</script><p>推导</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+x +_{w}^{t} &= U2T_w(T2U_w(x) +_{w}^{u}T2U_w(y))\\
+&=U2T_w[(x_{w-1}2^w +x + y_{w-1}2^w + y)mod2^w]\\
+&=U2T_w[(x+y) mod 2^w]
+\end{align*}</script><ul>
+<li>情况1，负溢出，结果为正数</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align*}
+-2^w \le x + y &\lt -2^{w-1} \\
+0 \le (x + y) mod 2^w &\lt -2^{w-1} mod 2^w = 2^w -2^{w-1} = 2^{w-1}\\
+U2T_w(x+y) = (x+y)mod 2^w &= x + y + 2^w \ge 0 \\
+\end{align*}</script><ul>
+<li><p>情况2，负正常，结果正常</p>
+</li>
+<li><p>情况3，正正常，结果正常</p>
+</li>
+<li><p>情况4，正溢出，结果为负数</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+2^{w-1}\le x+y < 2^w \\
+x + y < 2^w,\quad if \quad x + y = 2^{w-1}, (x+y)mod 2^w = 2^{w-1} < 2^w\\
+so\quad 2^{w-1}\le(x+y)mod2^w < 2^w\\
+U2T[(x+y)mod 2^w] = x + y - 2^w</script>
       
     </div>
 
