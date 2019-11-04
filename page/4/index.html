@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/13/SocketZombie/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/STL_Iterator/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OriginalS">
@@ -304,8 +304,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/13/SocketZombie/" itemprop="url">
-                  Socket之僵尸进程
+                <a class="post-title-link" href="/2018/04/19/STL_Iterator/" itemprop="url">
+                  STL之iterator与traits技术
                 </a>
               
             
@@ -331,7 +331,7 @@
                 
               
 
-              <time title="Created: 2018-04-13 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-13T00:00:00+08:00">2018-04-13</time>
+              <time title="Created: 2018-04-19 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-19T00:00:00+08:00">2018-04-19</time>
             
 
             
@@ -348,7 +348,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-21 10:29:10" itemprop="dateModified" datetime="2018-08-21T10:29:10+08:00">2018-08-21</time>
+                <time title="Modified: 2018-08-01 23:58:27" itemprop="dateModified" datetime="2018-08-01T23:58:27+08:00">2018-08-01</time>
               
             
           </span>
@@ -382,11 +382,170 @@
 
       
         
-          <p>僵尸进程是指完成执行，但是仍有一个对应的PCB残留在进程表中，处于终止态的进程</p>
-<p>一般而言，僵尸进程会被父进程wait进行回收，如果没有得到回收或者父进程还没退出，那么就会如同zombie一样一直残留</p>
+          <p><strong>iterator模式定义如下：提供一种方法，使之能够依序寻访某个聚合物所含的各个元素，而又无需暴露该聚合物的内部表达形式</strong></p>
+<p>其中，c++里面各个容器的iterator扮演着将数据容器与算法结合起来的重要角色</p>
+<p>将范型算法(find, count, find_if)用于某个容器中,最重要的是要给算法提供一个访问容器元素的工具，<code>iterator</code>就扮演着这个重要的角色</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/13/SocketZombie/#more" rel="contents">
+            <a class="btn" href="/2018/04/19/STL_Iterator/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/C++StreamIO/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OriginalS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RACx0">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/17/C++StreamIO/" itemprop="url">
+                  C++ Stream IO
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-04-17 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-17T00:00:00+08:00">2018-04-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-22 09:24:29" itemprop="dateModified" datetime="2018-10-22T09:24:29+08:00">2018-10-22</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>c++ IO由stream 完成，所谓的输入输出，就是字符流入stream和字符流出stream的过程,其中最重要的莫过于</p>
+<p>istream定义input stream，用来读取数据</p>
+<p>ostream定义output stream，用来写数据</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/17/C++StreamIO/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -544,6 +703,163 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/04/13/SocketReadWrite/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/13/SocketZombie/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OriginalS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RACx0">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/13/SocketZombie/" itemprop="url">
+                  Socket之僵尸进程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-04-13 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-13T00:00:00+08:00">2018-04-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-21 10:29:10" itemprop="dateModified" datetime="2018-08-21T10:29:10+08:00">2018-08-21</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>僵尸进程是指完成执行，但是仍有一个对应的PCB残留在进程表中，处于终止态的进程</p>
+<p>一般而言，僵尸进程会被父进程wait进行回收，如果没有得到回收或者父进程还没退出，那么就会如同zombie一样一直残留</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/13/SocketZombie/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1533,181 +1849,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/8086/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OriginalS">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RACx0">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/09/8086/" itemprop="url">
-                  8086微处理器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-09-09 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-09T00:00:00+08:00">2017-09-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-08-21 10:25:54" itemprop="dateModified" datetime="2018-08-21T10:25:54+08:00">2018-08-21</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="内部功能结构"><a href="#内部功能结构" class="headerlink" title="内部功能结构"></a>内部功能结构</h2><h3 id="总线接口部件-BIU"><a href="#总线接口部件-BIU" class="headerlink" title="总线接口部件 BIU"></a>总线接口部件 BIU</h3><p><strong>作用：与CPU外部传送指令代码或者数据，如取指令时把指令送到指令队列，执行指令时负责数据交换</strong></p>
-<h4 id="组成："><a href="#组成：" class="headerlink" title="组成："></a>组成：</h4><ul>
-<li>段地址寄存器：<ul>
-<li>CS：代码段首地址的高16位</li>
-<li>DS：数据段首地址的高16位</li>
-<li>ES：另一个数据段首地址的高16位</li>
-<li>SS：堆栈区数据段首地址的高16位</li>
-</ul>
-</li>
-<li>16位的指令指针寄存器IP：存放着下一条地址的偏移量，即CS * 16 +IP=下一条指令的地址</li>
-<li>20位的地址加法器：段基址 x 16(左移4位) + 偏移地址 = 物理地址</li>
-<li>指令队列缓冲器：存放预取指令的指令队列</li>
-<li>内部暂存器：暂存输入输出信息的寄存器</li>
-<li>总线逻辑控制器：控制总线上的信息传输</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/09/8086/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1750,7 +1896,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">41</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1791,7 +1937,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2002,6 +2150,8 @@
 
   
   
+    
+      
     
       
     

@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="RACx0">
 <meta property="og:description" content="大小端多字节类型的表达方式  大端法 ：低地址存放高位 小端法 ：低地址存放低位">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-01T23:57:59.232Z">
+<meta property="og:updated_time" content="2019-11-03T23:48:11.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="信息的表达和处理">
 <meta name="twitter:description" content="大小端多字节类型的表达方式  大端法 ：低地址存放高位 小端法 ：低地址存放低位">
@@ -348,7 +348,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-02 07:57:59" itemprop="dateModified" datetime="2019-11-02T07:57:59+08:00">2019-11-02</time>
+                <time title="Modified: 2019-11-04 07:48:11" itemprop="dateModified" datetime="2019-11-04T07:48:11+08:00">2019-11-04</time>
               
             
           </span>
@@ -522,7 +522,15 @@ U2T_w(x+y) = (x+y)mod 2^w &= x + y + 2^w \ge 0 \\
 2^{w-1}\le x+y < 2^w \\
 x + y < 2^w,\quad if \quad x + y = 2^{w-1}, (x+y)mod 2^w = 2^{w-1} < 2^w\\
 so\quad 2^{w-1}\le(x+y)mod2^w < 2^w\\
-U2T[(x+y)mod 2^w] = x + y - 2^w</script>
+U2T[(x+y)mod 2^w] = x + y - 2^w</script><h4 id="例题-：-如何检测补码加法溢出"><a href="#例题-：-如何检测补码加法溢出" class="headerlink" title="例题 ： 如何检测补码加法溢出"></a>例题 ： 如何检测补码加法溢出</h4><p>错误例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">tadd_ok</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> sum = x + y;</span><br><span class="line">  <span class="keyword">return</span> (sum - x == y ) &amp;&amp; (sum - y == x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假设$x+y$ 发生正溢出</p>
+<script type="math/tex; mode=display">
+x+y > 2^{w-1} \\
+sum = x+y-2^{w} \\
+sum -x = y -  2^{w} < -2^{w-1}\\
+so \quad y-2^{w} = y-2^w+2^w = y\\
+sum - x \equiv y</script>
       
     </div>
 
@@ -628,7 +636,7 @@ U2T[(x+y)mod 2^w] = x + y - 2^w</script>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">41</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -669,7 +677,9 @@ U2T[(x+y)mod 2^w] = x + y - 2^w</script>
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
