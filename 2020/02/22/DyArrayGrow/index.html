@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="RACx0">
 <meta property="og:description" content="动态数组，例如C++的vector，有自动增长的机制，当容量不够，就会自动成倍增长，有2倍，有1.5倍，这样很容易得出两个问题  为什么是成倍增长而不是按固定容量增长 为什么是2倍或者1.5倍">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-02-22T07:35:19.152Z">
+<meta property="og:updated_time" content="2020-02-22T07:40:49.158Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态数组的增长">
 <meta name="twitter:description" content="动态数组，例如C++的vector，有自动增长的机制，当容量不够，就会自动成倍增长，有2倍，有1.5倍，这样很容易得出两个问题  为什么是成倍增长而不是按固定容量增长 为什么是2倍或者1.5倍">
@@ -331,7 +331,7 @@
                 
               
 
-              <time title="Created: 2020-02-22 00:00:00 / Modified: 15:35:19" itemprop="dateCreated datePublished" datetime="2020-02-22T00:00:00+08:00">2020-02-22</time>
+              <time title="Created: 2020-02-22 00:00:00 / Modified: 15:40:49" itemprop="dateCreated datePublished" datetime="2020-02-22T00:00:00+08:00">2020-02-22</time>
             
 
             
@@ -381,7 +381,8 @@
 \sum_{i=1}^{\log_{m}n}m^i \approx \frac{nm}{m-1} = O(n)</script><p>但是根据平摊分析，n个操作仍可以在O(n)时间内完成，因此每个操作的平摊耗费为$O(n)/n = O(1)$</p>
 <h4 id="固定值增长"><a href="#固定值增长" class="headerlink" title="固定值增长"></a>固定值增长</h4><p>假设每次增长k个，那么$ki = n$, 分配次数为 $i = \frac{n}{k}$ ,第 $i$ 次扩容，将会复制 $ki$ 个元素，则该次push_back的时间复杂度为$O(n^2)$</p>
 <script type="math/tex; mode=display">
-\sum_{i = 1}^{\frac{n}{k}}ki \approx ni = O(n^2)</script><p>因此选择成倍增长</p>
+\sum_{i = 1}^{\frac{n}{k}}ki \approx ni = O(n^2)</script><p>均摊下来得到 $O(n^2) /n = O(n)$</p>
+<p>因此选择成倍增长</p>
 <h2 id="1-5还是2？"><a href="#1-5还是2？" class="headerlink" title="1.5还是2？"></a>1.5还是2？</h2><h4 id="q-2"><a href="#q-2" class="headerlink" title="q = 2"></a>q = 2</h4><p>假设$a_1 = 4, q = 2$</p>
 <p>当选择2的时候，第n次扩容，需要的内存为</p>
 <script type="math/tex; mode=display">
