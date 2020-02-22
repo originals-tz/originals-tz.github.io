@@ -108,24 +108,20 @@
 
 
 
-  <meta name="description" content="sk_buff  作用 Struct sk_buffer 是 linux TCP/IP stack 中，用于管理Data Buffer的结构。Sk_buffer 在数据包的发送和接收中起着重要的作用。  为了提高网络处理的性能，应尽量避免数据包的拷贝。Linux 内核开发者们在设计 sk_buffer 结构的时候，充分考虑到这一点。目前 Linux 协议栈在接收数据的时候，需要拷贝两次：数据包进入">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="website">
 <meta property="og:title" content="RACx0">
-<meta property="og:url" content="http://yoursite.com/2019/12/01/sk_buff/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/Dev/index.html">
 <meta property="og:site_name" content="RACx0">
-<meta property="og:description" content="sk_buff  作用 Struct sk_buffer 是 linux TCP/IP stack 中，用于管理Data Buffer的结构。Sk_buffer 在数据包的发送和接收中起着重要的作用。  为了提高网络处理的性能，应尽量避免数据包的拷贝。Linux 内核开发者们在设计 sk_buffer 结构的时候，充分考虑到这一点。目前 Linux 协议栈在接收数据的时候，需要拷贝两次：数据包进入">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-12-01T08:35:30.317Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RACx0">
-<meta name="twitter:description" content="sk_buff  作用 Struct sk_buffer 是 linux TCP/IP stack 中，用于管理Data Buffer的结构。Sk_buffer 在数据包的发送和接收中起着重要的作用。  为了提高网络处理的性能，应尽量避免数据包的拷贝。Linux 内核开发者们在设计 sk_buffer 结构的时候，充分考虑到这一点。目前 Linux 协议栈在接收数据的时候，需要拷贝两次：数据包进入">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/12/01/sk_buff/">
+  <link rel="canonical" href="http://yoursite.com/tags/Dev/">
 
 
 
@@ -135,7 +131,7 @@
   };
 </script>
 
-  <title> | RACx0</title>
+  <title>Tag: Dev | RACx0</title>
   
 
 
@@ -182,7 +178,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -227,7 +223,7 @@
         
         
           
-          <li class="menu-item menu-item-tags">
+          <li class="menu-item menu-item-tags menu-item-active">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
   </li>
@@ -247,6 +243,22 @@
 
   
     
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
 
   
 
@@ -272,175 +284,56 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block tag">
 
-  
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>Dev<small>Tag</small>
+        </h1>
+      </div>
 
-  
-  
-  
-
-  
+      
+        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/01/sk_buff/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OriginalS">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RACx0">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
+            <a class="post-title-link" href="/2020/02/22/DyArrayGrow/" itemprop="url">
+              
+                <span itemprop="name">动态数组的增长</span>
+              
+            </a>
         
-          <h1 class="post-title" itemprop="name headline">
-              
-            
-          </h1>
-        
+      </h2>
 
-        <div class="post-meta">
-          <span class="post-time">
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2020-02-22T00:00:00+08:00" content="2020-02-22">
+          02-22
+        </time>
+      </div>
 
-            
-            
-            
+    </header>
+  </article>
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-12-01 16:35:30" itemprop="dateCreated datePublished" datetime="2019-12-01T16:35:30+08:00">2019-12-01</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>sk_buff</p>
-<ul>
-<li>作用</li>
-<li>Struct sk_buffer 是 linux TCP/IP stack 中，用于管理Data Buffer的结构。Sk_buffer 在数据包的发送和接收中起着重要的作用。<br>  为了提高网络处理的性能，应尽量避免数据包的拷贝。Linux 内核开发者们在设计 sk_buffer 结构的时候，充分考虑到这一点。目前 Linux 协议栈在接收数据的时候，需要拷贝两次：数据包进入网卡驱动后拷贝一次，从内核空间递交给用户空间的应用时再拷贝一次。</li>
-</ul>
-<p>sk_buff用来管理网卡传来的网络包，该包有各层的数据</p>
-<ul>
-<li>ethernet</li>
-<li>ip</li>
-<li>tcp</li>
-<li>…</li>
-</ul>
-<p>分层次拷贝</p>
 
       
     </div>
 
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/11/24/CSAPP_2/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/02/09/UNIXTimestamp/" rel="prev" title="UNIX时间戳">
-                UNIX时间戳 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
   </div>
   
   
   
-  </article>
 
-
-  </div>
+  
 
 
           </div>
           
-
-  
-
-
 
         </div>
         
@@ -477,7 +370,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -522,7 +415,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -693,10 +588,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
-
-
 
   
 
