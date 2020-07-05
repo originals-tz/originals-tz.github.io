@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1.实体，类别，类属实体分为 抽象实体 与 具体实体 , 实体拥有属性 抽象实体是不变的，因此其属性也不会改变，而具体实体则相反 实体的抽象则是类别，而类别的抽象则是类属，整一个的关系如图 1实体--&amp;gt;类别--&amp;gt;类属 对象和值是实体，类型是类别，概念是类属">
+<meta name="keywords" content="EOP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础">
+<meta property="og:url" content="http://yoursite.com/2020/04/04/eop1/index.html">
+<meta property="og:site_name" content="RACx0">
+<meta property="og:description" content="1.实体，类别，类属实体分为 抽象实体 与 具体实体 , 实体拥有属性 抽象实体是不变的，因此其属性也不会改变，而具体实体则相反 实体的抽象则是类别，而类别的抽象则是类属，整一个的关系如图 1实体--&amp;gt;类别--&amp;gt;类属 对象和值是实体，类型是类别，概念是类属">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-04-04T07:06:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基础">
+<meta name="twitter:description" content="1.实体，类别，类属实体分为 抽象实体 与 具体实体 , 实体拥有属性 抽象实体是不变的，因此其属性也不会改变，而具体实体则相反 实体的抽象则是类别，而类别的抽象则是类属，整一个的关系如图 1实体--&amp;gt;类别--&amp;gt;类属 对象和值是实体，类型是类别，概念是类属">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/04/eop1/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>基础 | RACx0</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RACx0</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/04/eop1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OriginalS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RACx0">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基础
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-04-04 00:00:00 / Modified: 15:06:43" itemprop="dateCreated datePublished" datetime="2020-04-04T00:00:00+08:00">2020-04-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-实体，类别，类属"><a href="#1-实体，类别，类属" class="headerlink" title="1.实体，类别，类属"></a>1.实体，类别，类属</h2><p>实体分为 <strong>抽象实体</strong> 与 <strong>具体实体</strong> , 实体拥有属性</p>
+<p>抽象实体是不变的，因此其属性也不会改变，而具体实体则相反</p>
+<p>实体的抽象则是类别，而类别的抽象则是类属，整一个的关系如图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">实体--&gt;类别--&gt;类属</span><br></pre></td></tr></table></figure>
+<p><strong>对象和值是实体，类型是类别，概念是类属</strong></p>
+<a id="more"></a>
+<h2 id="2-数据，值"><a href="#2-数据，值" class="headerlink" title="2.数据，值"></a>2.数据，值</h2><p>数据是0-1序列，值类型是类别与数据的一个对应关系</p>
+<p>数据是实体的表示，实体是数据的解释</p>
+<p>值=数据+解释</p>
+<p><strong>良形式</strong> ：一项数据对一个值类型是良形式的，当且仅当一个数据代表一个实体，例如<code>NaN</code>解释为实数则不是良形式的，因为<code>NaN</code>不代表任何实体</p>
+<p><strong>真部分的值类型</strong> ：值只能对应类别中的实体的子集，例如，32位的int值不能表示所有的整数，但是所能表示的整数是所有整数的一个子集</p>
+<p><strong>全的值类型</strong> ：值能对应类别中的所有实体，例如bool值可以表示所有bool实体</p>
+<p><strong>有歧义的值类型</strong> ：该类型里有多个解释的值</p>
+<p><strong>值相等</strong> ：代表同一个实体</p>
+<p><strong>表示相等</strong> ：0/1序列相等</p>
+<p>当一个值有唯一表示，相等则蕴含表示相等，反例，1/2 = 2/4，两者相等，但表示不相等</p>
+<p>当一个值是无歧义的，表示相等蕴含相等</p>
+<p>很多时候只能从表示相等判断相等，例如，如何判断两个<code>std::function</code>是相等的？只能从01序列判断</p>
+<h2 id="3-对象"><a href="#3-对象" class="headerlink" title="3.对象"></a>3.对象</h2><p>对象是实体的表示，对象可以改变状态，对象也可以是抽象实体的表示，此时对象无法改变状态，值(1, 2, 3, 4, true, false….)是抽象实体的表示，值永远不变</p>
+<p>对象类型是一种操作值的模式</p>
+<p>例如，int a=7，7是值，值类型是32位的二进制补码，a是对象，对象类型为int，对于该类型的操作有，加减乘除等</p>
+<p>值可以表示对象的状态</p>
+<h2 id="4-过程"><a href="#4-过程" class="headerlink" title="4.过程"></a>4.过程</h2><p>过程是一个指令序列，可以改变对象的状态，或者创建销毁对象</p>
+<p>与一个过程进行交互的对象有以下几种</p>
+<ul>
+<li>输入/输出</li>
+<li>全局状态</li>
+<li>局部状态</li>
+<li>拥有的状态（局部静态对象）</li>
+</ul>
+<p>直接传递：对象作为参数或结果传递</p>
+<p>间接传递：对象作为指针方式传递</p>
+<p>计算基：有穷的一系列过程，可以基于它们实现其他过程</p>
+<p>高效的基：基于这个计算基实现的其他过程是最高校的</p>
+<p>例如，int只提供了加法和求负，可以基于这两个基实现减法，但很明显这组基不是高效的</p>
+<h2 id="5-规范类型"><a href="#5-规范类型" class="headerlink" title="5.规范类型"></a>5.规范类型</h2><p>存在过程，将其包含到一个类型的计算基中，能方便的把数据放入各种数据结构，则称这样的基的类型是规范的</p>
+<p>一个基的类型是规范的，当且仅当它的基包含了</p>
+<ul>
+<li>相等检查</li>
+<li>赋值</li>
+<li>析构操作</li>
+<li>默认构造操作</li>
+<li>拷贝构造操作</li>
+<li>全序判断</li>
+<li>基础类型</li>
+</ul>
+<h2 id="5-规范过程"><a href="#5-规范过程" class="headerlink" title="5.规范过程"></a>5.规范过程</h2><p>一个过程是规范的，当且仅当其输入被替换成其他相等的对象时，得到的结果和以前相等，例如<code>1func(1/2)</code>和<code>func(2/4)</code>是相等的则说明过程func是规范的</p>
+<p>非规范的过程</p>
+<ul>
+<li>返回对象的地址</li>
+<li>返回真实世界的状态确定值</li>
+<li>返回自己所拥有的状态的值</li>
+</ul>
+<h2 id="6-函数式过程"><a href="#6-函数式过程" class="headerlink" title="6.函数式过程"></a>6.函数式过程</h2><p>在规范类型上实现的一类规范过程</p>
+<ul>
+<li>有输入</li>
+<li>有返回值</li>
+</ul>
+<p>定义空间：预设的输入集合的子集</p>
+<p>值域：输出集合</p>
+<p>过程使用了一个类型，会依赖该类型的语法和语义</p>
+<p>不是基于具体的类型，而是基于对类型的一些要求设计库和数据结构，一定可以提高其可用性（面向接口编程）</p>
+<p>概念表示类属，类型表示类别</p>
+<p>处理类型的机制</p>
+<ul>
+<li>类型属性：类型-&gt;值的映射，例如：sizeof(T)，得出某个类型的大小</li>
+<li>类型函数：类型-&gt;从属类型的映射</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Type</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">using</span> sub_type = T;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>如果某些类型满足需求，就说概念被类型建模</p>
+<p>如概念 $\varrho$ 被类型 $T_1,T_2,T_3$ 建模，写作</p>
+<p>$\varrho(T_1,T_2,T_3)$</p>
+<p>在定义一个概念时，写作</p>
+<script type="math/tex; mode=display">
+\varrho(T_1,T_2,T_3...T_{n-1}) = \varepsilon_0 \wedge \varepsilon_1 \wedge ... \wedge \varepsilon_{k-1}</script><p>其中，$\varepsilon$ 表示概念所需要的条件，如参数数量，定义域等</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/EOP/" rel="tag"># EOP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/22/DyArrayGrow/" rel="next" title="动态数组的增长">
+                <i class="fa fa-chevron-left"></i> 动态数组的增长
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/05/Coroutines/" rel="prev" title="协程">
+                协程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">OriginalS</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/originals-tz" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OriginalS</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/kity.min.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/kityminder.core.min.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/mindmap.min.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
